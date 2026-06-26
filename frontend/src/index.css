@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar for premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090909;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF5000;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E04700;
+}
+
+body {
+  background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #070707 100%);
+  color: #F3F3F3;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism panel styling */
+.sixt-glass-panel {
+  background: rgba(18, 18, 18, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Premium card gradients to replace standard light layout */
+.sixt-card-gradient {
+  background: linear-gradient(180deg, #121212 0%, #1b1614 60%, #1a1a1a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sixt-card-gradient:hover {
+  border-color: rgba(255, 80, 0, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(255, 80, 0, 0.15);
+}
+
+/* Hover micro-animations */
+.premium-transition {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-sixt-orange {
+  background-color: #FF5000;
+  color: #FFFFFF;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-sixt-orange:hover {
+  background-color: #E04700;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 80, 0, 0.3);
+}
+
+.font-condensed {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownSticky {
+  from {
+    transform: translate(-50%, -30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.animate-slideDownSticky {
+  animation: slideDownSticky 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+
