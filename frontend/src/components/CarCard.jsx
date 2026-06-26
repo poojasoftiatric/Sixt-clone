@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { User, Briefcase, Info, Check, Tag } from 'lucide-react';
 
 export default function CarCard({ car, onClick, index = 0, viewMode = 'results' }) {
@@ -38,7 +38,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
       >
         {/* Top Details */}
         <div className="z-10 relative text-left">
-          <h3 className="font-condensed font-black text-[22px] md:text-2xl text-white tracking-wide uppercase leading-tight group-hover:text-[#FF5000] premium-transition">
+          <h3 className="font-condensed font-black text-[22px] md:text-2xl text-white tracking-wide uppercase leading-tight group-hover:text-[#C5A059] premium-transition">
             {getCardTitle()}
           </h3>
           <p className="text-xs font-bold text-neutral-400 mt-1">
@@ -111,7 +111,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
 
       {/* Top Details */}
       <div className="z-10 relative text-left">
-        <h3 className="font-condensed font-black text-[22px] md:text-2xl text-white tracking-wide uppercase leading-tight group-hover:text-[#FF5000] premium-transition">
+        <h3 className="font-condensed font-black text-[22px] md:text-2xl text-white tracking-wide uppercase leading-tight group-hover:text-[#C5A059] premium-transition">
           {car.name.toUpperCase()}
         </h3>
         <p className="text-xs font-bold text-neutral-200 mt-1">
@@ -174,10 +174,10 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
 
           {/* Price row */}
           <div className="flex items-baseline gap-0.5">
-            <span className="text-[#FF5000] text-3xl font-black font-condensed">$</span>
-            <span className="text-[#FF5000] text-3xl font-black font-condensed">{car.baseRate}</span>
-            <span className="text-[#FF5000] text-lg font-black font-condensed">.44</span>
-            <span className="text-[#FF5000] text-xs font-bold uppercase tracking-wider ml-0.5">/day</span>
+            <span className="text-[#C5A059] text-3xl font-black font-condensed">$</span>
+            <span className="text-[#C5A059] text-3xl font-black font-condensed">{car.baseRate}</span>
+            <span className="text-[#C5A059] text-lg font-black font-condensed">.44</span>
+            <span className="text-[#C5A059] text-xs font-bold uppercase tracking-wider ml-0.5">/day</span>
             <span className="text-neutral-400 text-xs font-semibold ml-2.5">
               ${car.baseRate * 2}.88 total
             </span>
@@ -186,7 +186,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
           {/* Bottom Promo bar */}
           <div className="bg-[#241B15] -mx-7 -mb-7 py-3.5 flex items-center justify-center gap-2 border-t border-white/5 mt-3 select-none">
             <Tag className="w-3.5 h-3.5 text-white" />
-            <span className="text-xs text-white font-bold underline hover:text-[#FF5000] transition-colors cursor-pointer tracking-wide">
+            <span className="text-xs text-white font-bold underline hover:text-[#C5A059] transition-colors cursor-pointer tracking-wide">
               Unlock member rates: Save up to 20%
             </span>
           </div>

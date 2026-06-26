@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Plane, Calendar, Clock, User, Info, RotateCcw, ChevronLeft, ChevronRight, Briefcase, Globe, Car, ShieldCheck, Check, Sparkles, Building } from 'lucide-react';
 import CarCard from './CarCard.jsx';
 
@@ -168,36 +168,36 @@ const moreSixtCards = [
   {
     title: "FASTER BOOKINGS. INSTANT REWARDS.",
     subtext: "Earn, skip the counter, redeem - all in one app.",
-    buttonText: "Get the SIXT App",
+    buttonText: "Get the W App",
     image: "/assets/cars/more_sixt_app_bg.png",
     isApp: true
   },
   {
-    title: "SIXT ONE. LOYALTY REWARDED.",
+    title: "W ONE. LOYALTY REWARDED.",
     subtext: "You're ONE membership away from discounts and priority service.",
     buttonText: "Join for free",
     image: "/assets/cars/more_sixt_loyalty_bg.png"
   },
   {
-    title: "SIXT BUSINESS",
+    title: "W BUSINESS",
     subtext: "Custom mobility solutions for all businesses.",
     buttonText: "Register now",
     image: "/assets/cars/more_sixt_business_bg.png"
   },
   {
-    title: "SIXT+ CAR SUBSCRIPTION",
+    title: "W+ CAR SUBSCRIPTION",
     subtext: "The better way of owning a car.",
     buttonText: "Learn more",
     image: "/assets/cars/more_sixt_subscription_bg.png"
   },
   {
-    title: "SIXT SHARE",
+    title: "W SHARE",
     subtext: "On-the-go flexibility with premium car sharing.",
     buttonText: "Learn more",
     image: "/assets/cars/more_sixt_share_bg.png"
   },
   {
-    title: "SIXT RIDE",
+    title: "W RIDE",
     subtext: "Sit back with your personal chauffeur.",
     buttonText: "Learn more",
     image: "/assets/cars/more_sixt_ride_bg.png"
@@ -361,7 +361,7 @@ export default function Hero({ onSearch }) {
             } else if (inRange) {
               dayClass += "bg-neutral-100 text-neutral-900 font-bold rounded-lg";
             } else if (isToday) {
-              dayClass += "text-[#FF5000] font-bold hover:bg-neutral-50";
+              dayClass += "text-[#C5A059] font-bold hover:bg-neutral-50";
             } else {
               dayClass += "text-neutral-800 hover:bg-neutral-50";
             }
@@ -616,7 +616,7 @@ export default function Hero({ onSearch }) {
                       }}
                       className={`flex-grow flex items-center bg-white border-2 rounded-[12px] px-4 py-2 h-[48px] cursor-pointer premium-transition ${
                         showLocationPopup 
-                          ? 'border-[#FF5000]' 
+                          ? 'border-[#C5A059]' 
                           : 'border-neutral-200 focus-within:border-black'
                       }`}
                     >
@@ -659,7 +659,7 @@ export default function Hero({ onSearch }) {
                       }}
                       className={`w-full flex items-center bg-white border-2 rounded-[12px] px-4 py-2 h-[48px] cursor-pointer premium-transition ${
                         showLocationPopup 
-                          ? 'border-[#FF5000]' 
+                          ? 'border-[#C5A059]' 
                           : 'border-neutral-200 focus-within:border-black'
                       }`}
                     >
@@ -688,7 +688,7 @@ export default function Hero({ onSearch }) {
                       }}
                       className={`w-full flex items-center bg-white border-2 rounded-[12px] px-4 py-2 h-[48px] cursor-pointer premium-transition ${
                         showReturnPopup 
-                          ? 'border-[#FF5000]' 
+                          ? 'border-[#C5A059]' 
                           : 'border-neutral-200 focus-within:border-black'
                       }`}
                     >
@@ -804,7 +804,7 @@ export default function Hero({ onSearch }) {
                       {/* Top Header Row inside Details Panel */}
                       <div className="flex items-start justify-between">
                         <Plane className="w-10 h-10 text-neutral-900 transform rotate-[-45deg] stroke-[1.5]" />
-                        <div className="flex items-center gap-1.5 border border-[#FF5000] text-[#FF5000] px-3 py-1.5 rounded-full text-[11px] font-bold bg-transparent">
+                        <div className="flex items-center gap-1.5 border border-[#C5A059] text-[#C5A059] px-3 py-1.5 rounded-full text-[11px] font-bold bg-transparent">
                           <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" /> 24-hour return
                         </div>
                       </div>
@@ -840,7 +840,7 @@ export default function Hero({ onSearch }) {
                       <div className="w-5 h-5 bg-black rounded-full flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0">
                         i
                       </div>
-                      <span className="text-xs font-bold text-neutral-900 underline underline-offset-2 group-hover:text-[#FF5000] transition-colors">
+                      <span className="text-xs font-bold text-neutral-900 underline underline-offset-2 group-hover:text-[#C5A059] transition-colors">
                         Station Details
                       </span>
                     </div>
@@ -932,7 +932,7 @@ export default function Hero({ onSearch }) {
                         ) : (
                           <Plane className="w-10 h-10 text-neutral-900 transform rotate-[-45deg] stroke-[1.5]" />
                         )}
-                        <div className="flex items-center gap-1.5 border border-[#FF5000] text-[#FF5000] px-3 py-1.5 rounded-full text-[11px] font-bold bg-transparent">
+                        <div className="flex items-center gap-1.5 border border-[#C5A059] text-[#C5A059] px-3 py-1.5 rounded-full text-[11px] font-bold bg-transparent">
                           <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" /> 24-hour return
                         </div>
                       </div>
@@ -968,7 +968,7 @@ export default function Hero({ onSearch }) {
                       <div className="w-5 h-5 bg-black rounded-full flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0">
                         i
                       </div>
-                      <span className="text-xs font-bold text-neutral-900 underline underline-offset-2 group-hover:text-[#FF5000] transition-colors">
+                      <span className="text-xs font-bold text-neutral-900 underline underline-offset-2 group-hover:text-[#C5A059] transition-colors">
                         Station Details
                       </span>
                     </div>
@@ -993,7 +993,7 @@ export default function Hero({ onSearch }) {
                   }}
                   className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
                     showCalendarPopup && activeDateField === 'pickup'
-                      ? 'border-[#FF5000]'
+                      ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
@@ -1009,7 +1009,7 @@ export default function Hero({ onSearch }) {
                   onClick={(e) => openTimePopup(e, 'pickup')}
                   className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
                     showTimePopup && activeTimeField === 'pickup'
-                      ? 'border-[#FF5000]'
+                      ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
@@ -1041,7 +1041,7 @@ export default function Hero({ onSearch }) {
                   }}
                   className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
                     showCalendarPopup && activeDateField === 'return'
-                      ? 'border-[#FF5000]'
+                      ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
@@ -1057,7 +1057,7 @@ export default function Hero({ onSearch }) {
                   onClick={(e) => openTimePopup(e, 'return')}
                   className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
                     showTimePopup && activeTimeField === 'return'
-                      ? 'border-[#FF5000]'
+                      ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
@@ -1083,7 +1083,7 @@ export default function Hero({ onSearch }) {
                 <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left opacity-0 pointer-events-none">.</label>
                 <button 
                   type="submit"
-                  className="bg-[#FF5000] hover:bg-[#E04700] text-white font-condensed font-black text-sm uppercase h-[48px] px-8 rounded-[12px] shadow-lg tracking-wider flex items-center justify-center hover:scale-[1.02] active:scale-95 premium-transition whitespace-nowrap"
+                  className="bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase h-[48px] px-8 rounded-[12px] shadow-lg tracking-wider flex items-center justify-center hover:scale-[1.02] active:scale-95 premium-transition whitespace-nowrap"
                 >
                   Show cars
                 </button>
@@ -1196,7 +1196,7 @@ export default function Hero({ onSearch }) {
                           >
                             <span>{age}</span>
                             {isSelected && (
-                              <span className="text-sm font-black text-neutral-900 leading-none">✓</span>
+                              <span className="text-sm font-black text-neutral-900 leading-none">âœ“</span>
                             )}
                           </button>
                         );
@@ -1211,7 +1211,7 @@ export default function Hero({ onSearch }) {
               {/* Apply Corporate Rate link */}
               <button 
                 type="button" 
-                className="font-bold text-neutral-900 underline hover:text-[#FF5000] premium-transition"
+                className="font-bold text-neutral-900 underline hover:text-[#C5A059] premium-transition"
               >
                 Apply corporate rate
               </button>
@@ -1230,9 +1230,9 @@ export default function Hero({ onSearch }) {
       <div className="h-[200px] md:h-[260px] lg:h-[300px]"></div>
 
       {/* Full-width solid Orange Title Banner positioned at the bottom */}
-      <div className="w-full bg-[#FF5000] text-black text-center py-7 z-10 relative">
+      <div className="w-full bg-[#C5A059] text-black text-center py-7 z-10 relative">
         <h1 className="font-condensed font-black text-3xl md:text-5xl tracking-wide uppercase leading-none">
-          SIXT LUXURY CAR RENTAL
+          W LUXURY CAR RENTAL
         </h1>
         <p className="text-[11px] md:text-xs font-bold tracking-wider uppercase mt-2">
           Choose from our range of top Luxury cars worldwide
@@ -1243,12 +1243,12 @@ export default function Hero({ onSearch }) {
     {/* Section 1: USA/Global Description Box */}
     <div className="w-full bg-[#121212] text-neutral-300 py-16 px-6 text-center flex flex-col items-center justify-center relative z-10">
       <p className="max-w-[850px] mx-auto text-sm md:text-[15px] font-medium leading-relaxed text-neutral-300">
-        Need a luxury car rental in the USA? SIXT offers modern, well-maintained vehicles with clear pricing and smooth booking. Whether for city trips, business, or travel around the USA, enjoy comfort, space, and reliable performance. Add add-ons like GPS, child seats, or extra drivers easily online. With numerous branches and consistent quality worldwide, pickup and return are quick and stress-free – premium mobility made simple.
+        Need a luxury car rental in the USA? W Luxury Car Rental offers modern, well-maintained vehicles with clear pricing and smooth booking. Whether for city trips, business, or travel around the USA, enjoy comfort, space, and reliable performance. Add add-ons like GPS, child seats, or extra drivers easily online. With numerous branches and consistent quality worldwide, pickup and return are quick and stress-free â€“ premium mobility made simple.
       </p>
       <button 
         type="button"
         onClick={handleScrollToListings}
-        className="bg-[#FF5000] hover:bg-[#E04700] text-white px-10 py-4 mt-8 font-condensed font-black uppercase text-sm tracking-wider rounded-xl transition-all shadow-lg hover:scale-[1.02] active:scale-95 duration-200"
+        className="bg-[#C5A059] hover:bg-[#B28F4B] text-white px-10 py-4 mt-8 font-condensed font-black uppercase text-sm tracking-wider rounded-xl transition-all shadow-lg hover:scale-[1.02] active:scale-95 duration-200"
       >
         Rent now
       </button>
@@ -1329,7 +1329,7 @@ export default function Hero({ onSearch }) {
             <span>Global reach</span>
           </div>
           <p className="text-sm font-bold text-white leading-normal">
-            2,000+ SIXT stations in over 105 countries
+            2,000+ W stations in over 105 countries
           </p>
         </div>
 
@@ -1417,7 +1417,7 @@ export default function Hero({ onSearch }) {
                 <button
                   type="button"
                   onClick={handleScrollToListings}
-                  className="bg-neutral-900 hover:bg-[#FF5000] text-white font-bold text-xs py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
+                  className="bg-neutral-900 hover:bg-[#C5A059] text-white font-bold text-xs py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
                 >
                   Check availability
                 </button>
@@ -1479,7 +1479,7 @@ export default function Hero({ onSearch }) {
                 <button
                   type="button"
                   onClick={handleScrollToListings}
-                  className="bg-neutral-900 hover:bg-[#FF5000] text-white font-bold text-xs py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
+                  className="bg-neutral-900 hover:bg-[#C5A059] text-white font-bold text-xs py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
                 >
                   Check availability
                 </button>
@@ -1496,24 +1496,24 @@ export default function Hero({ onSearch }) {
       </div>
     </div>
 
-    {/* Section 5: SIXT Luxury Car Rental Worldwide Description */}
+    {/* Section 5: W LUXURY CAR RENTAL WORLDWIDE Description */}
     <div className="w-full bg-white text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
       <div className="max-w-[1100px] mx-auto text-center">
         <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
-          SIXT LUXURY CAR RENTAL WORLDWIDE
+          W LUXURY CAR RENTAL WORLDWIDE
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 text-left">
           {/* Column 1 */}
           <div>
             <h3 className="font-condensed font-black text-lg text-neutral-900 uppercase tracking-wide mb-4">
-              SIXT Luxury Car Rental
+              W LUXURY CAR RENTAL
             </h3>
             <div className="text-xs text-neutral-600 font-semibold leading-relaxed space-y-4">
               <p>
-                Drive your dream car in style with a luxury car rental from SIXT. Whether you're after the excitement of a convertible or the power of a sleek sports car, we've got the perfect ride for you.
+                Drive your dream car in style with a luxury car rental from W Luxury Car Rental. Whether you're after the excitement of a convertible or the power of a sleek sports car, we've got the perfect ride for you.
               </p>
               <p>
-                Explore our exotic car rental options and choose from top-tier brands like Mercedes-Benz and BMW. With SIXT, renting a luxury or exotic car is simple, affordable, and designed to turn every drive into a special experience. Wherever you're headed, let us help you travel in comfort and style.
+                Explore our exotic car rental options and choose from top-tier brands like Mercedes-Benz and BMW. with W Luxury Car Rental, renting a luxury or exotic car is simple, affordable, and designed to turn every drive into a special experience. Wherever you're headed, let us help you travel in comfort and style.
               </p>
             </div>
           </div>
@@ -1525,7 +1525,7 @@ export default function Hero({ onSearch }) {
             </h3>
             <div className="text-xs text-neutral-600 font-semibold leading-relaxed space-y-4">
               <p>
-                Make heads turn while on the road with SIXT's exotic fleet. Our extensive selection of vehicles in the US means there's something for everyone.
+                Make heads turn while on the road with W Luxury Car Rental's exotic fleet. Our extensive selection of vehicles in the US means there's something for everyone.
               </p>
               <p>
                 Don't miss out when traveling with a group, with our Cadillac Escalades or Chevrolet Suburban full-size SUVs you can move around in style and comfort. For a super-charged performance, you'll need a sports car, like the Ford Mustang Shelby GT. Our fleet has the largest selection of luxury German cars, including Audi, Porsche, and Mercedes-Benz, available at all US locations. Rent a like new vehicle as ours are on average less than 3 months old.
@@ -1539,14 +1539,14 @@ export default function Hero({ onSearch }) {
           {/* Column 3 */}
           <div>
             <h3 className="font-condensed font-black text-lg text-neutral-900 uppercase tracking-wide mb-4">
-              How to Rent a Luxury Car with SIXT
+              How to Rent a Luxury Car with W Luxury Car Rental
             </h3>
             <div className="text-xs text-neutral-600 font-semibold leading-relaxed space-y-4">
               <p>
-                Booking a luxury car with SIXT is quick, seamless, and tailored to your travel needs. Simply choose your preferred vehicle class online or via the SIXT app, select your pickup location and dates, and customize your rental with flexible options like <span className="text-[#FF5000] underline cursor-pointer hover:text-black">one-way car rental</span> or <span className="text-[#FF5000] underline cursor-pointer hover:text-black">long-term car rental</span>.
+                Booking a luxury car with W Luxury Car Rental is quick, seamless, and tailored to your travel needs. Simply choose your preferred vehicle class online or via the W app, select your pickup location and dates, and customize your rental with flexible options like <span className="text-[#C5A059] underline cursor-pointer hover:text-black">one-way car rental</span> or <span className="text-[#C5A059] underline cursor-pointer hover:text-black">long-term car rental</span>.
               </p>
               <p>
-                Whether you're seeking a refined sedan for city driving or an exotic car rental for a weekend escape, our premium fleet is at your fingertips. For more details on what's included and driver eligibility, check out our <span className="text-[#FF5000] underline cursor-pointer hover:text-black">luxury car rental FAQ</span>.
+                Whether you're seeking a refined sedan for city driving or an exotic car rental for a weekend escape, our premium fleet is at your fingertips. For more details on what's included and driver eligibility, check out our <span className="text-[#C5A059] underline cursor-pointer hover:text-black">luxury car rental FAQ</span>.
               </p>
             </div>
           </div>
@@ -1554,11 +1554,11 @@ export default function Hero({ onSearch }) {
       </div>
     </div>
 
-    {/* Section 6: GOOD TO KNOW WHEN RENTING WITH SIXT Accordion */}
+    {/* Section 6: GOOD TO KNOW WHEN renting with W Luxury Car Rental Accordion */}
     <div className="w-full bg-neutral-50 text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
       <div className="max-w-[850px] mx-auto text-center">
         <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
-          GOOD TO KNOW WHEN RENTING WITH SIXT
+          GOOD TO KNOW WHEN renting with W Luxury Car Rental
         </h2>
         
         <div className="text-left">
@@ -1577,7 +1577,7 @@ export default function Hero({ onSearch }) {
             </div>
             {activeFaqIndex === 0 && (
               <p className="text-xs text-neutral-600 font-semibold leading-relaxed mt-3 animate-fadeIn">
-                You need to be 25 or older to rent a luxury car with SIXT in the US. Other countries may have a different minimum rental age for luxury models.
+                You need to be 25 or older to rent a luxury car with W Luxury Car Rental in the US. Other countries may have a different minimum rental age for luxury models.
               </p>
             )}
           </div>
@@ -1626,7 +1626,7 @@ export default function Hero({ onSearch }) {
         <div className="text-center mt-8">
           <button 
             type="button" 
-            className="text-xs font-bold text-neutral-900 underline hover:text-[#FF5000] uppercase tracking-wider select-none"
+            className="text-xs font-bold text-neutral-900 underline hover:text-[#C5A059] uppercase tracking-wider select-none"
           >
             Show more
           </button>
@@ -1670,7 +1670,7 @@ export default function Hero({ onSearch }) {
               <div 
                 key={country} 
                 onClick={() => handleDestinationClick(country)}
-                className="hover:text-[#FF5000] cursor-pointer transition-colors"
+                className="hover:text-[#C5A059] cursor-pointer transition-colors"
               >
                 {country}
               </div>
@@ -1723,7 +1723,7 @@ export default function Hero({ onSearch }) {
     <div className="w-full bg-white text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
       <div className="max-w-[1100px] mx-auto text-center">
         <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
-          MORE SIXT
+          MORE W
         </h2>
 
         {/* 3 cards grid carousel */}
@@ -1820,7 +1820,7 @@ export default function Hero({ onSearch }) {
           {/* Label side */}
           <div className="lg:col-span-4">
             <h3 className="font-condensed font-black text-2xl md:text-3xl text-neutral-900 uppercase tracking-wide leading-none">
-              SIXT'S WORLDWIDE FLEET
+              W LUXURY'S WORLDWIDE FLEET
             </h3>
             <p className="text-xs text-neutral-400 mt-2 font-semibold leading-relaxed max-w-xs">
               Here you'll find all of our locations as well as the other types of cars we have in our fleet.
@@ -1836,7 +1836,7 @@ export default function Hero({ onSearch }) {
             ].map((link) => (
               <div 
                 key={link}
-                className="text-xs font-bold text-neutral-600 hover:text-[#FF5000] cursor-pointer transition-colors select-none"
+                className="text-xs font-bold text-neutral-600 hover:text-[#C5A059] cursor-pointer transition-colors select-none"
               >
                 {link}
               </div>
@@ -1853,8 +1853,8 @@ export default function Hero({ onSearch }) {
         {/* Logo & Social Row */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-neutral-900 pb-8 mb-10 gap-4">
           <div className="flex flex-col items-start leading-none select-none">
-            <span className="font-condensed font-black text-3xl tracking-tighter text-white">SIXT</span>
-            <span className="text-[7px] font-extrabold tracking-widest text-[#FF5000] mt-0.5 uppercase">RENT THE CAR</span>
+            <span className="font-condensed font-black text-3xl tracking-tighter text-[#C5A059]">W</span>
+            <span className="text-[7px] font-extrabold tracking-widest text-neutral-400 mt-0.5 uppercase">LUXURY RENTAL</span>
           </div>
 
           <div className="flex gap-4">
@@ -1883,8 +1883,8 @@ export default function Hero({ onSearch }) {
               Our programs
             </h4>
             <div className="flex flex-col gap-3.5 text-xs font-bold text-neutral-300">
-              {['SIXT+ Car Subscription', 'SIXT ride', 'Car rental deals', 'SIXT ONE rewards program', 'SIXT app'].map((link) => (
-                <div key={link} className="hover:text-[#FF5000] transition-colors cursor-pointer select-none">
+              {['W+ CAR SUBSCRIPTION', 'W RIDE', 'Car rental deals', 'W ONE rewards program', 'W app'].map((link) => (
+                <div key={link} className="hover:text-[#C5A059] transition-colors cursor-pointer select-none">
                   {link}
                 </div>
               ))}
@@ -1894,11 +1894,11 @@ export default function Hero({ onSearch }) {
           {/* Column 2 */}
           <div>
             <h4 className="font-condensed font-black text-xs text-neutral-500 uppercase tracking-wider mb-5">
-              SIXT for business
+              W for business
             </h4>
             <div className="flex flex-col gap-3.5 text-xs font-bold text-neutral-300">
               {['Register my business', 'Travel agencies', 'Business car rental', 'Business car alternatives'].map((link) => (
-                <div key={link} className="hover:text-[#FF5000] transition-colors cursor-pointer select-none">
+                <div key={link} className="hover:text-[#C5A059] transition-colors cursor-pointer select-none">
                   {link}
                 </div>
               ))}
@@ -1911,8 +1911,8 @@ export default function Hero({ onSearch }) {
               About us
             </h4>
             <div className="flex flex-col gap-3.5 text-xs font-bold text-neutral-300">
-              {['SIXT group', 'SIXT Magazine', 'SIXT News', 'Investor Relations', 'Careers', "Regine Sixt Children's Aid Foundation"].map((link) => (
-                <div key={link} className="hover:text-[#FF5000] transition-colors cursor-pointer select-none">
+              {['W group', 'W Magazine', 'W News', 'Investor Relations', 'Careers', 'W Luxury Foundation'].map((link) => (
+                <div key={link} className="hover:text-[#C5A059] transition-colors cursor-pointer select-none">
                   {link}
                 </div>
               ))}
@@ -1936,7 +1936,7 @@ export default function Hero({ onSearch }) {
             type="button" 
             className="flex items-center gap-2.5 bg-black border border-neutral-900 hover:border-neutral-800 px-4 py-2 rounded-xl text-left select-none active:scale-95 transition-all text-white"
           >
-            <span className="text-sm text-[#FF5000] leading-none">▶</span>
+            <span className="text-sm text-[#C5A059] leading-none">▶</span>
             <div>
               <span className="text-[8px] text-neutral-500 block font-bold leading-none uppercase">GET IT ON</span>
               <span className="text-[11px] text-white block font-black leading-none mt-0.5">Google Play</span>
@@ -1948,8 +1948,8 @@ export default function Hero({ onSearch }) {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border-t border-neutral-900 pt-8 text-[10px] font-bold text-neutral-500 uppercase tracking-wider">
           <div className="flex flex-wrap gap-x-4 gap-y-2.5">
             {[
-              'Help', 'Rental information', 'SIXT for business', 'SIXT partners',
-              'SIXT Magazine', 'Privacy', 'Do not share or sell my personal information',
+              'Help', 'Rental information', 'W for business', 'W partners',
+              'W Magazine', 'Privacy', 'Do not share or sell my personal information',
               'Terms & conditions', 'Customers with disabilities', 'Cookie-Settings'
             ].map((link) => (
               <span key={link} className="hover:text-white cursor-pointer transition-colors">
@@ -1958,7 +1958,7 @@ export default function Hero({ onSearch }) {
             ))}
           </div>
           <span className="text-neutral-600 whitespace-nowrap block lg:text-right select-none">
-            © Sixt 2026
+            © 2026 W Luxury Car Rental
           </span>
         </div>
       </div>

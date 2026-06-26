@@ -228,7 +228,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
             access_key: web3formsAccessKey,
             name: formData.fullName,
             email: formData.email,
-            subject: `[SIXT Luxury Clone] New Booking Request: ${car.name}`,
+            subject: `[W Luxury Car Rental] New Booking Request: ${car.name}`,
             message: `
               --- VEHICLE DETAIL ---
               Car Selected: ${car.name}
@@ -285,16 +285,16 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
     return (
       <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-50 text-neutral-900 flex flex-col select-none font-sans">
         
-        {/* SIXT Black Header */}
+        {/* W Luxury Car Rental Header */}
         <div className="w-full bg-[#000000] px-6 py-3 flex items-center justify-between text-white font-semibold text-xs border-b border-neutral-900 flex-shrink-0">
-          {/* SIXT Logo */}
+          {/* W Logo */}
           <div className="flex items-center gap-2">
             <div className="flex flex-col leading-none text-left">
-              <span className="font-condensed font-extrabold text-[28px] tracking-normal text-white">
-                S<span className="text-[#FF5000]">I</span>XT
+              <span className="font-condensed font-extrabold text-[28px] tracking-normal text-[#C5A059]">
+                W
               </span>
               <span className="text-[6px] tracking-[0.25em] font-semibold text-neutral-400 uppercase block -mt-1 leading-none">
-                Rent the car
+                Luxury Rental
               </span>
             </div>
           </div>
@@ -356,7 +356,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting || datesConflict}
-                className="bg-[#FF5000] hover:bg-[#E04700] disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-condensed font-black uppercase text-xs tracking-wider transition-all hover:scale-[1.01] active:scale-[0.99] shadow-md flex items-center justify-center min-w-[120px]"
+                className="bg-[#C5A059] hover:bg-[#B28F4B] disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-condensed font-black uppercase text-xs tracking-wider transition-all hover:scale-[1.01] active:scale-[0.99] shadow-md flex items-center justify-center min-w-[120px]"
               >
                 {isSubmitting ? "Submitting..." : "Submit"}
               </button>
@@ -364,7 +364,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
               <button
                 onClick={handleNextStep}
                 disabled={datesConflict}
-                className="bg-[#FF5000]/90 hover:bg-[#FF5000] disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-condensed font-black uppercase text-xs tracking-wider transition-all hover:scale-[1.01] active:scale-[0.99] shadow-md flex items-center justify-center min-w-[120px]"
+                className="bg-[#C5A059]/90 hover:bg-[#C5A059] disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-condensed font-black uppercase text-xs tracking-wider transition-all hover:scale-[1.01] active:scale-[0.99] shadow-md flex items-center justify-center min-w-[120px]"
               >
                 Continue
               </button>
@@ -375,7 +375,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
         {/* Success Screen Center Overlay */}
         {successMessage ? (
           <div className="flex-grow flex items-center justify-center p-6 bg-neutral-50 animate-fadeIn">
-            <div className="bg-white border border-neutral-200 text-neutral-900 rounded-2xl p-8 text-center space-y-6 shadow-xl max-w-[500px] w-full border-t-4 border-t-[#FF5000]">
+            <div className="bg-white border border-neutral-200 text-neutral-900 rounded-2xl p-8 text-center space-y-6 shadow-xl max-w-[500px] w-full border-t-4 border-t-[#C5A059]">
               <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-full w-fit mx-auto">
                 <svg className="w-12 h-12 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
@@ -385,12 +385,12 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
               <div className="border-t border-neutral-100 pt-6 text-left space-y-2.5 text-xs text-neutral-700">
                 <div className="flex justify-between"><span className="text-neutral-400 font-bold">Vehicle:</span> <span className="font-bold text-neutral-900">{car.name}</span></div>
                 <div className="flex justify-between"><span className="text-neutral-400 font-bold">Duration:</span> <span className="font-bold text-neutral-900">{days} Days</span></div>
-                <div className="flex justify-between"><span className="text-neutral-400 font-bold">Estimated Quote:</span> <span className="font-black text-[#FF5000] font-condensed text-sm">${totals.total.toFixed(2)}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-400 font-bold">Estimated Quote:</span> <span className="font-black text-[#C5A059] font-condensed text-sm">${totals.total.toFixed(2)}</span></div>
               </div>
 
               <button 
                 onClick={onSubmitSuccess}
-                className="w-full bg-[#FF5000] hover:bg-[#E04700] text-white py-3.5 rounded-xl font-condensed font-black uppercase text-sm shadow-lg transition-all active:scale-95"
+                className="w-full bg-[#C5A059] hover:bg-[#B28F4B] text-white py-3.5 rounded-xl font-condensed font-black uppercase text-sm shadow-lg transition-all active:scale-95"
               >
                 Return to Fleet
               </button>
@@ -573,7 +573,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           <span>★</span><span>★</span><span className="text-neutral-300">☆</span>
                         </div>
                         {/* Discount Badge */}
-                        <span className="inline-block mt-2.5 text-[9px] font-black border border-[#FF5000] text-[#FF5000] px-2 py-0.5 rounded-full uppercase tracking-wide">
+                        <span className="inline-block mt-2.5 text-[9px] font-black border border-[#C5A059] text-[#C5A059] px-2 py-0.5 rounded-full uppercase tracking-wide">
                           - 62% online discount
                         </span>
                       </div>
@@ -645,7 +645,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           <span>★</span><span>★</span><span>★</span>
                         </div>
                         {/* Discount Badge */}
-                        <span className="inline-block mt-2.5 text-[9px] font-black border border-[#FF5000] text-[#FF5000] px-2 py-0.5 rounded-full uppercase tracking-wide">
+                        <span className="inline-block mt-2.5 text-[9px] font-black border border-[#C5A059] text-[#C5A059] px-2 py-0.5 rounded-full uppercase tracking-wide">
                           - 47% online discount
                         </span>
                       </div>
@@ -725,7 +725,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           <div className="flex items-center gap-4">
                             <button 
                               type="button" 
-                              className="text-xs font-bold text-neutral-900 underline hover:text-[#FF5000] transition-colors"
+                              className="text-xs font-bold text-neutral-900 underline hover:text-[#C5A059] transition-colors"
                             >
                               Details
                             </button>
@@ -734,7 +734,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                               type="button"
                               onClick={() => setAddons(prev => ({ ...prev, [addon.key]: !prev[addon.key] }))}
                               className={`w-12 h-6 rounded-full flex items-center px-0.5 transition-colors duration-200 ${
-                                isActive ? 'bg-[#FF5000]' : 'bg-neutral-200'
+                                isActive ? 'bg-[#C5A059]' : 'bg-neutral-200'
                               }`}
                             >
                               <div className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform duration-200 ${
@@ -1149,7 +1149,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
         {/* LEFT COLUMN: Vehicle Details Summary */}
         <div className="md:w-5/12 bg-gradient-to-b from-[#181818] to-[#0c0c0c] text-white p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-neutral-800">
           <div>
-            <span className="text-[9px] font-black text-[#FF5000] uppercase tracking-wider block font-condensed">Selected Luxury Vehicle</span>
+            <span className="text-[9px] font-black text-[#C5A059] uppercase tracking-wider block font-condensed">Selected Luxury Vehicle</span>
             <h3 className="font-condensed font-black text-3xl uppercase tracking-wide mt-1.5 leading-tight text-white">
               {car.name}
             </h3>
@@ -1186,7 +1186,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
           <div className="border-t border-neutral-800 pt-6 mt-6 text-xs text-neutral-400">
             <div className="flex items-center justify-between mb-2">
               <span className="font-bold text-neutral-500">Rental Duration:</span>
-              <span className="font-black text-white bg-[#FF5000]/15 text-[#FF5000] px-2.5 py-0.5 rounded font-condensed uppercase tracking-wider">{days} Days</span>
+              <span className="font-black text-white bg-[#C5A059]/15 text-[#C5A059] px-2.5 py-0.5 rounded font-condensed uppercase tracking-wider">{days} Days</span>
             </div>
             <div className="flex items-center justify-between mb-1.5">
               <span>Pickup:</span>
@@ -1207,15 +1207,15 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
             <div className="mb-6 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-[9px] font-black text-neutral-500 uppercase tracking-widest block font-condensed">Step {step} of 4</span>
-                <span className="text-[10px] font-bold text-neutral-400 flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#FF5000]" /> SIXT Luxury Booking Flow</span>
+                <span className="text-[10px] font-bold text-neutral-400 flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C5A059]" /> W Luxury Booking Flow</span>
               </div>
 
               {/* Schedule Validation Banner */}
               {datesConflict ? (
                 <div className="bg-amber-950/40 border border-amber-900/60 text-amber-300 rounded-xl p-3.5 text-xs font-semibold flex gap-2.5 items-start shadow-md animate-pulse">
-                  <AlertCircle className="w-4 h-4 text-[#FF5000] flex-shrink-0 mt-0.5" />
+                  <AlertCircle className="w-4 h-4 text-[#C5A059] flex-shrink-0 mt-0.5" />
                   <div className="leading-relaxed">
-                    <span className="font-bold block uppercase text-[10px] tracking-wider text-[#FF5000] mb-0.5">Scheduling Conflict</span>
+                    <span className="font-bold block uppercase text-[10px] tracking-wider text-[#C5A059] mb-0.5">Scheduling Conflict</span>
                     This vehicle is locked or reserved for the selected dates. Please adjust your dates or choose another vehicle.
                   </div>
                 </div>
@@ -1230,7 +1230,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
 
           {successMessage ? (
             <div className="flex flex-col h-full justify-center py-8">
-              <div className="bg-neutral-900 border border-neutral-800 text-white rounded-2xl p-8 text-center space-y-6 shadow-xl max-w-[500px] mx-auto border-t-4 border-t-[#FF5000]">
+              <div className="bg-neutral-900 border border-neutral-800 text-white rounded-2xl p-8 text-center space-y-6 shadow-xl max-w-[500px] mx-auto border-t-4 border-t-[#C5A059]">
                 <div className="bg-emerald-950/30 border border-emerald-900/40 p-4 rounded-full w-fit mx-auto">
                   <ShieldCheck className="w-12 h-12 text-emerald-400" />
                 </div>
@@ -1240,12 +1240,12 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                 <div className="border-t border-neutral-800 pt-6 text-left space-y-2 text-xs">
                   <div className="flex justify-between"><span className="text-neutral-500 font-bold">Vehicle:</span> <span className="font-bold text-white">{car.name}</span></div>
                   <div className="flex justify-between"><span className="text-neutral-500 font-bold">Duration:</span> <span className="font-bold text-white">{days} Days</span></div>
-                  <div className="flex justify-between"><span className="text-neutral-500 font-bold">Estimated Quote:</span> <span className="font-black text-[#FF5000] font-condensed text-sm">${totals.total.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span className="text-neutral-500 font-bold">Estimated Quote:</span> <span className="font-black text-[#C5A059] font-condensed text-sm">${totals.total.toFixed(2)}</span></div>
                 </div>
 
                 <button 
                   onClick={onSubmitSuccess}
-                  className="w-full bg-[#FF5000] hover:bg-[#E04700] text-white py-3.5 rounded-xl font-condensed font-black uppercase text-sm shadow-lg premium-transition active:scale-95"
+                  className="w-full bg-[#C5A059] hover:bg-[#B28F4B] text-white py-3.5 rounded-xl font-condensed font-black uppercase text-sm shadow-lg premium-transition active:scale-95"
                 >
                   Return to Fleet
                 </button>
@@ -1267,14 +1267,14 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         <label 
                           onClick={() => setBookingOption('bestPrice')}
                           className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer premium-transition ${
-                            bookingOption === 'bestPrice' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                            bookingOption === 'bestPrice' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              bookingOption === 'bestPrice' ? 'border-[#FF5000]' : 'border-neutral-700'
+                              bookingOption === 'bestPrice' ? 'border-[#C5A059]' : 'border-neutral-700'
                             }`}>
-                              {bookingOption === 'bestPrice' && <div className="w-2.5 h-2.5 rounded-full bg-[#FF5000]"></div>}
+                              {bookingOption === 'bestPrice' && <div className="w-2.5 h-2.5 rounded-full bg-[#C5A059]"></div>}
                             </div>
                             <div>
                               <span className="font-bold text-sm block text-white">Best price</span>
@@ -1287,24 +1287,24 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         <label 
                           onClick={() => setBookingOption('stayFlexible')}
                           className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer premium-transition ${
-                            bookingOption === 'stayFlexible' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                            bookingOption === 'stayFlexible' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              bookingOption === 'stayFlexible' ? 'border-[#FF5000]' : 'border-neutral-700'
+                              bookingOption === 'stayFlexible' ? 'border-[#C5A059]' : 'border-neutral-700'
                             }`}>
-                              {bookingOption === 'stayFlexible' && <div className="w-2.5 h-2.5 rounded-full bg-[#FF5000]"></div>}
+                              {bookingOption === 'stayFlexible' && <div className="w-2.5 h-2.5 rounded-full bg-[#C5A059]"></div>}
                             </div>
                             <div>
                               <div className="flex items-center gap-2">
                                 <span className="font-bold text-sm text-white">Stay flexible</span>
-                                <span className="text-[8px] bg-[#FF5000] text-black px-1.5 py-0.5 rounded font-black uppercase font-condensed">Popular</span>
+                                <span className="text-[8px] bg-[#C5A059] text-black px-1.5 py-0.5 rounded font-black uppercase font-condensed">Popular</span>
                               </div>
                               <span className="text-xs text-neutral-400">Free cancellation and rebooking any time before pickup.</span>
                             </div>
                           </div>
-                          <span className="text-xs font-black text-[#FF5000] font-condensed">+${stayFlexibleRate}/day</span>
+                          <span className="text-xs font-black text-[#C5A059] font-condensed">+${stayFlexibleRate}/day</span>
                         </label>
                       </div>
                     </div>
@@ -1315,14 +1315,14 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         <label 
                           onClick={() => setMileage('included')}
                           className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer premium-transition ${
-                            mileage === 'included' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                            mileage === 'included' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              mileage === 'included' ? 'border-[#FF5000]' : 'border-neutral-700'
+                              mileage === 'included' ? 'border-[#C5A059]' : 'border-neutral-700'
                             }`}>
-                              {mileage === 'included' && <div className="w-2.5 h-2.5 rounded-full bg-[#FF5000]"></div>}
+                              {mileage === 'included' && <div className="w-2.5 h-2.5 rounded-full bg-[#C5A059]"></div>}
                             </div>
                             <div>
                               <span className="font-bold text-sm block text-white">600 km</span>
@@ -1335,21 +1335,21 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         <label 
                           onClick={() => setMileage('unlimited')}
                           className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer premium-transition ${
-                            mileage === 'unlimited' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                            mileage === 'unlimited' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              mileage === 'unlimited' ? 'border-[#FF5000]' : 'border-neutral-700'
+                              mileage === 'unlimited' ? 'border-[#C5A059]' : 'border-neutral-700'
                             }`}>
-                              {mileage === 'unlimited' && <div className="w-2.5 h-2.5 rounded-full bg-[#FF5000]"></div>}
+                              {mileage === 'unlimited' && <div className="w-2.5 h-2.5 rounded-full bg-[#C5A059]"></div>}
                             </div>
                             <div>
                               <span className="font-bold text-sm block text-white">Unlimited kilometers</span>
                               <span className="text-xs text-neutral-400">All kilometers are included in the price.</span>
                             </div>
                           </div>
-                          <span className="text-xs font-black text-[#FF5000] font-condensed">+${unlimitedMileageRate}/day</span>
+                          <span className="text-xs font-black text-[#C5A059] font-condensed">+${unlimitedMileageRate}/day</span>
                         </label>
                       </div>
                     </div>
@@ -1365,7 +1365,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                     <button
                       onClick={handleNextStep}
                       disabled={datesConflict}
-                      className="bg-[#FF5000] hover:bg-[#E04700] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed disabled:shadow-none hover:scale-[1.02]"
+                      className="bg-[#C5A059] hover:bg-[#B28F4B] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed disabled:shadow-none hover:scale-[1.02]"
                     >
                       Next <ArrowRight className="w-4 h-4" />
                     </button>
@@ -1382,7 +1382,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                     </div>
 
                     <div className="bg-[#1c1c1c]/50 border border-neutral-800 rounded-xl p-3.5 text-xs text-neutral-300 flex gap-2.5 items-start">
-                      <AlertCircle className="w-4 h-4 text-[#FF5000] flex-shrink-0 mt-0.5" />
+                      <AlertCircle className="w-4 h-4 text-[#C5A059] flex-shrink-0 mt-0.5" />
                       <span>Drivers must have held their driver's license for at least 2 year(s) for this vehicle.</span>
                     </div>
 
@@ -1390,7 +1390,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                       <div 
                         onClick={() => setProtection('none')}
                         className={`p-4 rounded-xl border-2 cursor-pointer flex flex-col justify-between h-[155px] premium-transition ${
-                          protection === 'none' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                          protection === 'none' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                         }`}
                       >
                         <div>
@@ -1399,7 +1399,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         </div>
                         <div className="flex items-center justify-between border-t border-neutral-850 pt-2.5 mt-auto">
                           <span className="text-xs font-bold text-neutral-400">Included</span>
-                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'none' ? 'bg-[#FF5000] border-[#FF5000] text-black' : 'border-neutral-700'}`}>
+                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'none' ? 'bg-[#C5A059] border-[#C5A059] text-black' : 'border-neutral-700'}`}>
                             {protection === 'none' && <Check className="w-3 h-3 text-black stroke-[3px]" />}
                           </div>
                         </div>
@@ -1408,7 +1408,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                       <div 
                         onClick={() => setProtection('basic')}
                         className={`p-4 rounded-xl border-2 cursor-pointer flex flex-col justify-between h-[155px] premium-transition ${
-                          protection === 'basic' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                          protection === 'basic' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                         }`}
                       >
                         <div>
@@ -1417,7 +1417,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         </div>
                         <div className="flex items-center justify-between border-t border-neutral-850 pt-2.5 mt-auto">
                           <span className="text-xs font-black text-white font-condensed">+${basicProtectionRate}/day</span>
-                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'basic' ? 'bg-[#FF5000] border-[#FF5000] text-black' : 'border-neutral-700'}`}>
+                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'basic' ? 'bg-[#C5A059] border-[#C5A059] text-black' : 'border-neutral-700'}`}>
                             {protection === 'basic' && <Check className="w-3 h-3 text-black stroke-[3px]" />}
                           </div>
                         </div>
@@ -1426,17 +1426,17 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                       <div 
                         onClick={() => setProtection('smart')}
                         className={`p-4 rounded-xl border-2 cursor-pointer flex flex-col justify-between h-[155px] premium-transition relative ${
-                          protection === 'smart' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                          protection === 'smart' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                         }`}
                       >
-                        <span className="absolute -top-2.5 left-3 text-[8px] font-black bg-[#FF5000] text-black px-2 py-0.5 rounded-full uppercase font-condensed">71% Discount</span>
+                        <span className="absolute -top-2.5 left-3 text-[8px] font-black bg-[#C5A059] text-black px-2 py-0.5 rounded-full uppercase font-condensed">71% Discount</span>
                         <div>
                           <span className="font-bold text-sm block text-white">Smart Protection</span>
                           <span className="text-[9px] font-bold text-emerald-400 uppercase block mt-1">No Deductible</span>
                         </div>
                         <div className="flex items-center justify-between border-t border-neutral-850 pt-2.5 mt-auto">
-                          <span className="text-xs font-black text-[#FF5000] font-condensed">+${smartProtectionRate}/day</span>
-                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'smart' ? 'bg-[#FF5000] border-[#FF5000] text-black' : 'border-neutral-700'}`}>
+                          <span className="text-xs font-black text-[#C5A059] font-condensed">+${smartProtectionRate}/day</span>
+                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'smart' ? 'bg-[#C5A059] border-[#C5A059] text-black' : 'border-neutral-700'}`}>
                             {protection === 'smart' && <Check className="w-3 h-3 text-black stroke-[3px]" />}
                           </div>
                         </div>
@@ -1445,17 +1445,17 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                       <div 
                         onClick={() => setProtection('allInclusive')}
                         className={`p-4 rounded-xl border-2 cursor-pointer flex flex-col justify-between h-[155px] premium-transition relative ${
-                          protection === 'allInclusive' ? 'border-[#FF5000] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
+                          protection === 'allInclusive' ? 'border-[#C5A059] bg-neutral-900/60' : 'border-neutral-800 bg-[#161616]/40 hover:border-neutral-700'
                         }`}
                       >
-                        <span className="absolute -top-2.5 left-3 text-[8px] font-black bg-[#FF5000] text-black px-2 py-0.5 rounded-full uppercase font-condensed">58% Discount</span>
+                        <span className="absolute -top-2.5 left-3 text-[8px] font-black bg-[#C5A059] text-black px-2 py-0.5 rounded-full uppercase font-condensed">58% Discount</span>
                         <div>
                           <span className="font-bold text-sm block text-white">All Inclusive</span>
                           <span className="text-[9px] font-bold text-emerald-400 uppercase block mt-1">No Deductible + Tires</span>
                         </div>
                         <div className="flex items-center justify-between border-t border-neutral-850 pt-2.5 mt-auto">
-                          <span className="text-xs font-black text-[#FF5000] font-condensed">+${allInclusiveRate}/day</span>
-                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'allInclusive' ? 'bg-[#FF5000] border-[#FF5000] text-black' : 'border-neutral-700'}`}>
+                          <span className="text-xs font-black text-[#C5A059] font-condensed">+${allInclusiveRate}/day</span>
+                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${protection === 'allInclusive' ? 'bg-[#C5A059] border-[#C5A059] text-black' : 'border-neutral-700'}`}>
                             {protection === 'allInclusive' && <Check className="w-3 h-3 text-black stroke-[3px]" />}
                           </div>
                         </div>
@@ -1479,7 +1479,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                     <button
                       onClick={handleNextStep}
                       disabled={datesConflict}
-                      className="bg-[#FF5000] hover:bg-[#E04700] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed hover:scale-[1.02]"
+                      className="bg-[#C5A059] hover:bg-[#B28F4B] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed hover:scale-[1.02]"
                     >
                       Continue <ArrowRight className="w-4 h-4" />
                     </button>
@@ -1505,7 +1505,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           <button
                             onClick={() => setAddons(prev => ({ ...prev, additionalDriver: !prev.additionalDriver }))}
                             className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-200 ${
-                              addons.additionalDriver ? 'bg-[#FF5000]' : 'bg-neutral-800'
+                              addons.additionalDriver ? 'bg-[#C5A059]' : 'bg-neutral-800'
                             }`}
                           >
                             <div className={`bg-white w-4 h-4 rounded-full shadow transform transition-transform duration-200 ${
@@ -1522,7 +1522,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           <button
                             onClick={() => setAddons(prev => ({ ...prev, refuelling: !prev.refuelling }))}
                             className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-200 ${
-                              addons.refuelling ? 'bg-[#FF5000]' : 'bg-neutral-800'
+                              addons.refuelling ? 'bg-[#C5A059]' : 'bg-neutral-800'
                             }`}
                           >
                             <div className={`bg-white w-4 h-4 rounded-full shadow transform transition-transform duration-200 ${
@@ -1539,7 +1539,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           <button
                             onClick={() => setAddons(prev => ({ ...prev, crossBorder: !prev.crossBorder }))}
                             className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-200 ${
-                              addons.crossBorder ? 'bg-[#FF5000]' : 'bg-neutral-800'
+                              addons.crossBorder ? 'bg-[#C5A059]' : 'bg-neutral-800'
                             }`}
                           >
                             <div className={`bg-white w-4 h-4 rounded-full shadow transform transition-transform duration-200 ${
@@ -1590,7 +1590,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                     <button
                       onClick={handleNextStep}
                       disabled={datesConflict}
-                      className="bg-[#FF5000] hover:bg-[#E04700] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed hover:scale-[1.02]"
+                      className="bg-[#C5A059] hover:bg-[#B28F4B] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed hover:scale-[1.02]"
                     >
                       Continue <ArrowRight className="w-4 h-4" />
                     </button>
@@ -1623,7 +1623,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                             value={formData.fullName}
                             onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
                             placeholder="e.g. John Doe"
-                            className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#FF5000] outline-none premium-transition"
+                            className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#C5A059] outline-none premium-transition"
                           />
                         </div>
 
@@ -1635,7 +1635,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                             value={formData.email}
                             onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                             placeholder="e.g. john@example.com"
-                            className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#FF5000] outline-none premium-transition"
+                            className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#C5A059] outline-none premium-transition"
                           />
                         </div>
                       </div>
@@ -1651,7 +1651,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                               value={formData.phone}
                               onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                               placeholder="e.g. +1 555-019-2834"
-                              className="w-full bg-[#1c1c1c] border border-neutral-800 rounded-xl pl-10 pr-4 py-3 text-xs font-semibold text-white focus:border-[#FF5000] outline-none premium-transition"
+                              className="w-full bg-[#1c1c1c] border border-neutral-800 rounded-xl pl-10 pr-4 py-3 text-xs font-semibold text-white focus:border-[#C5A059] outline-none premium-transition"
                             />
                           </div>
                         </div>
@@ -1665,7 +1665,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                             value={formData.driverAge}
                             onChange={(e) => setFormData(prev => ({ ...prev, driverAge: e.target.value }))}
                             placeholder="Enter your age"
-                            className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#FF5000] outline-none premium-transition"
+                            className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#C5A059] outline-none premium-transition"
                           />
                         </div>
                       </div>
@@ -1677,7 +1677,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                           value={formData.specialRequests}
                           onChange={(e) => setFormData(prev => ({ ...prev, specialRequests: e.target.value }))}
                           placeholder="e.g. child seats, winter tires, specific delivery location info, etc."
-                          className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#FF5000] outline-none premium-transition resize-none"
+                          className="bg-[#1c1c1c] border border-neutral-800 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:border-[#C5A059] outline-none premium-transition resize-none"
                         />
                       </div>
 
@@ -1698,7 +1698,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                         <button
                           type="submit"
                           disabled={isSubmitting || datesConflict}
-                          className="bg-[#FF5000] hover:bg-[#E04700] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed hover:scale-[1.02]"
+                          className="bg-[#C5A059] hover:bg-[#B28F4B] text-white px-8 py-3.5 rounded-xl font-condensed font-black uppercase text-sm flex items-center gap-2 shadow-lg premium-transition disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed hover:scale-[1.02]"
                         >
                           {isSubmitting ? 'Sending Request...' : 'Book Now'}
                         </button>

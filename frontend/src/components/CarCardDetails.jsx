@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { X, ChevronDown, ChevronLeft, Check } from 'lucide-react';
 
 // Country dial codes list
@@ -89,7 +89,7 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
     const payload = {
       access_key: accessKey,
       subject: `New Car Reservation Request - ${car.name}`,
-      from_name: "SIXT Luxury Car Rental",
+      from_name: "W LUXURY CAR RENTAL",
       email: email,
       name: `${firstName} ${lastName}`,
       phone: `${selectedCountry.dial} ${phone}`,
@@ -179,7 +179,7 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
             </div>
             <div className="flex justify-between items-center border-t border-neutral-800 pt-2.5">
               <span className="text-neutral-400">Estimated Total</span>
-              <span className="font-condensed font-black text-[#FF5000] text-base">${totalRate.toFixed(2)}</span>
+              <span className="font-condensed font-black text-[#C5A059] text-base">${totalRate.toFixed(2)}</span>
             </div>
           </div>
 
@@ -193,7 +193,7 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
                   onClose();
                 }
               }}
-              className="w-full bg-[#FF5000] hover:bg-[#E04700] active:scale-[0.99] text-white py-4 rounded-2xl font-condensed font-black uppercase text-sm tracking-widest shadow-lg shadow-orange-500/10 transition-all hover:scale-[1.01] flex items-center justify-center"
+              className="w-full bg-[#C5A059] hover:bg-[#B28F4B] active:scale-[0.99] text-white py-4 rounded-2xl font-condensed font-black uppercase text-sm tracking-widest shadow-lg shadow-orange-500/10 transition-all hover:scale-[1.01] flex items-center justify-center"
             >
               Continue
             </button>
@@ -389,7 +389,7 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
             </div>
             <div className="flex justify-between font-bold text-neutral-900 border-t border-neutral-200 pt-3 mt-1">
               <span>Estimated total</span>
-              <span className="text-[#FF5000] font-condensed text-lg font-black">${totalRate.toFixed(2)}</span>
+              <span className="text-[#C5A059] font-condensed text-lg font-black">${totalRate.toFixed(2)}</span>
             </div>
           </div>
         </div>
@@ -402,7 +402,7 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
           <button
             onClick={handleContinue}
             disabled={isSubmitting}
-            className={`ml-auto bg-[#FF5000] hover:bg-[#E04700] active:scale-[0.99] text-white px-10 py-4 rounded-xl font-condensed font-black uppercase text-sm tracking-widest shadow-lg transition-all hover:scale-[1.01] flex items-center justify-center min-w-[160px] ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+            className={`ml-auto bg-[#C5A059] hover:bg-[#B28F4B] active:scale-[0.99] text-white px-10 py-4 rounded-xl font-condensed font-black uppercase text-sm tracking-widest shadow-lg transition-all hover:scale-[1.01] flex items-center justify-center min-w-[160px] ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">

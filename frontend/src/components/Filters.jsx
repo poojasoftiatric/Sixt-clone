@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 
 export default function Filters({ activeFilters, toggleFilter, clearFilters, totalCount }) {
@@ -39,7 +39,7 @@ export default function Filters({ activeFilters, toggleFilter, clearFilters, tot
             onClick={() => toggleFilter(option.key)}
             className={`px-4 py-2.5 rounded-full border font-bold premium-transition ${
               activeFilters[option.key]
-                ? 'bg-[#FF5000] border-[#FF5000] text-white shadow-[0_4px_12px_rgba(255,80,0,0.25)]'
+                ? 'bg-[#C5A059] border-[#C5A059] text-white shadow-[0_4px_12px_rgba(255,80,0,0.25)]'
                 : 'bg-[#121212] border-neutral-800 text-neutral-400 hover:border-neutral-700 hover:text-white'
             }`}
           >

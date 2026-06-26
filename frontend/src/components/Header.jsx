@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { HelpCircle, Car, Globe, User } from 'lucide-react';
 
 export default function Header({ onResetView, isResultsPage, searchParams, onEditSearch }) {
@@ -11,16 +11,11 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
             onClick={onResetView}
             className="flex flex-col cursor-pointer select-none leading-none active:scale-95 transition-transform duration-100"
           >
-            <div className="flex items-baseline font-condensed font-black text-2xl tracking-tighter italic text-white leading-none">
-              <span>S</span>
-              <span className="relative">
-                I
-                <span className="absolute -top-0.5 left-0 w-2 h-0.5 bg-[#FF5000] rounded-full transform rotate-[25deg] skew-x-[-10deg]"></span>
-              </span>
-              <span>XT</span>
-            </div>
+            <span className="font-condensed font-extrabold text-3xl tracking-tighter text-[#C5A059] leading-none">
+              W
+            </span>
             <span className="text-[5px] tracking-[0.22em] font-black text-white mt-0.5 uppercase block text-left">
-              RENT THE CAR
+              LUXURY RENTAL
             </span>
           </div>
 
@@ -37,7 +32,7 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
                 {searchParams?.pickupDate || 'Jun 26'} | {searchParams?.pickupTime || '12:00 PM'} - {searchParams?.returnDate || 'Jun 28'} | {searchParams?.returnTime || '12:00 PM'}
               </p>
             </div>
-            <button className="text-white hover:text-[#FF5000] premium-transition">
+            <button className="text-white hover:text-[#C5A059] premium-transition">
               <svg className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                 <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z" />
@@ -66,9 +61,9 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
 
   return (
     <header className="w-full flex flex-col z-50 absolute top-0 left-0 select-none">
-      {/* Top Thin Orange Banner with Exact Capitalization */}
-      <div className="w-full bg-[#FF5000] text-black text-[9px] font-black text-center py-1 tracking-[0.05em] uppercase font-condensed">
-        113 years of SIXT. 113 years of tradition.
+      {/* Top Gold Banner */}
+      <div className="w-full bg-[#C5A059] text-black text-[9px] font-black text-center py-1 tracking-[0.05em] uppercase font-condensed">
+        W LUXURY CAR RENTAL. EXCLUSIVITY REDEFINED.
       </div>
 
       {/* Main Navbar */}
@@ -80,23 +75,16 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
             onClick={onResetView}
             className="flex flex-col cursor-pointer select-none leading-none active:scale-95 transition-transform duration-100"
           >
-            {/* Custom High-Fidelity Brand SIXT Logo with swoosh on the 'I' */}
-            <div className="flex items-baseline font-condensed font-black text-3xl tracking-tighter italic text-white leading-none">
-              <span>S</span>
-              <span className="relative">
-                I
-                {/* Curved Orange Swoosh matching official SIXT logo */}
-                <span className="absolute -top-1 left-0 w-2.5 h-1 bg-[#FF5000] rounded-full transform rotate-[25deg] skew-x-[-10deg]"></span>
-              </span>
-              <span>XT</span>
-            </div>
+            <span className="font-condensed font-extrabold text-4xl tracking-tighter text-[#C5A059] leading-none">
+              W
+            </span>
             <span className="text-[5.5px] tracking-[0.22em] font-black text-white mt-1 uppercase block text-left">
-              RENT THE CAR
+              LUXURY RENTAL
             </span>
           </div>
         </div>
 
-        {/* Right Side: Exact Flat Navigation Links */}
+        {/* Right Side: Navigation Links */}
         <div className="flex items-center gap-5 text-xs font-black text-white">
           
           {/* Help Link */}
@@ -120,7 +108,7 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
             <span>EN | $</span>
           </button>
 
-          {/* Log In / Register Flat Link */}
+          {/* Log In / Register */}
           <button 
             className="flex items-center gap-2 hover:text-neutral-300 premium-transition"
             onClick={() => alert("Registration and member accounts are currently visual-only in this demonstration.")}

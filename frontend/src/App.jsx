@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import Filters from './components/Filters.jsx';
@@ -186,7 +186,7 @@ export default function App() {
             <button
               onClick={() => toggleFilter('hotOffers')}
               className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.hotOffers
-                  ? 'bg-[#FF5000] border-[#FF5000] text-white'
+                  ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
             >
@@ -197,7 +197,7 @@ export default function App() {
             <button
               onClick={() => toggleFilter('premium')}
               className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.premium
-                  ? 'bg-[#FF5000] border-[#FF5000] text-white'
+                  ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
             >
@@ -208,7 +208,7 @@ export default function App() {
             <button
               onClick={() => toggleFilter('guaranteed')}
               className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.guaranteed
-                  ? 'bg-[#FF5000] border-[#FF5000] text-white'
+                  ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
             >
@@ -219,7 +219,7 @@ export default function App() {
             <button
               onClick={() => toggleFilter('automatic')}
               className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.automatic
-                  ? 'bg-[#FF5000] border-[#FF5000] text-white'
+                  ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
             >
@@ -236,7 +236,7 @@ export default function App() {
                 <p className="text-neutral-500 font-bold mb-4">No luxury cars fit your currently selected filters.</p>
                 <button
                   onClick={clearFilters}
-                  className="bg-[#FF5000] text-white px-5 py-2.5 rounded-xl text-xs font-black font-condensed uppercase tracking-wider hover:bg-[#E04700] premium-transition"
+                  className="bg-[#C5A059] text-white px-5 py-2.5 rounded-xl text-xs font-black font-condensed uppercase tracking-wider hover:bg-[#B28F4B] premium-transition"
                 >
                   Clear Filters
                 </button>
@@ -304,7 +304,7 @@ export default function App() {
           <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-col leading-none text-left">
               <span className="font-condensed font-extrabold text-2xl text-neutral-400">
-                S<span className="text-[#FF5000]">I</span>XT
+                <span className="text-[#C5A059]">W</span>
               </span>
               <span className="text-[6px] tracking-[0.2em] font-semibold text-neutral-600 uppercase block">
                 Luxury Collection
@@ -312,7 +312,7 @@ export default function App() {
             </div>
 
             <p className="font-semibold text-[10px] tracking-wider uppercase text-neutral-600">
-              © 2026 SIXT Luxury Clone. Created for paired client review. All rights reserved.
+              Â© 2026 W Luxury Car Rental. Created for paired client review. All rights reserved.
             </p>
           </div>
         </footer>
@@ -363,12 +363,12 @@ export default function App() {
                   </h4>
                   <div className="flex flex-wrap gap-2.5">
                     {[
-                      { id: 'wagon', label: 'Station wagon', icon: '🚗' },
-                      { id: 'sedan', label: 'Sedan', icon: '🚗' },
-                      { id: 'suv', label: 'SUV', icon: '🚙' },
-                      { id: 'convertible', label: 'Convertible', icon: '🏎️' },
-                      { id: 'family', label: 'Family car', icon: '🚐' },
-                      { id: 'coupe', label: 'Coupe', icon: '🏎️' }
+                      { id: 'wagon', label: 'Station wagon', icon: 'ðŸš—' },
+                      { id: 'sedan', label: 'Sedan', icon: 'ðŸš—' },
+                      { id: 'suv', label: 'SUV', icon: 'ðŸš™' },
+                      { id: 'convertible', label: 'Convertible', icon: 'ðŸŽï¸' },
+                      { id: 'family', label: 'Family car', icon: 'ðŸš' },
+                      { id: 'coupe', label: 'Coupe', icon: 'ðŸŽï¸' }
                     ].map((type) => {
                       const isSelected = activeFilters[type.id];
                       return (
@@ -395,8 +395,8 @@ export default function App() {
                   </h4>
                   <div className="flex flex-wrap gap-2.5">
                     {[
-                      { id: 'premium', label: 'Premium', icon: '💎' },
-                      { id: 'guaranteed', label: 'Guaranteed model', icon: '🚗' }
+                      { id: 'premium', label: 'Premium', icon: 'ðŸ’Ž' },
+                      { id: 'guaranteed', label: 'Guaranteed model', icon: 'ðŸš—' }
                     ].map((item) => {
                       const isSelected = activeFilters[item.id];
                       return (
@@ -423,11 +423,11 @@ export default function App() {
                   </h4>
                   <div className="flex flex-wrap gap-2.5">
                     {[
-                      { id: 'performance', label: 'High performance', icon: '⚙️' },
-                      { id: 'electric', label: 'Electric', icon: '⚡' },
+                      { id: 'performance', label: 'High performance', icon: 'âš™ï¸' },
+                      { id: 'electric', label: 'Electric', icon: 'âš¡' },
                       { id: 'automatic', label: 'Automatic', icon: 'A' },
-                      { id: 'gps', label: 'GPS', icon: '🗺️' },
-                      { id: 'hotOffers', label: 'Hot offers', icon: '🔥' }
+                      { id: 'gps', label: 'GPS', icon: 'ðŸ—ºï¸' },
+                      { id: 'hotOffers', label: 'Hot offers', icon: 'ðŸ”¥' }
                     ].map((feature) => {
                       const isSelected = activeFilters[feature.id];
                       return (
@@ -543,7 +543,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setShowFilterDrawer(false)}
-                  className="w-full bg-[#FF5000] hover:bg-[#E04700] text-white font-condensed font-black text-sm uppercase py-4 rounded-xl shadow-lg tracking-wider transition-all hover:scale-[1.01] active:scale-[0.99]"
+                  className="w-full bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase py-4 rounded-xl shadow-lg tracking-wider transition-all hover:scale-[1.01] active:scale-[0.99]"
                 >
                   Show {filteredCars.length} {filteredCars.length === 1 ? 'offer' : 'offers'}
                 </button>
