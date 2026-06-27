@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ChevronDown, ChevronLeft, Check } from 'lucide-react';
 
 // Country dial codes list
@@ -310,7 +310,7 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
             </div>
 
             {/* Country + Phone number */}
-            <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 items-start">
+            <div className="grid grid-cols-[auto_1fr] gap-4 items-start">
               {/* Country selector */}
               <div className="relative">
                 <label className="block text-sm font-bold text-neutral-900 mb-2">Country</label>
@@ -371,25 +371,25 @@ export default function CarCardDetails({ car, onClose, onNext, onBookingSuccess,
           {/* Rental Summary */}
           <div className="bg-neutral-50 rounded-2xl p-5 space-y-3 text-sm">
             <h4 className="font-bold text-neutral-900 text-base">Rental summary</h4>
-            <div className="flex justify-between text-neutral-600 font-medium">
-              <span>Pickup</span>
-              <span className="font-bold text-neutral-900">
+            <div className="flex justify-between gap-4 text-neutral-600 font-medium">
+              <span className="flex-shrink-0">Pickup</span>
+              <span className="font-bold text-neutral-900 text-right">
                 {searchParams?.pickupLocation || 'Selected location'} · {searchParams?.pickupDate || '—'} at {searchParams?.pickupTime || '—'}
               </span>
             </div>
-            <div className="flex justify-between text-neutral-600 font-medium">
-              <span>Return</span>
-              <span className="font-bold text-neutral-900">
+            <div className="flex justify-between gap-4 text-neutral-600 font-medium">
+              <span className="flex-shrink-0">Return</span>
+              <span className="font-bold text-neutral-900 text-right">
                 {searchParams?.returnDate || '—'} at {searchParams?.returnTime || '—'}
               </span>
             </div>
-            <div className="flex justify-between text-neutral-600 font-medium">
-              <span>Duration</span>
-              <span className="font-bold text-neutral-900">{days} {days === 1 ? 'day' : 'days'}</span>
+            <div className="flex justify-between gap-4 text-neutral-600 font-medium">
+              <span className="flex-shrink-0">Duration</span>
+              <span className="font-bold text-neutral-900 text-right">{days} {days === 1 ? 'day' : 'days'}</span>
             </div>
-            <div className="flex justify-between font-bold text-neutral-900 border-t border-neutral-200 pt-3 mt-1">
-              <span>Estimated total</span>
-              <span className="text-[#C5A059] font-condensed text-lg font-black">${totalRate.toFixed(2)}</span>
+            <div className="flex justify-between gap-4 font-bold text-neutral-900 border-t border-neutral-200 pt-3 mt-1">
+              <span className="flex-shrink-0">Estimated total</span>
+              <span className="text-[#C5A059] font-condensed text-lg font-black text-right">${totalRate.toFixed(2)}</span>
             </div>
           </div>
         </div>

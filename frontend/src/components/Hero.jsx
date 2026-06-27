@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Plane, Calendar, Clock, User, Info, RotateCcw, ChevronLeft, ChevronRight, Briefcase, Globe, Car, ShieldCheck, Check, Sparkles, Building } from 'lucide-react';
 import CarCard from './CarCard.jsx';
 
@@ -204,7 +204,7 @@ const moreSixtCards = [
   }
 ];
 
-export default function Hero({ onSearch }) {
+export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
   const [pickupLocation, setPickupLocation] = useState('Munich Airport');
   const [pickupDate, setPickupDate] = useState('Jun 27');
   const [pickupTime, setPickupTime] = useState('12:00 PM');
@@ -231,6 +231,20 @@ export default function Hero({ onSearch }) {
   const [moreSixtSlide, setMoreSixtSlide] = useState(0);
   const [activeFaqIndex, setActiveFaqIndex] = useState(0);
   const [activeRegionTab, setActiveRegionTab] = useState('Australia');
+  // Mobile step-by-step panel: null | 'location' | 'details' | 'calendar' | 'time-pickup' | 'time-return'
+  const [mobilePanel, setMobilePanel] = useState(initialMobilePanel || null);
+
+  useEffect(() => {
+    if (initialMobilePanel) {
+      setMobilePanel(initialMobilePanel);
+    }
+  }, [initialMobilePanel]);
+
+  useEffect(() => {
+    if (mobilePanel === null && onPanelClosed) {
+      onPanelClosed();
+    }
+  }, [mobilePanel, onPanelClosed]);
 
   const handleScrollToListings = () => {
     const el = document.getElementById('listings-container');
@@ -565,15 +579,66 @@ export default function Hero({ onSearch }) {
       
       {/* Floating Booking Card Widget */}
       <div 
-        className={`w-full max-w-[1100px] px-6 z-40 ${
+        className={`w-full max-w-[1100px] px-4 md:px-6 z-40 ${
           isSticky 
             ? 'fixed top-0 md:top-4 left-1/2 animate-slideDownSticky' 
             : 'relative z-20 mx-auto'
         }`}
       >
+        {/* ═══════════════════════════════════════════════════
+            MOBILE FORM: compact single-action (hidden on md+)
+            ═══════════════════════════════════════════════════ */}
+        <form
+          onSubmit={handleSubmit}
+          className="md:hidden bg-white rounded-2xl shadow-xl px-5 py-5 flex flex-col gap-4 border border-neutral-200/40 text-neutral-800"
+        >
+          {/* Tabs */}
+          {!isSticky && (
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                <button type="button" onClick={() => setActiveTab('Cars')}
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-colors ${activeTab === 'Cars' ? 'bg-[#191919] text-white' : 'bg-neutral-100 text-neutral-600'}`}>
+                  <span>🚗</span> Cars
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Location field — tap to open location panel */}
+          <div
+            onClick={() => setMobilePanel('location')}
+            className="flex items-center gap-3 border-2 border-neutral-200 rounded-xl h-[50px] px-4 cursor-pointer"
+          >
+            <svg className="w-4 h-4 text-neutral-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span className="text-sm font-bold text-neutral-900 truncate">{pickupLocation || 'Pickup location'}</span>
+          </div>
+
+          {!isSticky && (
+            <>
+              {/* Search button */}
+              <button
+                type="button"
+                onClick={() => setMobilePanel('details')}
+                className="w-full bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase h-[50px] rounded-xl shadow tracking-wider"
+              >
+                Search cars
+              </button>
+
+              {/* Bottom links */}
+              <div className="flex flex-col items-center gap-1.5 pt-1">
+                <button type="button" className="text-xs font-bold text-neutral-700 underline">View / edit my booking</button>
+                <button type="button" className="text-xs font-bold text-neutral-700 underline">Apply corporate rate</button>
+              </div>
+            </>
+          )}
+        </form>
+
+        {/* ═══════════════════════════════════════════════════
+            DESKTOP FORM: full inline layout (hidden on mobile)
+            ═══════════════════════════════════════════════════ */}
         <form 
           onSubmit={handleSubmit}
-          className="bg-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col gap-6 border border-neutral-200/40 text-neutral-800"
+          className="hidden md:flex bg-white rounded-2xl shadow-xl p-6 md:p-8 flex-col gap-6 border border-neutral-200/40 text-neutral-800"
         >
           {/* Top Tabs Row */}
           <div className="flex items-center justify-between pb-1">
@@ -980,10 +1045,10 @@ export default function Hero({ onSearch }) {
             </div>
 
             {/* Dates & Search Action Row — separate boxes like reference */}
-            <div className="flex flex-col lg:flex-row gap-4 items-end relative">
+            <div className="grid grid-cols-2 lg:flex lg:flex-row gap-3 lg:gap-4 items-end relative">
 
               {/* ── PICKUP DATE ── */}
-              <div className="flex flex-col flex-1">
+              <div className="flex flex-col col-span-1 lg:flex-1">
                 <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left">Pickup date</label>
                 <div
                   onClick={() => {
@@ -991,34 +1056,34 @@ export default function Hero({ onSearch }) {
                     setShowCalendarPopup(true);
                     setActiveDateField('pickup');
                   }}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
+                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
                     showCalendarPopup && activeDateField === 'pickup'
                       ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
-                  <Calendar className="w-4 h-4 text-black mr-2.5 flex-shrink-0 stroke-[2px]" />
-                  <span className="text-sm font-bold text-neutral-900 select-none">{pickupDate || 'Select date'}</span>
+                  <Calendar className="w-4 h-4 text-black mr-2 flex-shrink-0 stroke-[2px]" />
+                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none truncate">{pickupDate || 'Select date'}</span>
                 </div>
               </div>
 
               {/* ── PICKUP TIME (with popup anchor) ── */}
-              <div className="flex flex-col relative" style={{width: '140px', flexShrink: 0}}>
-                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left opacity-0 pointer-events-none">Time</label>
+              <div className="flex flex-col relative col-span-1" style={{width: 'auto', flexShrink: 0}}>
+                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left lg:opacity-0 pointer-events-none">Pickup time</label>
                 <div
                   onClick={(e) => openTimePopup(e, 'pickup')}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
+                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
                     showTimePopup && activeTimeField === 'pickup'
                       ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
-                  <span className="text-sm font-bold text-neutral-900 select-none whitespace-nowrap">{pickupTime}</span>
+                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none whitespace-nowrap">{pickupTime}</span>
                 </div>
                 {/* Time Picker Popup anchored here */}
                 {showTimePopup && activeTimeField === 'pickup' && (
                   <div
-                    className="absolute top-full mt-2 left-0 w-[290px] bg-white border border-neutral-200 rounded-2xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
+                    className="absolute top-full mt-2 left-0 right-0 md:right-auto md:w-[290px] bg-white border border-neutral-200 rounded-2xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <TimePickerPopup
@@ -1031,7 +1096,7 @@ export default function Hero({ onSearch }) {
               </div>
 
               {/* ── RETURN DATE ── */}
-              <div className="flex flex-col flex-1">
+              <div className="flex flex-col col-span-1 lg:flex-1">
                 <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left">Return date</label>
                 <div
                   onClick={() => {
@@ -1039,34 +1104,34 @@ export default function Hero({ onSearch }) {
                     setShowCalendarPopup(true);
                     setActiveDateField('return');
                   }}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
+                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
                     showCalendarPopup && activeDateField === 'return'
                       ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
-                  <Calendar className="w-4 h-4 text-black mr-2.5 flex-shrink-0 stroke-[2px]" />
-                  <span className="text-sm font-bold text-neutral-900 select-none">{returnDate || 'Select date'}</span>
+                  <Calendar className="w-4 h-4 text-black mr-2 flex-shrink-0 stroke-[2px]" />
+                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none truncate">{returnDate || 'Select date'}</span>
                 </div>
               </div>
 
               {/* ── RETURN TIME (with popup anchor) ── */}
-              <div className="flex flex-col relative" style={{width: '140px', flexShrink: 0}}>
-                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left opacity-0 pointer-events-none">Time</label>
+              <div className="flex flex-col relative col-span-1" style={{width: 'auto', flexShrink: 0}}>
+                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left lg:opacity-0 pointer-events-none">Return time</label>
                 <div
                   onClick={(e) => openTimePopup(e, 'return')}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-4 cursor-pointer premium-transition ${
+                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
                     showTimePopup && activeTimeField === 'return'
                       ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
-                  <span className="text-sm font-bold text-neutral-900 select-none whitespace-nowrap">{returnTime}</span>
+                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none whitespace-nowrap">{returnTime}</span>
                 </div>
                 {/* Time Picker Popup anchored here */}
                 {showTimePopup && activeTimeField === 'return' && (
                   <div
-                    className="absolute top-full mt-2 left-0 w-[290px] bg-white border border-neutral-200 rounded-2xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
+                    className="absolute top-full mt-2 left-0 right-0 md:left-auto md:right-0 md:w-[290px] bg-white border border-neutral-200 rounded-2xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <TimePickerPopup
@@ -1079,11 +1144,11 @@ export default function Hero({ onSearch }) {
               </div>
 
               {/* ── SHOW CARS BUTTON ── */}
-              <div className="flex flex-col" style={{flexShrink: 0}}>
-                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left opacity-0 pointer-events-none">.</label>
+              <div className="flex flex-col col-span-2 lg:col-span-1" style={{flexShrink: 0}}>
+                <label className="hidden lg:block text-[11px] font-bold text-neutral-900 mb-1.5 text-left opacity-0 pointer-events-none">.</label>
                 <button 
                   type="submit"
-                  className="bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase h-[48px] px-8 rounded-[12px] shadow-lg tracking-wider flex items-center justify-center hover:scale-[1.02] active:scale-95 premium-transition whitespace-nowrap"
+                  className="w-full lg:w-auto bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase h-[48px] px-8 rounded-[12px] shadow-lg tracking-wider flex items-center justify-center hover:scale-[1.02] active:scale-95 premium-transition whitespace-nowrap"
                 >
                   Show cars
                 </button>
@@ -1105,11 +1170,11 @@ export default function Hero({ onSearch }) {
               {/* ── Calendar Range Picker Popup ── */}
               {showCalendarPopup && (
                 <div
-                  className={`absolute top-full mt-2 ${
-                    activeDateField === 'pickup' 
-                      ? 'left-0' 
-                      : 'left-0 lg:left-auto lg:right-0'
-                  } w-[calc(100vw-3rem)] md:w-[650px] lg:w-[900px] bg-white border border-neutral-200/60 rounded-2xl shadow-2xl z-50 animate-fadeIn select-none text-neutral-800 overflow-hidden`}
+                  className={`fixed md:absolute top-1/2 md:top-full left-1/2 md:left-0 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 mt-0 md:mt-2 ${
+                    activeDateField === 'pickup'
+                      ? 'md:left-0'
+                      : 'md:left-0 lg:left-auto lg:right-0'
+                  } w-[calc(100vw-2rem)] max-w-[400px] md:max-w-none md:w-[650px] lg:w-[900px] bg-white border border-neutral-200/60 rounded-2xl shadow-2xl z-50 animate-fadeIn select-none text-neutral-800 overflow-hidden`}
                   onClick={(e) => e.stopPropagation()}
                 >
                   {/* Inner padded area with relative for chevron positioning */}
@@ -1221,7 +1286,267 @@ export default function Hero({ onSearch }) {
 
       </div>
 
-      {/* Layout Placeholder to prevent layout shifts and background resizing */}
+      {/* ═══════════════════════════════════════════════════════════
+          MOBILE PANELS — full-screen overlays (hidden on md+)
+          ═══════════════════════════════════════════════════════════ */}
+
+      {/* ── PANEL 1B: Return Location Picker ── */}
+      {mobilePanel === 'location-return' && (
+        <div className="md:hidden fixed inset-0 z-[200] bg-white flex flex-col animate-slideInLeft">
+          <div className="flex items-center px-5 py-4 border-b border-neutral-100">
+            <button onClick={() => setMobilePanel('details')} className="text-neutral-800 font-bold text-lg p-1 mr-3">✕</button>
+            <span className="font-bold text-base text-neutral-900">Return location</span>
+          </div>
+          <div className="px-5 pt-4 pb-2">
+            <div className="flex items-center gap-2 border-2 border-neutral-200 rounded-xl px-3 h-[46px]">
+              <svg className="w-4 h-4 text-neutral-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" value={returnLocation} onChange={e => setReturnLocation(e.target.value)}
+                className="flex-grow text-sm font-bold text-neutral-900 outline-none" placeholder="City, airport, station..." autoFocus />
+              {returnLocation && <button onClick={() => setReturnLocation('')} className="text-neutral-400 text-xs">✕</button>}
+            </div>
+          </div>
+          <div className="flex-grow overflow-y-auto px-5 pb-8">
+            <p className="text-xs font-black text-neutral-400 uppercase tracking-wider mt-4 mb-3">Popular stations</p>
+            {popularStations.map(name => (
+              <button key={name} type="button" onClick={() => { setReturnLocation(name); setHoveredReturnStationKey(name); setMobilePanel('details'); }}
+                className="w-full flex items-center gap-4 py-3.5 border-b border-neutral-100 text-left">
+                <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor" stroke="none"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-neutral-900">{name}</p>
+                  <p className="text-xs text-neutral-400 truncate max-w-[240px]">{stationsData[name]?.address || ''}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── PANEL 1: Location Picker ── */}
+      {mobilePanel === 'location' && (
+        <div className="md:hidden fixed inset-0 z-[200] bg-white flex flex-col animate-slideInLeft">
+          <div className="flex items-center px-5 py-4 border-b border-neutral-100">
+            <button onClick={() => setMobilePanel(null)} className="text-neutral-800 font-bold text-lg p-1 mr-3">✕</button>
+            <span className="font-bold text-base text-neutral-900">Pickup location</span>
+          </div>
+          <div className="px-5 pt-4 pb-2">
+            <div className="flex items-center gap-2 border-2 border-neutral-200 rounded-xl px-3 h-[46px]">
+              <svg className="w-4 h-4 text-neutral-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)}
+                className="flex-grow text-sm font-bold text-neutral-900 outline-none" placeholder="City, airport, station..." autoFocus />
+              {pickupLocation && <button onClick={() => setPickupLocation('')} className="text-neutral-400 text-xs">✕</button>}
+            </div>
+          </div>
+          <div className="flex-grow overflow-y-auto px-5 pb-8">
+            <p className="text-xs font-black text-neutral-400 uppercase tracking-wider mt-4 mb-3">History</p>
+            {historyStations.map(name => (
+              <button key={name} type="button" onClick={() => { setPickupLocation(name); setHoveredStationKey(name); setMobilePanel('details'); }}
+                className="w-full flex items-center gap-4 py-3.5 border-b border-neutral-100 text-left">
+                <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-neutral-900">{name}</p>
+                  <p className="text-xs text-neutral-400">{stationsData[name]?.address || ''}</p>
+                </div>
+              </button>
+            ))}
+            <p className="text-xs font-black text-neutral-400 uppercase tracking-wider mt-5 mb-3">Popular stations</p>
+            {popularStations.map(name => (
+              <button key={name} type="button" onClick={() => { setPickupLocation(name); setHoveredStationKey(name); setMobilePanel('details'); }}
+                className="w-full flex items-center gap-4 py-3.5 border-b border-neutral-100 text-left">
+                <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor" stroke="none"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-neutral-900">{name}</p>
+                  <p className="text-xs text-neutral-400 truncate max-w-[240px]">{stationsData[name]?.address || ''}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── PANEL 2: Rental Details ── */}
+      {mobilePanel === 'details' && (
+        <div className="md:hidden fixed inset-0 z-[200] bg-white flex flex-col animate-slideInLeft">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <span className="font-black text-base text-neutral-900">Your rental details</span>
+            <button onClick={() => setMobilePanel(null)} className="text-neutral-800 font-bold text-lg p-1">✕</button>
+          </div>
+          <div className="flex-grow overflow-y-auto px-5 py-5 space-y-5">
+            <div>
+              <p className="text-xs font-black text-neutral-400 uppercase tracking-wider mb-2">Pickup &amp; return</p>
+              <button type="button" onClick={() => setMobilePanel('location')}
+                className="w-full flex items-center gap-3 border-2 border-neutral-200 rounded-xl h-[50px] px-4 text-left">
+                <svg className="w-4 h-4 text-neutral-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span className="text-sm font-bold text-neutral-900 truncate">{pickupLocation}</span>
+              </button>
+              <button type="button" onClick={() => setIsDifferentReturn(!isDifferentReturn)}
+                className="flex items-center gap-1.5 mt-2 text-xs font-bold text-[#C5A059]">
+                <span className="text-base leading-none">{isDifferentReturn ? '−' : '+'}</span>
+                {isDifferentReturn ? 'Same return location' : 'Different return location?'}
+              </button>
+              {isDifferentReturn && (
+                <div className="mt-2 flex items-center gap-3 border-2 border-neutral-200 rounded-xl h-[50px] px-4 cursor-pointer"
+                  onClick={() => setMobilePanel('location-return')}>
+                  <svg className="w-4 h-4 text-neutral-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span className="text-sm font-bold text-neutral-900 truncate">{returnLocation || 'Select return location'}</span>
+                </div>
+              )}
+            </div>
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <div>
+                <p className="text-xs font-black text-neutral-900 mb-2">Pickup</p>
+                <button type="button" onClick={() => { setActiveDateField('pickup'); setMobilePanel('calendar'); }}
+                  className="w-full flex items-center gap-2 border-2 border-neutral-200 rounded-xl h-[46px] px-3 mb-2">
+                  <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span className="text-xs font-bold text-neutral-900">{pickupDate || 'Select'}</span>
+                </button>
+                <button type="button" onClick={() => setMobilePanel('time-pickup')}
+                  className="w-full flex items-center gap-2 border-2 border-neutral-200 rounded-xl h-[46px] px-3">
+                  <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span className="text-xs font-bold text-neutral-900">{pickupTime}</span>
+                </button>
+              </div>
+              <div>
+                <p className="text-xs font-black text-neutral-900 mb-2">Return</p>
+                <button type="button" onClick={() => { setActiveDateField('return'); setMobilePanel('calendar'); }}
+                  className="w-full flex items-center gap-2 border-2 border-neutral-200 rounded-xl h-[46px] px-3 mb-2">
+                  <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span className="text-xs font-bold text-neutral-900">{returnDate || 'Select'}</span>
+                </button>
+                <button type="button" onClick={() => setMobilePanel('time-return')}
+                  className="w-full flex items-center gap-2 border-2 border-neutral-200 rounded-xl h-[46px] px-3">
+                  <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span className="text-xs font-bold text-neutral-900">{returnTime}</span>
+                </button>
+              </div>
+            </div>
+            
+            {/* Action buttons (Show Cars, Corporate Rate, Driver Age) centered at bottom of scroll content */}
+            <div className="pt-4 flex flex-col items-center gap-4">
+              <button type="button" onClick={() => { onSearch({ pickupLocation, returnLocation: isDifferentReturn ? returnLocation : pickupLocation, pickupDate, pickupTime, returnDate, returnTime, driverAge }); setMobilePanel(null); }}
+                className="w-full bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase h-[52px] rounded-xl shadow tracking-wider">
+                Show cars
+              </button>
+              <button type="button" className="text-xs font-bold text-neutral-600 underline">Apply corporate rate</button>
+              <div className="relative">
+                <button type="button" onClick={() => setShowAgeDropdown(!showAgeDropdown)}
+                  className="flex items-center gap-1.5 text-xs font-bold text-neutral-700">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Driver's age {driverAge} <span className="text-[10px]">▼</span>
+                </button>
+                {showAgeDropdown && (
+                  <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-white border border-neutral-200 rounded-xl shadow-xl w-[130px] max-h-[200px] overflow-y-auto z-10 py-1">
+                    {['30+','29','28','27','26','25','24','23','22','21','20','19','18'].map(age => (
+                      <button key={age} type="button" onClick={() => { setDriverAge(age); setShowAgeDropdown(false); }}
+                        className={`w-full text-center px-4 py-2 text-xs font-bold ${driverAge === age ? 'text-[#C5A059]' : 'text-neutral-700'} hover:bg-neutral-50`}>
+                        {age}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── PANEL 3: Calendar (full-screen stacked months) ── */}
+      {mobilePanel === 'calendar' && (
+        <div className="md:hidden fixed inset-0 z-[300] bg-white flex flex-col animate-slideInLeft">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <button onClick={() => setMobilePanel('details')} className="text-neutral-700 p-1">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            </button>
+            <span className="font-black text-base text-neutral-900">Trip dates</span>
+            <button onClick={() => { setPickupDate(''); setReturnDate(''); }} className="text-xs font-black text-neutral-500 uppercase tracking-wide">✕ Clear</button>
+          </div>
+          <div className="flex-grow overflow-y-auto px-5 py-6 space-y-10">
+            {renderMonth('June 2026', juneDays, 0)}
+            {renderMonth('July 2026', julyDays, 30)}
+            {renderMonth('August 2026', augustDays, 61)}
+          </div>
+          <div className="px-5 py-4 border-t border-neutral-100 bg-white">
+            <button type="button" onClick={() => { if (pickupDate && returnDate) setMobilePanel('details'); }}
+              disabled={!pickupDate || !returnDate}
+              className="w-full bg-[#C5A059] disabled:bg-neutral-200 disabled:text-neutral-400 text-white font-condensed font-black text-sm uppercase h-[52px] rounded-xl shadow tracking-wider transition-colors">
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── PANEL 4a: Time Picker – Pickup ── */}
+      {mobilePanel === 'time-pickup' && (
+        <div className="md:hidden fixed inset-0 z-[300] bg-white flex flex-col animate-slideInLeft">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <button onClick={() => setMobilePanel('details')} className="text-neutral-700 p-1">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            </button>
+            <span className="font-black text-base text-neutral-900">Select pickup time</span>
+            <div className="w-8" />
+          </div>
+          <div className="grid grid-cols-2 gap-3 px-5 pt-4 pb-2">
+            <div className="flex items-center gap-2 border-2 border-[#C5A059] bg-[#FDF8EF] rounded-xl h-[44px] px-3">
+              <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span className="text-xs font-bold text-neutral-900">{pickupDate || '—'}</span>
+            </div>
+            <div className="flex items-center gap-2 border-2 border-neutral-200 bg-neutral-50 rounded-xl h-[44px] px-3">
+              <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span className="text-xs font-bold text-neutral-900">{returnDate || '—'}</span>
+            </div>
+          </div>
+          <p className="px-5 text-[11px] text-neutral-400 font-semibold mb-1">⏱ Opening Times: {stationsData[pickupLocation]?.hours || '05:00 AM - 11:59 PM'}</p>
+          <div className="flex-grow overflow-y-auto px-5 pb-8">
+            <TimePickerPopup activeTimeField="pickup" currentTime={pickupTime} selectTime={(slot) => { setPickupTime(slot); setMobilePanel('details'); }} />
+          </div>
+          <div className="px-5 py-4 border-t border-neutral-100 bg-white">
+            <button type="button" onClick={() => setMobilePanel('details')}
+              className="w-full bg-[#C5A059] text-white font-condensed font-black text-sm uppercase h-[52px] rounded-xl shadow tracking-wider">
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── PANEL 4b: Time Picker – Return ── */}
+      {mobilePanel === 'time-return' && (
+        <div className="md:hidden fixed inset-0 z-[300] bg-white flex flex-col animate-slideInLeft">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <button onClick={() => setMobilePanel('details')} className="text-neutral-700 p-1">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            </button>
+            <span className="font-black text-base text-neutral-900">Select return time</span>
+            <div className="w-8" />
+          </div>
+          <div className="grid grid-cols-2 gap-3 px-5 pt-4 pb-2">
+            <div className="flex items-center gap-2 border-2 border-neutral-200 bg-neutral-50 rounded-xl h-[44px] px-3">
+              <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span className="text-xs font-bold text-neutral-900">{pickupDate || '—'}</span>
+            </div>
+            <div className="flex items-center gap-2 border-2 border-[#C5A059] bg-[#FDF8EF] rounded-xl h-[44px] px-3">
+              <svg className="w-4 h-4 text-neutral-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span className="text-xs font-bold text-neutral-900">{returnDate || '—'}</span>
+            </div>
+          </div>
+          <p className="px-5 text-[11px] text-neutral-400 font-semibold mb-1">⏱ Opening Times: {stationsData[pickupLocation]?.hours || '05:00 AM - 11:59 PM'}</p>
+          <div className="flex-grow overflow-y-auto px-5 pb-8">
+            <TimePickerPopup activeTimeField="return" currentTime={returnTime} selectTime={(slot) => { setReturnTime(slot); setMobilePanel('details'); }} />
+          </div>
+          <div className="px-5 py-4 border-t border-neutral-100 bg-white">
+            <button type="button" onClick={() => setMobilePanel('details')}
+              className="w-full bg-[#C5A059] text-white font-condensed font-black text-sm uppercase h-[52px] rounded-xl shadow tracking-wider">
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
+
+
       {isSticky && (
         <div className="w-full max-w-[1100px] px-6 h-[420px] md:h-[310px] pointer-events-none" />
       )}

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import Filters from './components/Filters.jsx';
@@ -58,6 +58,7 @@ export default function App() {
 
   const [isSearchResultsView, setIsSearchResultsView] = useState(false);
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+  const [heroInitialPanel, setHeroInitialPanel] = useState(null);
 
   const handleSearchSubmit = (params) => {
     setSearchParams(params);
@@ -140,32 +141,36 @@ export default function App() {
         <Header
           isResultsPage={true}
           searchParams={searchParams}
-          onEditSearch={() => setIsSearchResultsView(false)}
+          onEditSearch={() => {
+            setHeroInitialPanel('details');
+            setIsSearchResultsView(false);
+          }}
           onResetView={() => {
             clearFilters();
             setIsSearchResultsView(false);
           }}
+          onOpenFilters={() => setShowFilterDrawer(true)}
         />
 
         {/* Results Page content */}
         <main className="flex-grow pb-16 pt-10 max-w-[1100px] w-full mx-auto px-6">
           {/* Title */}
-          <h2 className="font-condensed font-black text-3xl md:text-[34px] text-neutral-900 tracking-wide uppercase mb-8 text-left">
+          <h2 className="hidden md:block font-condensed font-black text-3xl md:text-[34px] text-neutral-900 tracking-wide uppercase mb-8 text-left">
             WHICH CAR DO YOU WANT TO DRIVE?
           </h2>
 
           {/* Filters Row */}
-          <div className="flex flex-wrap items-center gap-2 mb-10 overflow-x-auto select-none py-1">
+          <div className="flex flex-nowrap md:flex-wrap items-center gap-2 mb-6 md:mb-10 overflow-x-auto no-scrollbar select-none py-1">
             {/* Recommended filter */}
-            <button className="flex items-center gap-2 bg-white hover:bg-neutral-50 border border-neutral-300 rounded-full px-4 py-2 text-xs font-bold text-neutral-800 transition-colors">
+            <button className="flex items-center gap-2 bg-white hover:bg-neutral-50 border border-neutral-300 rounded-full px-4 py-2 text-xs font-bold text-neutral-800 transition-colors whitespace-nowrap">
               Recommended
               <svg className="w-3.5 h-3.5 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M6 9l6 6 6-6" /></svg>
             </button>
 
-            {/* Filters toggle */}
+            {/* Filters toggle (Desktop only) */}
             <button
               onClick={() => setShowFilterDrawer(true)}
-              className="flex items-center gap-2 bg-black hover:bg-neutral-900 rounded-full px-4 py-2 text-xs font-bold text-white transition-colors border border-black"
+              className="hidden md:flex items-center gap-2 bg-black hover:bg-neutral-900 rounded-full px-4 py-2 text-xs font-bold text-white transition-colors border border-black whitespace-nowrap"
             >
               <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <line x1="4" y1="21" x2="4" y2="14" />
@@ -185,7 +190,7 @@ export default function App() {
             {/* Hot offers */}
             <button
               onClick={() => toggleFilter('hotOffers')}
-              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.hotOffers
+              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all whitespace-nowrap ${activeFilters.hotOffers
                   ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
@@ -196,7 +201,7 @@ export default function App() {
             {/* Premium */}
             <button
               onClick={() => toggleFilter('premium')}
-              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.premium
+              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all whitespace-nowrap ${activeFilters.premium
                   ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
@@ -207,7 +212,7 @@ export default function App() {
             {/* Guaranteed model */}
             <button
               onClick={() => toggleFilter('guaranteed')}
-              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.guaranteed
+              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all whitespace-nowrap ${activeFilters.guaranteed
                   ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
@@ -218,7 +223,7 @@ export default function App() {
             {/* Automatic */}
             <button
               onClick={() => toggleFilter('automatic')}
-              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all ${activeFilters.automatic
+              className={`flex items-center gap-1.5 border rounded-full px-4 py-2 text-xs font-bold transition-all whitespace-nowrap ${activeFilters.automatic
                   ? 'bg-[#C5A059] border-[#C5A059] text-white'
                   : 'bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800'
                 }`}
@@ -336,10 +341,7 @@ export default function App() {
                   onClick={() => setShowFilterDrawer(false)}
                   className="text-neutral-900 hover:text-black font-semibold text-lg p-1.5 transition-colors"
                 >
-                  <svg className="w-5 h-5 text-neutral-800 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
+                  <svg className="w-5 h-5 text-neutral-900 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
 
                 <h3 className="font-condensed font-black text-lg tracking-wide uppercase text-neutral-900 select-none">
@@ -363,12 +365,12 @@ export default function App() {
                   </h4>
                   <div className="flex flex-wrap gap-2.5">
                     {[
-                      { id: 'wagon', label: 'Station wagon', icon: 'ðŸš—' },
-                      { id: 'sedan', label: 'Sedan', icon: 'ðŸš—' },
-                      { id: 'suv', label: 'SUV', icon: 'ðŸš™' },
-                      { id: 'convertible', label: 'Convertible', icon: 'ðŸŽï¸' },
-                      { id: 'family', label: 'Family car', icon: 'ðŸš' },
-                      { id: 'coupe', label: 'Coupe', icon: 'ðŸŽï¸' }
+                      { id: 'wagon', label: 'Station wagon', icon: '🚙' },
+                      { id: 'sedan', label: 'Sedan', icon: '🚗' },
+                      { id: 'suv', label: 'SUV', icon: '🚙' },
+                      { id: 'convertible', label: 'Convertible', icon: '🏎️' },
+                      { id: 'family', label: 'Family car', icon: '🚐' },
+                      { id: 'coupe', label: 'Coupe', icon: '🏎️' }
                     ].map((type) => {
                       const isSelected = activeFilters[type.id];
                       return (
@@ -395,8 +397,8 @@ export default function App() {
                   </h4>
                   <div className="flex flex-wrap gap-2.5">
                     {[
-                      { id: 'premium', label: 'Premium', icon: 'ðŸ’Ž' },
-                      { id: 'guaranteed', label: 'Guaranteed model', icon: 'ðŸš—' }
+                      { id: 'premium', label: 'Premium', icon: '💎' },
+                      { id: 'guaranteed', label: 'Guaranteed model', icon: '🚗' }
                     ].map((item) => {
                       const isSelected = activeFilters[item.id];
                       return (
@@ -423,11 +425,11 @@ export default function App() {
                   </h4>
                   <div className="flex flex-wrap gap-2.5">
                     {[
-                      { id: 'performance', label: 'High performance', icon: 'âš™ï¸' },
-                      { id: 'electric', label: 'Electric', icon: 'âš¡' },
+                      { id: 'performance', label: 'High performance', icon: '⚙️' },
+                      { id: 'electric', label: 'Electric', icon: '⚡' },
                       { id: 'automatic', label: 'Automatic', icon: 'A' },
-                      { id: 'gps', label: 'GPS', icon: 'ðŸ—ºï¸' },
-                      { id: 'hotOffers', label: 'Hot offers', icon: 'ðŸ”¥' }
+                      { id: 'gps', label: 'GPS', icon: '🗺️' },
+                      { id: 'hotOffers', label: 'Hot offers', icon: '🔥' }
                     ].map((feature) => {
                       const isSelected = activeFilters[feature.id];
                       return (
@@ -565,7 +567,11 @@ export default function App() {
 
       {/* Main Core Booking Experience */}
       <main className="flex-grow">
-        <Hero onSearch={handleSearchSubmit} />
+        <Hero 
+          onSearch={handleSearchSubmit} 
+          initialMobilePanel={heroInitialPanel} 
+          onPanelClosed={() => setHeroInitialPanel(null)}
+        />
 
         {selectedCar && (
           <BookingWizard
