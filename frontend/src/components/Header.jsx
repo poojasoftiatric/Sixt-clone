@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { HelpCircle, Car, Globe, User, Menu, X, Sparkles } from 'lucide-react';
+import LanguageCurrencyModal from './LanguageCurrencyModal';
 
 export default function Header({ onResetView, isResultsPage, searchParams, onEditSearch, onOpenFilters }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLangModalOpen, setIsLangModalOpen] = useState(false);
   if (isResultsPage) {
     return (
       <>
+        {isLangModalOpen && <LanguageCurrencyModal onClose={() => setIsLangModalOpen(false)} />}
         {/* --- DESKTOP RESULTS HEADER --- */}
         <header className="hidden md:block w-full bg-black text-white select-none z-50 relative border-b border-neutral-800/80">
           <div className="w-full max-w-[1100px] mx-auto px-4 py-3 h-[64px]">
@@ -186,7 +189,10 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
             </button>
 
             {/* Language/Currency Link */}
-            <button className="flex items-center gap-2 text-white hover:text-[#C5A059] premium-transition">
+            <button 
+              onClick={() => setIsLangModalOpen(true)}
+              className="flex items-center gap-2 text-white hover:text-[#C5A059] premium-transition"
+            >
               <Globe className="w-5 h-5 stroke-current stroke-[2.5]" />
               <span>EN | $</span>
             </button>
@@ -258,6 +264,8 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
         
       </div>
     </div>
+    
+    <LanguageCurrencyModal isOpen={isLangModalOpen} onClose={() => setIsLangModalOpen(false)} />
     </>
   );
 }

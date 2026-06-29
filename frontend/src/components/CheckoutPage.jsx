@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Info, Check, Loader2 } from 'lucide-react';
+import { ChevronLeft, Info, Check, Loader2, Globe } from 'lucide-react';
 import BookingSuccessModal from './BookingSuccessModal';
+import LanguageCurrencyModal from './LanguageCurrencyModal';
 
 export default function CheckoutPage({ car, searchParams, bookingOption, mileage, onClose }) {
   // Mock data for the screenshot UI
@@ -19,11 +20,41 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [company, setCompany] = useState('');
+  
+  // Invoice form state
+  const [streetAddress, setStreetAddress] = useState('');
+  const [zip, setZip] = useState('');
+  const [city, setCity] = useState('');
+  const [stateRegion, setStateRegion] = useState('');
+  
+  const [errors, setErrors] = useState({});
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isLangModalOpen, setIsLangModalOpen] = useState(false);
 
   const handleSubmit = async () => {
+    // Validation
+    const newErrors = {};
+    if (!email) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Email is invalid';
+    if (!firstName) newErrors.firstName = 'First name is required';
+    if (!lastName) newErrors.lastName = 'Last name is required';
+    if (!phoneNumber) newErrors.phoneNumber = 'Phone number is required';
+    if (!streetAddress) newErrors.streetAddress = 'Street address is required';
+    if (!zip) newErrors.zip = 'Zip code is required';
+    if (!city) newErrors.city = 'City is required';
+    if (!stateRegion) newErrors.stateRegion = 'State is required';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    setErrors({});
+
     setIsSubmitting(true);
     try {
       // Send to Web3Forms
@@ -97,8 +128,11 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
         </div>
         
         <div className="flex items-center gap-6 text-[13px] font-semibold text-[#a5a5a5]">
-          <button className="flex items-center gap-1.5 hover:text-[#C5A059] transition-colors group">
-            <GlobeIcon className="w-4 h-4 group-hover:stroke-[#C5A059] transition-colors" />
+          <button 
+            onClick={() => setIsLangModalOpen(true)}
+            className="flex items-center gap-1.5 hover:text-[#C5A059] transition-colors group"
+          >
+            <Globe className="w-4 h-4 group-hover:stroke-[#C5A059] transition-colors" />
             EN | $
           </button>
           <button className="flex items-center gap-1.5 hover:text-[#C5A059] transition-colors group">
@@ -121,7 +155,16 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
               <span className="text-[15px] font-bold">Total:</span>
               <span className="text-2xl font-black">${price.toLocaleString('en-US', {minimumFractionDigits: 2})}</span>
             </div>
-            <button className="text-[12px] font-bold underline mt-0.5 hover:text-neutral-600">
+            <button 
+              onClick={() => {
+                const el = document.getElementById('price-details-section');
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
+              className="text-[12px] font-bold underline mt-0.5 hover:text-neutral-600"
+            >
               Price details
             </button>
           </div>
@@ -138,19 +181,22 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
           
           {/* Driver Form */}
           <div className="space-y-4 mb-8">
-            <div>
+            <div className="mb-4">
               <label className="block text-[13px] font-bold mb-1">Email</label>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+              <input type="email" value={email} onChange={e => {setEmail(e.target.value); setErrors(prev => ({...prev, email: null}))}} className={`w-full border ${errors.email ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+              {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email}</span>}
             </div>
             
-            <div className="flex gap-4">
+            <div className="flex gap-4 mb-4">
               <div className="flex-1">
                 <label className="block text-[13px] font-bold mb-1">First name</label>
-                <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+                <input type="text" value={firstName} onChange={e => {setFirstName(e.target.value); setErrors(prev => ({...prev, firstName: null}))}} className={`w-full border ${errors.firstName ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+                {errors.firstName && <span className="text-red-500 text-xs mt-1 block">{errors.firstName}</span>}
               </div>
               <div className="flex-1">
                 <label className="block text-[13px] font-bold mb-1">Last name</label>
-                <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+                <input type="text" value={lastName} onChange={e => {setlastName(e.target.value); setErrors(prev => ({...prev, lastName: null}))}} className={`w-full border ${errors.lastName ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+                {errors.lastName && <span className="text-red-500 text-xs mt-1 block">{errors.lastName}</span>}
               </div>
             </div>
             
@@ -208,13 +254,14 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
               </div>
               <div className="flex-grow">
                 <label className="block text-[13px] font-bold mb-1">Phone number</label>
-                <input type="tel" className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+                <input type="tel" value={phoneNumber} onChange={e => {setPhoneNumber(e.target.value); setErrors(prev => ({...prev, phoneNumber: null}))}} className={`w-full border ${errors.phoneNumber ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+                {errors.phoneNumber && <span className="text-red-500 text-xs mt-1 block">{errors.phoneNumber}</span>}
               </div>
             </div>
             
             <div>
               <label className="block text-[13px] font-bold mb-1">Company <span className="font-normal text-neutral-500">(optional)</span></label>
-              <input type="text" className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+              <input type="text" value={company} onChange={e => setCompany(e.target.value)} className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
             </div>
           </div>
 
@@ -303,27 +350,30 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
             
             <div>
               <label className="block text-[13px] font-bold mb-1">Street address</label>
-              <input type="text" className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+              <input type="text" value={streetAddress} onChange={e => {setStreetAddress(e.target.value); setErrors(prev => ({...prev, streetAddress: null}))}} className={`w-full border ${errors.streetAddress ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+              {errors.streetAddress && <span className="text-red-500 text-xs mt-1 block">{errors.streetAddress}</span>}
             </div>
             
             <div className="flex gap-4">
               <div className="w-1/3">
                 <label className="block text-[13px] font-bold mb-1">Zip</label>
-                <input type="text" className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+                <input type="text" value={zip} onChange={e => {setZip(e.target.value); setErrors(prev => ({...prev, zip: null}))}} className={`w-full border ${errors.zip ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+                {errors.zip && <span className="text-red-500 text-xs mt-1 block">{errors.zip}</span>}
               </div>
               <div className="w-2/3">
                 <label className="block text-[13px] font-bold mb-1">City</label>
-                <input type="text" className="w-full border border-neutral-300 rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" />
+                <input type="text" value={city} onChange={e => {setCity(e.target.value); setErrors(prev => ({...prev, city: null}))}} className={`w-full border ${errors.city ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+                {errors.city && <span className="text-red-500 text-xs mt-1 block">{errors.city}</span>}
               </div>
             </div>
             
             <div>
               <label className="block text-[13px] font-bold mb-1">State</label>
               <div className="relative">
-                <select className="w-full border border-neutral-300 rounded-lg h-12 px-4 appearance-none focus:border-black focus:ring-1 focus:ring-black outline-none transition-all bg-white text-[14px]">
-                  <option></option>
-                  <option>California</option>
-                  <option>New York</option>
+                <select value={stateRegion} onChange={e => {setStateRegion(e.target.value); setErrors(prev => ({...prev, stateRegion: null}))}} className={`w-full border ${errors.stateRegion ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 appearance-none focus:border-black focus:ring-1 focus:ring-black outline-none transition-all bg-white text-[14px]`}>
+                  <option value=""></option>
+                  <option value="California">California</option>
+                  <option value="New York">New York</option>
                 </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
                   <ChevronDownIcon className="w-4 h-4 text-neutral-500" />
@@ -346,7 +396,7 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
         </div>
 
         {/* Right Column (Summary Card) */}
-        <div className="w-full lg:w-1/3">
+        <div id="price-details-section" className="w-full lg:w-1/3">
           <div className="bg-[#f9f9f9] rounded-2xl p-6 sticky top-28">
             
             {/* Car Summary */}
@@ -446,6 +496,8 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
           }}
         />
       )}
+      
+      <LanguageCurrencyModal isOpen={isLangModalOpen} onClose={() => setIsLangModalOpen(false)} />
     </div>
   );
 }
