@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, AlertCircle, Calendar, ShieldCheck, ArrowLeft, ArrowRight, Sparkles, Mail, Phone, Info, UserPlus, Fuel, Globe, Car, Wrench, Shield, Baby, Zap, Cpu, Sliders } from 'lucide-react';
+import { Shield, Car, Check, Calendar, MapPin, X, ArrowRight, User, Phone, Mail, FileText, Gift, Info, ShieldCheck, Zap, Fuel, CreditCard, ChevronDown, ChevronUp, Lock, ArrowLeft, Wrench, Baby, Cpu, Sliders, Globe } from 'lucide-react';
+import PriceDetailsModal from './PriceDetailsModal';
 
 // Helper function to extract list of dates between range inclusive
 function getDatesInRange(startDateStr, endDateStr) {
@@ -53,6 +54,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
 
   // Statuses
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPriceDetailsModalOpen, setIsPriceDetailsModalOpen] = useState(false);
   const [validationError, setValidationError] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
 
@@ -347,7 +349,10 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
                   ${totals.total.toFixed(2)}
                 </span>
               </div>
-              <button className="text-[11px] font-bold text-neutral-700 hover:text-black underline block tracking-wide uppercase text-right leading-none mt-1">
+              <button 
+                onClick={() => setIsPriceDetailsModalOpen(true)}
+                className="text-[11px] font-bold text-neutral-700 hover:text-black underline block tracking-wide uppercase text-right leading-none mt-1"
+              >
                 Price details
               </button>
             </div>
@@ -1712,6 +1717,11 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
 
         </div>
       </div>
+      <PriceDetailsModal 
+        isOpen={isPriceDetailsModalOpen} 
+        onClose={() => setIsPriceDetailsModalOpen(false)} 
+        totalPrice={totals.total} 
+      />
     </div>
   );
 }

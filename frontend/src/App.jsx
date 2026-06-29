@@ -60,10 +60,12 @@ export default function App() {
   const [isSearchResultsView, setIsSearchResultsView] = useState(false);
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const [heroInitialPanel, setHeroInitialPanel] = useState(null);
+  const [isEditingSearch, setIsEditingSearch] = useState(false);
 
   const handleSearchSubmit = (params) => {
     setSearchParams(params);
     setIsSearchResultsView(true);
+    setIsEditingSearch(false);
     setSelectedCarId(null); // Close details on search submit
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
@@ -143,8 +145,12 @@ export default function App() {
           isResultsPage={true}
           searchParams={searchParams}
           onEditSearch={() => {
-            setHeroInitialPanel('details');
-            setIsSearchResultsView(false);
+            if (window.innerWidth >= 768) {
+              setIsEditingSearch(!isEditingSearch);
+            } else {
+              setHeroInitialPanel('details');
+              setIsSearchResultsView(false);
+            }
           }}
           onResetView={() => {
             clearFilters();
@@ -152,6 +158,17 @@ export default function App() {
           }}
           onOpenFilters={() => setShowFilterDrawer(true)}
         />
+
+        {/* Desktop Search Dropdown Panel */}
+        {isEditingSearch && (
+          <div className="hidden md:block w-full absolute top-[64px] left-0 z-40 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] border-b border-neutral-200">
+            <Hero 
+              onSearch={handleSearchSubmit} 
+              isDropdownMode={true} 
+              initialSearchParams={searchParams}
+            />
+          </div>
+        )}
 
         {/* Results Page content */}
         <main className="flex-grow pb-16 pt-10 max-w-[1100px] w-full mx-auto px-6">

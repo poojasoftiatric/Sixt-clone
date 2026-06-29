@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { HelpCircle, Car, Globe, User, Menu, X, Sparkles } from 'lucide-react';
 import LanguageCurrencyModal from './LanguageCurrencyModal';
+import { useUserSettings } from '../hooks/useUserSettings';
 
 export default function Header({ onResetView, isResultsPage, searchParams, onEditSearch, onOpenFilters }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLangModalOpen, setIsLangModalOpen] = useState(false);
+  const { langCode, setLangCode, currencySymbol, setCurrencySymbol, langName, setLangName, currencyName, setCurrencyName } = useUserSettings();
   if (isResultsPage) {
     return (
       <>
-        {isLangModalOpen && <LanguageCurrencyModal onClose={() => setIsLangModalOpen(false)} />}
+        {isLangModalOpen && (
+          <LanguageCurrencyModal 
+            isOpen={isLangModalOpen}
+            onClose={() => setIsLangModalOpen(false)} 
+            onSelectLang={(code, name) => { setLangCode(code); setLangName(name); }}
+            onSelectCurrency={(sym, name) => { setCurrencySymbol(sym); setCurrencyName(name); }}
+            initialLangName={langName}
+            initialCurrencyName={currencyName}
+          />
+        )}
         {/* --- DESKTOP RESULTS HEADER --- */}
-        <header className="hidden md:block w-full bg-black text-white select-none z-50 relative border-b border-neutral-800/80">
+        <header className="hidden md:block w-full bg-black text-white select-none z-50 sticky top-0 border-b border-neutral-800/80 shadow-md">
           <div className="w-full max-w-[1100px] mx-auto px-4 py-3 h-[64px]">
             <div className="flex items-center justify-between h-full">
               {/* Logo */}
@@ -51,9 +62,12 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
 
               {/* Right options */}
               <div className="flex items-center gap-6 text-[15px] font-bold text-white tracking-wide">
-                <button className="flex items-center gap-1.5 hover:text-neutral-300 premium-transition">
+                <button 
+                  onClick={() => setIsLangModalOpen(true)}
+                  className="flex items-center gap-1.5 hover:text-neutral-300 premium-transition"
+                >
                   <Globe className="w-[18px] h-[18px] text-white stroke-[2.5]" />
-                  <span>EN | $</span>
+                  <span>{langCode} | {currencySymbol}</span>
                 </button>
                 <button 
                   className="flex items-center gap-1.5 hover:text-neutral-300 premium-transition"
@@ -67,23 +81,25 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
           </div>
         </header>
 
-        {/* --- MOBILE RESULTS HEADER (White Sticky Bar) --- */}
-        <header className="md:hidden w-full bg-white text-neutral-900 select-none z-50 relative border-b border-neutral-200">
+        {/* --- MOBILE RESULTS HEADER (Non-sticky Top Bar) --- */}
+        <div className="md:hidden w-full bg-white text-neutral-900 select-none z-50 relative">
           {/* Top row: Back button, Globe, User */}
           <div className="flex items-center justify-between px-4 py-2">
             <button onClick={onResetView} className="p-1 -ml-2">
               <svg className="w-5 h-5 text-neutral-900 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             <div className="flex items-center gap-4">
-              <button><Globe className="w-5 h-5 text-neutral-900" /></button>
+              <button onClick={() => setIsLangModalOpen(true)}><Globe className="w-5 h-5 text-neutral-900" /></button>
               <button onClick={() => alert("Registration and member accounts are currently visual-only in this demonstration.")}>
                 <User className="w-5 h-5 text-neutral-900" />
               </button>
             </div>
           </div>
+        </div>
           
-          {/* Bottom row: Search capsule + Filter icon */}
-          <div className="px-4 pb-3 flex items-center gap-3">
+        {/* --- MOBILE RESULTS HEADER (Sticky Search Bar) --- */}
+        <div className="md:hidden w-full bg-white text-neutral-900 select-none z-50 sticky top-0 border-b border-neutral-200 shadow-sm">
+          <div className="px-4 pb-3 pt-2 flex items-center gap-3">
              <div onClick={onEditSearch} className="flex-grow flex items-center justify-between bg-neutral-100/80 rounded-xl px-4 py-2.5 cursor-pointer">
                <div>
                  <p className="text-sm font-bold text-neutral-900 leading-tight">
@@ -104,7 +120,7 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
                </svg>
              </button>
           </div>
-        </header>
+        </div>
       </>
     );
   }
@@ -137,11 +153,23 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button><HelpCircle className="w-5 h-5 text-white" /></button>
-            <button onClick={onResetView}><Car className="w-5 h-5 text-white" /></button>
-            <button><Globe className="w-5 h-5 text-white" /></button>
+            <button>
+              <svg className="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M3 5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V16C21 17.1046 20.1046 18 19 18H14.1L12 21L9.9 18H5C3.89543 18 3 17.1046 3 16V5ZM12 15.5C12.8284 15.5 13.5 14.8284 13.5 14C13.5 13.1716 12.8284 12.5 12 12.5C11.1716 12.5 10.5 13.1716 10.5 14C10.5 14.8284 11.1716 15.5 12 15.5ZM11.1674 9.14432C11.5432 8.41624 12.4302 8.1224 13.1582 8.49826C13.8863 8.87413 14.1802 9.76106 13.8043 10.4891L13.8043 9.73307C13.7291 9.87877 13.5786 9.98222 13.3904 10.018L12.9184 10.1078C11.676 10.3441 10.5979 11.2625 10.2919 12.4866C10.1717 12.9674 10.4628 13.4534 10.9436 13.5736C11.4243 13.6938 11.9103 13.4026 12.0305 12.9219C12.1581 12.4116 12.6074 12.0289 13.125 11.9304L13.597 11.8407C14.1206 11.7411 14.595 11.453 14.8291 10.9996C15.5858 9.53385 14.9936 7.7465 13.5279 6.98978C12.0622 6.23306 10.2748 6.82522 9.51811 8.29093C9.28371 8.74519 9.46178 9.30784 9.91605 9.54224C10.3703 9.77665 10.9329 9.59858 11.1674 9.14432Z"/>
+              </svg>
+            </button>
+            <button onClick={onResetView}>
+              <svg className="w-5 h-5 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 7h11l1.04 3H5.46l1.04-3zM7.5 17a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+              </svg>
+            </button>
+            <button onClick={() => setIsLangModalOpen(true)}>
+              <Globe className="w-5 h-5 stroke-current stroke-[2.5] text-white" />
+            </button>
             <button onClick={() => alert("Registration and member accounts are currently visual-only in this demonstration.")}>
-              <User className="w-5 h-5 text-white" />
+              <svg className="w-5 h-5 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
             </button>
           </div>
         </div>
@@ -194,7 +222,7 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
               className="flex items-center gap-2 text-white hover:text-[#C5A059] premium-transition"
             >
               <Globe className="w-5 h-5 stroke-current stroke-[2.5]" />
-              <span>EN | $</span>
+              <span>{langCode} | {currencySymbol}</span>
             </button>
 
             {/* Log In / Register */}
@@ -265,7 +293,14 @@ export default function Header({ onResetView, isResultsPage, searchParams, onEdi
       </div>
     </div>
     
-    <LanguageCurrencyModal isOpen={isLangModalOpen} onClose={() => setIsLangModalOpen(false)} />
+    <LanguageCurrencyModal 
+      isOpen={isLangModalOpen} 
+      onClose={() => setIsLangModalOpen(false)} 
+      onSelectLang={(code, name) => { setLangCode(code); setLangName(name); }}
+      onSelectCurrency={(sym, name) => { setCurrencySymbol(sym); setCurrencyName(name); }}
+      initialLangName={langName}
+      initialCurrencyName={currencyName}
+    />
     </>
   );
 }

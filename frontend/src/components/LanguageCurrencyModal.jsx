@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { X, Search, Globe, DollarSign, Check } from 'lucide-react';
 
-export default function LanguageCurrencyModal({ isOpen, onClose }) {
+export default function LanguageCurrencyModal({ isOpen, onClose, onSelectLang, onSelectCurrency, initialLangName = 'English (United States)', initialCurrencyName = 'US Dollar' }) {
   const [activeTab, setActiveTab] = useState('language'); // 'language' or 'currency'
   const [searchQuery, setSearchQuery] = useState('');
   
-  const [selectedLang, setSelectedLang] = useState('English (United States)');
-  const [selectedCurrency, setSelectedCurrency] = useState('US Dollar');
+  const [selectedLang, setSelectedLang] = useState(initialLangName);
+  const [selectedCurrency, setSelectedCurrency] = useState(initialCurrencyName);
 
   if (!isOpen) return null;
 
@@ -25,18 +25,57 @@ export default function LanguageCurrencyModal({ isOpen, onClose }) {
     { name: 'English', region: 'Canada', flag: 'ca' },
     { name: 'English', region: 'Saudi Arabia', flag: 'sa' },
     { name: 'English', region: 'Singapore', flag: 'sg' },
-    { name: 'English', region: 'United Kingdom', flag: 'gb' }
+    { name: 'English', region: 'United Kingdom', flag: 'gb' },
+    { name: 'Italiano', region: 'Italia', flag: 'it' },
+    { name: 'Nederlands', region: 'Nederland', flag: 'nl' },
+    { name: 'Português', region: 'Portugal', flag: 'pt' },
+    { name: 'Português', region: 'Brasil', flag: 'br' },
+    { name: 'Svenska', region: 'Sverige', flag: 'se' },
+    { name: 'Dansk', region: 'Danmark', flag: 'dk' },
+    { name: 'Norsk', region: 'Norge', flag: 'no' },
+    { name: 'Suomi', region: 'Suomi', flag: 'fi' },
+    { name: 'Polski', region: 'Polska', flag: 'pl' },
+    { name: 'Русский', region: 'Россия', flag: 'ru' },
+    { name: 'Türkçe', region: 'Türkiye', flag: 'tr' },
+    { name: 'العربية', region: 'الإمارات', flag: 'ae' },
+    { name: '日本語', region: '日本', flag: 'jp' },
+    { name: '한국어', region: '대한민국', flag: 'kr' },
+    { name: '中文', region: '中国', flag: 'cn' },
   ];
 
   const currencies = [
     { name: 'US Dollar', code: 'USD - $' },
-    { name: 'Albanian Lek', code: 'ALL - L' },
-    { name: 'Algerian Dinar', code: 'DZD - د.ج' },
-    { name: 'Angolan Kwanza', code: 'AOA - Kz' },
-    { name: 'Argentine Peso', code: 'ARS - $' },
-    { name: 'Armenian Dram', code: 'AMD - ֏' },
-    { name: 'Aruban Florin', code: 'AWG - ƒ' },
+    { name: 'Euro', code: 'EUR - €' },
+    { name: 'British Pound', code: 'GBP - £' },
     { name: 'Australian Dollar', code: 'AUD - A$' },
+    { name: 'Canadian Dollar', code: 'CAD - C$' },
+    { name: 'Swiss Franc', code: 'CHF - CHF' },
+    { name: 'Japanese Yen', code: 'JPY - ¥' },
+    { name: 'Chinese Yuan', code: 'CNY - ¥' },
+    { name: 'Indian Rupee', code: 'INR - ₹' },
+    { name: 'Brazilian Real', code: 'BRL - R$' },
+    { name: 'Russian Ruble', code: 'RUB - ₽' },
+    { name: 'South Korean Won', code: 'KRW - ₩' },
+    { name: 'Mexican Peso', code: 'MXN - $' },
+    { name: 'Singapore Dollar', code: 'SGD - S$' },
+    { name: 'Hong Kong Dollar', code: 'HKD - HK$' },
+    { name: 'New Zealand Dollar', code: 'NZD - NZ$' },
+    { name: 'Swedish Krona', code: 'SEK - kr' },
+    { name: 'Norwegian Krone', code: 'NOK - kr' },
+    { name: 'Danish Krone', code: 'DKK - kr' },
+    { name: 'Polish Zloty', code: 'PLN - zł' },
+    { name: 'Turkish Lira', code: 'TRY - ₺' },
+    { name: 'South African Rand', code: 'ZAR - R' },
+    { name: 'UAE Dirham', code: 'AED - د.إ' },
+    { name: 'Saudi Riyal', code: 'SAR - ر.س' },
+    { name: 'Thai Baht', code: 'THB - ฿' },
+    { name: 'Indonesian Rupiah', code: 'IDR - Rp' },
+    { name: 'Malaysian Ringgit', code: 'MYR - RM' },
+    { name: 'Philippine Peso', code: 'PHP - ₱' },
+    { name: 'Argentine Peso', code: 'ARS - $' },
+    { name: 'Chilean Peso', code: 'CLP - $' },
+    { name: 'Colombian Peso', code: 'COP - $' },
+    { name: 'Peruvian Sol', code: 'PEN - S/' },
   ];
 
   return (
@@ -109,7 +148,12 @@ export default function LanguageCurrencyModal({ isOpen, onClose }) {
                   return (
                     <div 
                       key={lang.region}
-                      onClick={() => setSelectedLang(`${lang.name} (${lang.region})`)}
+                      onClick={() => { 
+                        const nameStr = `${lang.name} (${lang.region})`;
+                        setSelectedLang(nameStr); 
+                        if (onSelectLang) onSelectLang(lang.name.substring(0, 2).toUpperCase(), nameStr);
+                        onClose(); 
+                      }}
                       className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer border-2 transition-all ${
                         isSelected ? 'border-[#191919] bg-white' : 'border-transparent hover:bg-neutral-50'
                       }`}
@@ -134,7 +178,12 @@ export default function LanguageCurrencyModal({ isOpen, onClose }) {
                   return (
                     <div 
                       key={lang.region}
-                      onClick={() => setSelectedLang(`${lang.name} (${lang.region})`)}
+                      onClick={() => { 
+                        const nameStr = `${lang.name} (${lang.region})`;
+                        setSelectedLang(nameStr); 
+                        if (onSelectLang) onSelectLang(lang.name.substring(0, 2).toUpperCase(), nameStr);
+                        onClose(); 
+                      }}
                       className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer border-2 transition-all ${
                         isSelected ? 'border-[#191919] bg-white' : 'border-transparent hover:bg-neutral-50'
                       }`}
@@ -162,7 +211,11 @@ export default function LanguageCurrencyModal({ isOpen, onClose }) {
                   return (
                     <div 
                       key={currency.name}
-                      onClick={() => setSelectedCurrency(currency.name)}
+                      onClick={() => { 
+                        setSelectedCurrency(currency.name); 
+                        if (onSelectCurrency) onSelectCurrency(currency.code.split(' - ')[1] || currency.code, currency.name);
+                        onClose(); 
+                      }}
                       className={`flex items-center justify-between p-4 rounded-xl cursor-pointer border-2 transition-all ${
                         isSelected ? 'border-[#191919] bg-white' : 'border-transparent hover:bg-neutral-50'
                       }`}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ChevronLeft, Info, Check, Loader2, Globe } from 'lucide-react';
 import BookingSuccessModal from './BookingSuccessModal';
 import LanguageCurrencyModal from './LanguageCurrencyModal';
+import PriceDetailsModal from './PriceDetailsModal';
+import { useUserSettings } from '../hooks/useUserSettings';
 
 export default function CheckoutPage({ car, searchParams, bookingOption, mileage, onClose }) {
   // Mock data for the screenshot UI
@@ -34,6 +36,8 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLangModalOpen, setIsLangModalOpen] = useState(false);
+  const [isPriceDetailsModalOpen, setIsPriceDetailsModalOpen] = useState(false);
+  const { langCode, setLangCode, currencySymbol, setCurrencySymbol, langName, setLangName, currencyName, setCurrencyName } = useUserSettings();
 
   const handleSubmit = async () => {
     // Validation
@@ -128,12 +132,9 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
         </div>
         
         <div className="flex items-center gap-6 text-[13px] font-semibold text-[#a5a5a5]">
-          <button 
-            onClick={() => setIsLangModalOpen(true)}
-            className="flex items-center gap-1.5 hover:text-[#C5A059] transition-colors group"
-          >
-            <Globe className="w-4 h-4 group-hover:stroke-[#C5A059] transition-colors" />
-            EN | $
+          <button onClick={() => setIsLangModalOpen(true)} className="flex items-center gap-1.5 hover:text-[#C5A059] premium-transition text-[#191919] font-bold">
+            <Globe className="w-5 h-5 stroke-[2.5]" />
+            <span>{langCode} | {currencySymbol}</span>
           </button>
           <button className="flex items-center gap-1.5 hover:text-[#C5A059] transition-colors group">
             <UserIcon className="w-4 h-4 group-hover:stroke-[#C5A059] transition-colors" />
@@ -156,13 +157,7 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
               <span className="text-2xl font-black">${price.toLocaleString('en-US', {minimumFractionDigits: 2})}</span>
             </div>
             <button 
-              onClick={() => {
-                const el = document.getElementById('price-details-section');
-                if (el) {
-                  const y = el.getBoundingClientRect().top + window.scrollY - 120;
-                  window.scrollTo({ top: y, behavior: 'smooth' });
-                }
-              }}
+              onClick={() => setIsPriceDetailsModalOpen(true)}
               className="text-[12px] font-bold underline mt-0.5 hover:text-neutral-600"
             >
               Price details
@@ -195,7 +190,7 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
               </div>
               <div className="flex-1">
                 <label className="block text-[13px] font-bold mb-1">Last name</label>
-                <input type="text" value={lastName} onChange={e => {setlastName(e.target.value); setErrors(prev => ({...prev, lastName: null}))}} className={`w-full border ${errors.lastName ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
+                <input type="text" value={lastName} onChange={e => {setLastName(e.target.value); setErrors(prev => ({...prev, lastName: null}))}} className={`w-full border ${errors.lastName ? 'border-red-500' : 'border-neutral-300'} rounded-lg h-12 px-4 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all`} />
                 {errors.lastName && <span className="text-red-500 text-xs mt-1 block">{errors.lastName}</span>}
               </div>
             </div>
@@ -497,7 +492,21 @@ export default function CheckoutPage({ car, searchParams, bookingOption, mileage
         />
       )}
       
-      <LanguageCurrencyModal isOpen={isLangModalOpen} onClose={() => setIsLangModalOpen(false)} />
+      {isLangModalOpen && (
+        <LanguageCurrencyModal 
+          isOpen={isLangModalOpen}
+          onClose={() => setIsLangModalOpen(false)} 
+          onSelectLang={(code, name) => { setLangCode(code); setLangName(name); }}
+          onSelectCurrency={(sym, name) => { setCurrencySymbol(sym); setCurrencyName(name); }}
+          initialLangName={langName}
+          initialCurrencyName={currencyName}
+        />
+      )}
+      <PriceDetailsModal 
+        isOpen={isPriceDetailsModalOpen} 
+        onClose={() => setIsPriceDetailsModalOpen(false)} 
+        totalPrice={price} 
+      />
     </div>
   );
 }

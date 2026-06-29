@@ -161,7 +161,7 @@ function TimePickerPopup({ activeTimeField, currentTime, selectTime }) {
                     className={`text-[13px] font-semibold py-3 px-3 rounded-xl text-center transition-colors premium-transition ${
                       isSelected
                         ? 'bg-[#191919] text-white'
-                        : 'bg-[#fafafa] text-[#b3b3b3] hover:bg-[#f3f3f3]'
+                        : 'bg-[#fafafa] text-neutral-800 hover:bg-[#f3f3f3]'
                     }`}
                   >
                     {slot}
@@ -216,13 +216,13 @@ const moreSixtCards = [
   }
 ];
 
-export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
-  const [pickupLocation, setPickupLocation] = useState('Munich Airport');
-  const [pickupDate, setPickupDate] = useState('Jun 27');
-  const [pickupTime, setPickupTime] = useState('12:00 PM');
-  const [returnDate, setReturnDate] = useState('Jun 29');
-  const [returnTime, setReturnTime] = useState('12:00 PM');
-  const [driverAge, setDriverAge] = useState('30+');
+export default function Hero({ onSearch, initialMobilePanel, onPanelClosed, isDropdownMode = false, initialSearchParams = null }) {
+  const [pickupLocation, setPickupLocation] = useState(initialSearchParams?.pickupLocation || 'Munich Airport');
+  const [pickupDate, setPickupDate] = useState(initialSearchParams?.pickupDate || 'Jun 30');
+  const [pickupTime, setPickupTime] = useState(initialSearchParams?.pickupTime || '12:00 PM');
+  const [returnDate, setReturnDate] = useState(initialSearchParams?.returnDate || 'Jul 15');
+  const [returnTime, setReturnTime] = useState(initialSearchParams?.returnTime || '12:00 PM');
+  const [driverAge, setDriverAge] = useState(initialSearchParams?.driverAge || '30+');
   const [activeTab, setActiveTab] = useState('Cars');
 
   const [isDifferentReturn, setIsDifferentReturn] = useState(false);
@@ -369,8 +369,18 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
             }
 
             const dayVal = baseValueOffset + item.day;
-            const isPast = dayVal < 25; // Jun 25 is today
-            const isToday = dayVal === 25;
+
+            const today = new Date();
+            const m = today.getMonth();
+            const d = today.getDate();
+            let todayVal = 25; // default fallback
+            if (m === 5) todayVal = d; // June
+            else if (m === 6) todayVal = 30 + d; // July
+            else if (m === 7) todayVal = 61 + d; // August
+            else todayVal = 30; // fallback to Jun 30 if testing outside
+
+            const isPast = dayVal < todayVal;
+            const isToday = dayVal === todayVal;
             
             const startVal = getDayValue(pickupDate);
             const endVal = getDayValue(returnDate);
@@ -576,25 +586,29 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
 
   return (
     <>
-    <section className="relative w-full min-h-[520px] md:min-h-0 md:aspect-[7/3] bg-[#0c0d0f] overflow-hidden flex flex-col justify-start items-center select-none pt-28">
+    <section className={`relative w-full flex flex-col justify-start items-center select-none ${isDropdownMode ? 'bg-white py-4 md:py-6' : 'min-h-[520px] md:min-h-0 md:aspect-[7/3] bg-[#0c0d0f] overflow-hidden pt-28'}`}>
       
       {/* Full-width Background Image exactly like the reference */}
-      <div 
-        className="absolute inset-0 select-none pointer-events-none z-0"
-        style={{ 
-          backgroundImage: "url('https://img.sixt.com/1600/87693a11-fe02-464f-b00a-ba0457e28b0c.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'top',
-          backgroundRepeat: 'no-repeat'
-        }}
-      ></div>
+      {!isDropdownMode && (
+        <div 
+          className="absolute inset-0 select-none pointer-events-none z-0"
+          style={{ 
+            backgroundImage: "url('https://img.sixt.com/1600/87693a11-fe02-464f-b00a-ba0457e28b0c.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'top',
+            backgroundRepeat: 'no-repeat'
+          }}
+        ></div>
+      )}
       
       {/* Floating Booking Card Widget */}
       <div 
         className={`w-full max-w-[1100px] px-4 md:px-6 z-40 ${
-          isSticky 
-            ? 'fixed top-0 md:top-4 left-1/2 animate-slideDownSticky' 
-            : 'relative z-20 mx-auto -mt-[15px]'
+          isDropdownMode 
+            ? 'relative mx-auto'
+            : isSticky 
+              ? 'fixed top-0 md:top-4 left-1/2 animate-slideDownSticky' 
+              : 'relative z-20 mx-auto -mt-[15px]'
         }`}
       >
         {/* ═══════════════════════════════════════════════════
@@ -1559,16 +1573,18 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
       )}
 
 
-      {isSticky && (
+      {isSticky && !isDropdownMode && (
         <div className="w-full max-w-[1100px] px-6 h-[420px] md:h-[310px] pointer-events-none" />
       )}
 
     </section>
 
-    {/* Full-width solid Orange Title Banner positioned exactly below the Hero section */}
-    <div className="w-full bg-[#C5A059] text-black text-center py-6 md:py-8 z-10 relative">
-      <h1 className="font-condensed font-black text-5xl md:text-[80px] tracking-tight uppercase leading-none">
-        <span className="text-[#C5A059]">W</span> LUXURY CAR RENTAL
+    {!isDropdownMode && (
+      <>
+        {/* Full-width solid Orange Title Banner positioned exactly below the Hero section */}
+        <div className="w-full bg-[#C5A059] text-black text-center py-6 md:py-8 z-10 relative">
+          <h1 className="font-condensed font-black text-5xl md:text-[80px] tracking-tight uppercase leading-none">
+            <span className="text-[#C5A059]">W</span> LUXURY CAR RENTAL
       </h1>
       <p className="text-[10px] md:text-[19px] font-bold mt-4 md:mt-5">
         Choose from our range of top Luxury cars worldwide
@@ -2317,6 +2333,8 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
         </div>
       </div>
     </footer>
+      </>
+    )}
     </>
   );
 }

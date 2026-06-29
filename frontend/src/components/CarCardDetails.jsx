@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { X, User, Briefcase, Info, Navigation, Check } from 'lucide-react';
+import PriceDetailsModal from './PriceDetailsModal';
 
 export default function CarCardDetails({ car, onClose, onNext, searchParams }) {
   const [bookingOption, setBookingOption] = useState('bestPrice');
   const [mileage, setMileage] = useState('included');
+  const [isPriceDetailsModalOpen, setIsPriceDetailsModalOpen] = useState(false);
 
   // Rates directly matching screenshot
   const stayFlexibleRate = 4.79;
@@ -93,7 +95,7 @@ export default function CarCardDetails({ car, onClose, onNext, searchParams }) {
         {/* ── RIGHT PANE: BOOKING OPTIONS ── */}
         <div className="w-full md:w-1/2 bg-white flex flex-col relative shrink-0 min-h-[420px]">
           
-          <div className="p-6 md:px-8 flex-grow overflow-y-auto pb-24">
+          <div className="p-6 md:px-8 flex-grow overflow-y-auto pb-36">
             <div className="flex items-center justify-between mb-4">
               <h4 className="font-bold text-[14px] text-[#191919]">Booking option</h4>
               <button onClick={onClose} className="text-neutral-900 hover:text-black">
@@ -189,27 +191,34 @@ export default function CarCardDetails({ car, onClose, onNext, searchParams }) {
           </div>
 
           {/* ── FOOTER STICKY ── */}
-          <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#e5e5e5] px-8 py-5 flex items-center justify-between shadow-[0_-10px_15px_-10px_rgba(0,0,0,0.05)]">
-            <div className="flex flex-col">
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-black text-2xl text-[#191919]">${dailyRate.toFixed(2)}</span>
-                <span className="font-bold text-[13px] text-[#191919]">/day</span>
-                <span className="font-semibold text-neutral-400 text-sm ml-2">${totalRate.toFixed(2)} total</span>
+          <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#e5e5e5] px-6 py-4 flex flex-col gap-4 shadow-[0_-10px_15px_-10px_rgba(0,0,0,0.05)]">
+            <div className="flex justify-between items-start">
+              <div className="flex flex-col">
+                <span className="font-bold text-[16px] text-[#191919]">Total</span>
+                <button 
+                  onClick={() => setIsPriceDetailsModalOpen(true)}
+                  className="text-[#191919] font-bold text-[13px] underline hover:text-[#C5A059] mt-1 text-left transition-colors w-fit"
+                >
+                  Price details
+                </button>
               </div>
-              <button className="text-[#191919] font-bold text-[13px] underline hover:text-[#C5A059] mt-0.5 text-left transition-colors w-fit">
-                Price details
-              </button>
+              <span className="font-black text-[22px] text-[#191919]">${totalRate.toFixed(2)}</span>
             </div>
             
             <button 
               onClick={handleNext}
-              className="bg-[#C5A059] hover:bg-[#A88746] active:scale-95 text-white px-14 py-3 rounded-[10px] font-bold text-[15px] transition-all flex items-center justify-center"
+              className="bg-[#C5A059] hover:bg-[#A88746] active:scale-95 text-white w-full py-3.5 rounded-lg font-bold text-[16px] transition-all flex items-center justify-center"
             >
               Next
             </button>
           </div>
 
         </div>
+      <PriceDetailsModal 
+        isOpen={isPriceDetailsModalOpen} 
+        onClose={() => setIsPriceDetailsModalOpen(false)} 
+        totalPrice={totalRate} 
+      />
     </div>
   );
 }
