@@ -1,4 +1,4 @@
-﻿export const initialCars = [
+export const initialCars = [
   {
     _id: "local_car_1",
     name: "BMW X3",
@@ -11,7 +11,7 @@
     doors: 5,
     gps: true,
     minAge: 25,
-    image: "/assets/cars/bmw_x3.png",
+    image: "/assets/cars/7_series.png",
     status: "Enabled",
     description: "Elegant, versatile, and dynamic. The BMW X3 sets new standards for standard elite travel.",
     isHotOffer: true,
@@ -29,7 +29,7 @@
     doors: 5,
     gps: true,
     minAge: 25,
-    image: "/assets/cars/bmw_x5.png",
+    image: "/assets/cars/x7.png",
     status: "Enabled",
     description: "Command the road with ultimate sophistication and space in the fullsize elite BMW X5.",
     isHotOffer: true,
@@ -47,7 +47,7 @@
     doors: 4,
     gps: true,
     minAge: 25,
-    image: "/assets/cars/mercedes_e_class.png",
+    image: "/assets/cars/audi_q2.png",
     status: "Enabled",
     description: "The future of progress. Fully electric performance with striking design and executive interior.",
     isHotOffer: true,
@@ -82,7 +82,7 @@
     doors: 2,
     gps: true,
     minAge: 28,
-    image: "/assets/cars/porsche_911_convertible.png",
+    image: "/assets/cars/mercedes_c_convertible.png",
     status: "Enabled",
     description: "Iconic styling, open-air thrill, and pure Porsche dynamics.",
     isGuaranteedModel: true,

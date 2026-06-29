@@ -1207,7 +1207,7 @@ export default function BookingWizard({ car, searchParams, onClose, onSubmitSucc
             <div className="mb-6 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-[9px] font-black text-neutral-500 uppercase tracking-widest block font-condensed">Step {step} of 4</span>
-                <span className="text-[10px] font-bold text-neutral-400 flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C5A059]" /> W Luxury Booking Flow</span>
+                <span className="text-[10px] font-bold text-neutral-400 flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C5A059]" /> <span className="text-[#C5A059]">W</span> Luxury Booking Flow</span>
               </div>
 
               {/* Schedule Validation Banner */}

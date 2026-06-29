@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Plane, Calendar, Clock, User, Info, RotateCcw, ChevronLeft, ChevronRight, Briefcase, Globe, Car, ShieldCheck, Check, Sparkles, Building } from 'lucide-react';
+import { Plane, Calendar, Clock, User, Info, RotateCcw, ChevronLeft, ChevronRight, Briefcase, Globe, Car, ShieldCheck, Check, Sparkles, Building, HandHeart, CarFront } from 'lucide-react';
 import CarCard from './CarCard.jsx';
 
 // Hardcoded location data matching the reference details
@@ -35,6 +35,18 @@ const stationsData = {
     holidays: '08:00 AM - 04:00 PM'
   }
 };
+
+const SolidPlaneIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21,16v-2l-8-5V3.5C13,2.67 12.33,2 11.5,2S10,2.67 10,3.5V9l-8,5v2l8-2.5V19l-2,1.5V22l3.5-1l3.5,1v-1.5L13,19v-5.5L21,16z"/>
+  </svg>
+);
+
+const SolidCalendarIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
+  </svg>
+);
 
 // Calendar days for June, July, August 2026
 const juneDays = [
@@ -116,24 +128,24 @@ function TimePickerPopup({ activeTimeField, currentTime, selectTime }) {
   return (
     <>
       {/* Header */}
-      <div className="px-5 pt-5 pb-3">
-        <p className="text-[15px] font-black text-neutral-900 mb-1.5">
+      <div className="pt-5 pb-4 px-5">
+        <p className="text-[16px] font-bold text-center text-neutral-900 mb-4">
           Select {activeTimeField} time
         </p>
-        <div className="flex items-center gap-1.5">
-          <Clock className="w-3.5 h-3.5 text-neutral-500 stroke-[2]" />
-          <span className="text-[12px] text-neutral-500 font-medium">
-            Opening Times: 5:00 AM - 12:00 AM
+        <div className="flex items-center gap-2">
+          <Clock className="w-[14px] h-[14px] text-black stroke-[2.5]" />
+          <span className="text-[13px] text-neutral-800 font-normal">
+            {activeTimeField === 'return' ? '24-hour return' : 'Opening Times: -'}
           </span>
         </div>
       </div>
 
       {/* Scrollable body */}
-      <div ref={scrollRef} className="max-h-[300px] overflow-y-auto px-3 pb-3">
+      <div ref={scrollRef} className="max-h-[220px] overflow-y-auto px-5 pb-3">
         {TIME_GROUPS.map((group) => (
-          <div key={group.label} className="mb-3">
+          <div key={group.label} className="mb-4">
             {/* Section heading */}
-            <p className="text-[12px] font-bold text-neutral-900 px-2 py-2">
+            <p className="text-[13px] font-bold text-neutral-900 mb-3">
               {group.label}
             </p>
             {/* Slot buttons */}
@@ -148,8 +160,8 @@ function TimePickerPopup({ activeTimeField, currentTime, selectTime }) {
                     onClick={() => selectTime(slot, activeTimeField)}
                     className={`text-[13px] font-semibold py-3 px-3 rounded-xl text-center transition-colors premium-transition ${
                       isSelected
-                        ? 'bg-black text-white'
-                        : 'bg-[#F3F3F3] text-neutral-800 hover:bg-neutral-200'
+                        ? 'bg-[#191919] text-white'
+                        : 'bg-[#fafafa] text-[#b3b3b3] hover:bg-[#f3f3f3]'
                     }`}
                   >
                     {slot}
@@ -442,20 +454,20 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
   const carouselSlides = [
     [
       {
-        name: "BMW X3",
-        category: "Standard Elite SUV",
+        name: "BMW 7 Series",
+        category: "Luxury Sedan",
         seats: 5,
         suitcases: 4,
         transmission: "Automatic",
-        image: "/assets/cars/bmw_x3.png"
+        image: "/assets/cars/7_series.png"
       },
       {
-        name: "BMW X5",
-        category: "Fullsize Elite SUV",
+        name: "Mercedes E-Class",
+        category: "Premium Sedan",
         seats: 5,
         suitcases: 4,
         transmission: "Automatic",
-        image: "/assets/cars/bmw_x5.png"
+        image: "/assets/cars/mercedes_e_class.png"
       }
     ],
     [
@@ -564,15 +576,15 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
 
   return (
     <>
-    <section className="relative w-full min-h-[520px] md:min-h-[580px] bg-[#0c0d0f] overflow-hidden flex flex-col justify-between items-center select-none pt-28">
+    <section className="relative w-full min-h-[520px] md:min-h-0 md:aspect-[7/3] bg-[#0c0d0f] overflow-hidden flex flex-col justify-start items-center select-none pt-28">
       
       {/* Full-width Background Image exactly like the reference */}
       <div 
         className="absolute inset-0 select-none pointer-events-none z-0"
         style={{ 
-          backgroundImage: "url('/hero_bmw.png')",
+          backgroundImage: "url('https://img.sixt.com/1600/87693a11-fe02-464f-b00a-ba0457e28b0c.jpg')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'top',
           backgroundRepeat: 'no-repeat'
         }}
       ></div>
@@ -582,7 +594,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
         className={`w-full max-w-[1100px] px-4 md:px-6 z-40 ${
           isSticky 
             ? 'fixed top-0 md:top-4 left-1/2 animate-slideDownSticky' 
-            : 'relative z-20 mx-auto'
+            : 'relative z-20 mx-auto -mt-[15px]'
         }`}
       >
         {/* ═══════════════════════════════════════════════════
@@ -598,7 +610,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
               <div className="flex gap-2">
                 <button type="button" onClick={() => setActiveTab('Cars')}
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-colors ${activeTab === 'Cars' ? 'bg-[#191919] text-white' : 'bg-neutral-100 text-neutral-600'}`}>
-                  <span>🚗</span> Cars
+                  <svg className="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 7h11l1.04 3H5.46l1.04-3zM7.5 17a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg> Cars
                 </button>
               </div>
             </div>
@@ -638,7 +650,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
             ═══════════════════════════════════════════════════ */}
         <form 
           onSubmit={handleSubmit}
-          className="hidden md:flex bg-white rounded-2xl shadow-xl p-6 md:p-8 flex-col gap-6 border border-neutral-200/40 text-neutral-800"
+          className="hidden md:flex bg-white rounded-2xl shadow-xl p-5 md:p-6 flex-col gap-4 border border-neutral-200/40 text-neutral-800"
         >
           {/* Top Tabs Row */}
           <div className="flex items-center justify-between pb-1">
@@ -652,7 +664,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                     : 'bg-[#F3F3F3] text-neutral-600 hover:bg-[#EAEAEA]'
                 }`}
               >
-                <span>🚗</span> Cars
+                <svg className="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 7h11l1.04 3H5.46l1.04-3zM7.5 17a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg> Cars
               </button>
             </div>
             
@@ -665,7 +677,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
           </div>
 
           {/* Form Fields Stack */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             
             {/* Pickup & Return Row (Popup Trigger Wrapper) */}
             <div className="w-full flex flex-col relative">
@@ -679,13 +691,13 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                         setShowLocationPopup(true);
                         setShowReturnPopup(false);
                       }}
-                      className={`flex-grow flex items-center bg-white border-2 rounded-[12px] px-4 py-2 h-[48px] cursor-pointer premium-transition ${
+                      className={`flex-grow flex items-center bg-white border rounded-lg px-4 py-2 h-[48px] cursor-pointer premium-transition ${
                         showLocationPopup 
                           ? 'border-[#C5A059]' 
                           : 'border-neutral-200 focus-within:border-black'
                       }`}
                     >
-                      <Plane className="w-5 h-5 text-black mr-3 flex-shrink-0" />
+                      <SolidPlaneIcon className="w-5 h-5 text-black mr-3 flex-shrink-0" />
                       <input 
                         type="text"
                         value={pickupLocation}
@@ -694,7 +706,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                           setShowReturnPopup(false);
                         }}
                         onChange={(e) => setPickupLocation(e.target.value)}
-                        className="bg-transparent border-none outline-none w-full text-sm font-bold text-neutral-900 focus:ring-0 p-0"
+                        className="bg-transparent border-none outline-none w-full text-[15px] font-normal text-neutral-900 focus:ring-0 p-0"
                         required
                       />
                     </div>
@@ -708,7 +720,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                       }}
                       className="text-[12px] font-semibold text-neutral-500 hover:text-black whitespace-nowrap flex items-center gap-1.5"
                     >
-                      <span className="text-xl font-light text-neutral-400">+</span> Different return location
+                      <svg className="w-[18px] h-[18px] text-neutral-400 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Different return location
                     </button>
                   </div>
                 </>
@@ -722,13 +734,13 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                         setShowLocationPopup(true);
                         setShowReturnPopup(false);
                       }}
-                      className={`w-full flex items-center bg-white border-2 rounded-[12px] px-4 py-2 h-[48px] cursor-pointer premium-transition ${
+                      className={`w-full flex items-center bg-white border rounded-lg px-4 py-2 h-[48px] cursor-pointer premium-transition ${
                         showLocationPopup 
                           ? 'border-[#C5A059]' 
                           : 'border-neutral-200 focus-within:border-black'
                       }`}
                     >
-                      <Plane className="w-5 h-5 text-black mr-3 flex-shrink-0" />
+                      <SolidPlaneIcon className="w-5 h-5 text-black mr-3 flex-shrink-0" />
                       <input 
                         type="text"
                         value={pickupLocation}
@@ -737,7 +749,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                           setShowReturnPopup(false);
                         }}
                         onChange={(e) => setPickupLocation(e.target.value)}
-                        className="bg-transparent border-none outline-none w-full text-sm font-bold text-neutral-900 focus:ring-0 p-0"
+                        className="bg-transparent border-none outline-none w-full text-[15px] font-normal text-neutral-900 focus:ring-0 p-0"
                         required
                       />
                     </div>
@@ -751,7 +763,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                         setShowReturnPopup(true);
                         setShowLocationPopup(false);
                       }}
-                      className={`w-full flex items-center bg-white border-2 rounded-[12px] px-4 py-2 h-[48px] cursor-pointer premium-transition ${
+                      className={`w-full flex items-center bg-white border rounded-lg px-4 py-2 h-[48px] cursor-pointer premium-transition ${
                         showReturnPopup 
                           ? 'border-[#C5A059]' 
                           : 'border-neutral-200 focus-within:border-black'
@@ -771,7 +783,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                           setShowLocationPopup(false);
                         }}
                         onChange={(e) => setReturnLocation(e.target.value)}
-                        className="bg-transparent border-none outline-none w-full text-sm font-bold text-neutral-900 focus:ring-0 p-0"
+                        className="bg-transparent border-none outline-none w-full text-[15px] font-normal text-neutral-900 focus:ring-0 p-0"
                         required={isDifferentReturn}
                       />
                     </div>
@@ -819,7 +831,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                                 : 'bg-transparent text-neutral-800 hover:bg-[#f9f9f9]'
                             }`}
                           >
-                            <Plane className={`w-4 h-4 transform rotate-[-45deg] stroke-[2] ${
+                            <SolidPlaneIcon className={`w-4 h-4 ${
                               hoveredStationKey === name ? 'text-black' : 'text-neutral-500'
                             }`} />
                             <span className="text-[13px] font-bold">
@@ -848,7 +860,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                                 : 'bg-transparent text-neutral-800 hover:bg-[#f9f9f9]'
                             }`}
                           >
-                            <Plane className={`w-4 h-4 transform rotate-[-45deg] stroke-[2] ${
+                            <SolidPlaneIcon className={`w-4 h-4 ${
                               hoveredStationKey === name ? 'text-black' : 'text-neutral-500'
                             }`} />
                             <span className="text-[13px] font-bold">
@@ -868,7 +880,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                     <div>
                       {/* Top Header Row inside Details Panel */}
                       <div className="flex items-start justify-between">
-                        <Plane className="w-10 h-10 text-neutral-900 transform rotate-[-45deg] stroke-[1.5]" />
+                        <SolidPlaneIcon className="w-10 h-10 text-neutral-900" />
                         <div className="flex items-center gap-1.5 border border-[#C5A059] text-[#C5A059] px-3 py-1.5 rounded-full text-[11px] font-bold bg-transparent">
                           <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" /> 24-hour return
                         </div>
@@ -954,7 +966,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                             : 'bg-transparent text-neutral-800 hover:bg-[#f9f9f9]'
                         }`}
                       >
-                        <Plane className={`w-4 h-4 transform rotate-[-45deg] stroke-[2] ${
+                        <SolidPlaneIcon className={`w-4 h-4 ${
                           hoveredReturnStationKey === 'Munich Airport' ? 'text-black' : 'text-neutral-500'
                         }`} />
                         <span className="text-[13px] font-bold">
@@ -995,7 +1007,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                         {hoveredReturnStationKey === 'New York City Long Island City' ? (
                           <Building className="w-10 h-10 text-neutral-900 stroke-[1.5]" />
                         ) : (
-                          <Plane className="w-10 h-10 text-neutral-900 transform rotate-[-45deg] stroke-[1.5]" />
+                          <SolidPlaneIcon className="w-10 h-10 text-neutral-900" />
                         )}
                         <div className="flex items-center gap-1.5 border border-[#C5A059] text-[#C5A059] px-3 py-1.5 rounded-full text-[11px] font-bold bg-transparent">
                           <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" /> 24-hour return
@@ -1047,43 +1059,43 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
             {/* Dates & Search Action Row — separate boxes like reference */}
             <div className="grid grid-cols-2 lg:flex lg:flex-row gap-3 lg:gap-4 items-end relative">
 
-              {/* ── PICKUP DATE ── */}
-              <div className="flex flex-col col-span-1 lg:flex-1">
+              {/* ── PICKUP DATE & TIME ── */}
+              <div className="flex flex-col col-span-2 lg:flex-1 relative">
                 <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left">Pickup date</label>
-                <div
-                  onClick={() => {
-                    setShowTimePopup(false);
-                    setShowCalendarPopup(true);
-                    setActiveDateField('pickup');
-                  }}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
-                    showCalendarPopup && activeDateField === 'pickup'
+                <div className={`flex items-center bg-white border rounded-lg h-[48px] cursor-pointer premium-transition ${
+                    (showCalendarPopup && activeDateField === 'pickup') || (showTimePopup && activeTimeField === 'pickup')
                       ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
-                  <Calendar className="w-4 h-4 text-black mr-2 flex-shrink-0 stroke-[2px]" />
-                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none truncate">{pickupDate || 'Select date'}</span>
-                </div>
-              </div>
+                  {/* Date Part */}
+                  <div 
+                    onClick={() => {
+                      setShowTimePopup(false);
+                      setShowCalendarPopup(true);
+                      setActiveDateField('pickup');
+                    }}
+                    className="flex items-center px-3 md:px-4 h-full flex-grow"
+                  >
+                    <SolidCalendarIcon className="w-[20px] h-[20px] text-black mr-2 flex-shrink-0" />
+                    <span className="text-[15px] font-normal text-neutral-900 select-none truncate">{pickupDate || 'Select date'}</span>
+                  </div>
+                  
+                  {/* Divider */}
+                  <div className="h-2/3 w-[1px] bg-neutral-200"></div>
 
-              {/* ── PICKUP TIME (with popup anchor) ── */}
-              <div className="flex flex-col relative col-span-1" style={{width: 'auto', flexShrink: 0}}>
-                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left lg:opacity-0 pointer-events-none">Pickup time</label>
-                <div
-                  onClick={(e) => openTimePopup(e, 'pickup')}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
-                    showTimePopup && activeTimeField === 'pickup'
-                      ? 'border-[#C5A059]'
-                      : 'border-neutral-200 hover:border-neutral-400'
-                  }`}
-                >
-                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none whitespace-nowrap">{pickupTime}</span>
+                  {/* Time Part */}
+                  <div
+                    onClick={(e) => openTimePopup(e, 'pickup')}
+                    className="flex items-center px-3 md:px-4 h-full flex-shrink-0"
+                  >
+                    <span className="text-[15px] font-normal text-neutral-900 select-none whitespace-nowrap">{pickupTime}</span>
+                  </div>
                 </div>
                 {/* Time Picker Popup anchored here */}
                 {showTimePopup && activeTimeField === 'pickup' && (
                   <div
-                    className="absolute top-full mt-2 left-0 right-0 md:right-auto md:w-[290px] bg-white border border-neutral-200 rounded-2xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
+                    className="absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-neutral-200 rounded-xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <TimePickerPopup
@@ -1095,43 +1107,43 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                 )}
               </div>
 
-              {/* ── RETURN DATE ── */}
-              <div className="flex flex-col col-span-1 lg:flex-1">
+              {/* ── RETURN DATE & TIME ── */}
+              <div className="flex flex-col col-span-2 lg:flex-1 relative">
                 <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left">Return date</label>
-                <div
-                  onClick={() => {
-                    setShowTimePopup(false);
-                    setShowCalendarPopup(true);
-                    setActiveDateField('return');
-                  }}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
-                    showCalendarPopup && activeDateField === 'return'
+                <div className={`flex items-center bg-white border rounded-lg h-[48px] cursor-pointer premium-transition ${
+                    (showCalendarPopup && activeDateField === 'return') || (showTimePopup && activeTimeField === 'return')
                       ? 'border-[#C5A059]'
                       : 'border-neutral-200 hover:border-neutral-400'
                   }`}
                 >
-                  <Calendar className="w-4 h-4 text-black mr-2 flex-shrink-0 stroke-[2px]" />
-                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none truncate">{returnDate || 'Select date'}</span>
-                </div>
-              </div>
+                  {/* Date Part */}
+                  <div 
+                    onClick={() => {
+                      setShowTimePopup(false);
+                      setShowCalendarPopup(true);
+                      setActiveDateField('return');
+                    }}
+                    className="flex items-center px-3 md:px-4 h-full flex-grow"
+                  >
+                    <SolidCalendarIcon className="w-[20px] h-[20px] text-black mr-2 flex-shrink-0" />
+                    <span className="text-[15px] font-normal text-neutral-900 select-none truncate">{returnDate || 'Select date'}</span>
+                  </div>
+                  
+                  {/* Divider */}
+                  <div className="h-2/3 w-[1px] bg-neutral-200"></div>
 
-              {/* ── RETURN TIME (with popup anchor) ── */}
-              <div className="flex flex-col relative col-span-1" style={{width: 'auto', flexShrink: 0}}>
-                <label className="text-[11px] font-bold text-neutral-900 mb-1.5 text-left lg:opacity-0 pointer-events-none">Return time</label>
-                <div
-                  onClick={(e) => openTimePopup(e, 'return')}
-                  className={`flex items-center bg-white border-2 rounded-[12px] h-[48px] px-3 md:px-4 cursor-pointer premium-transition ${
-                    showTimePopup && activeTimeField === 'return'
-                      ? 'border-[#C5A059]'
-                      : 'border-neutral-200 hover:border-neutral-400'
-                  }`}
-                >
-                  <span className="text-xs md:text-sm font-bold text-neutral-900 select-none whitespace-nowrap">{returnTime}</span>
+                  {/* Time Part */}
+                  <div
+                    onClick={(e) => openTimePopup(e, 'return')}
+                    className="flex items-center px-3 md:px-4 h-full flex-shrink-0"
+                  >
+                    <span className="text-[15px] font-normal text-neutral-900 select-none whitespace-nowrap">{returnTime}</span>
+                  </div>
                 </div>
                 {/* Time Picker Popup anchored here */}
                 {showTimePopup && activeTimeField === 'return' && (
                   <div
-                    className="absolute top-full mt-2 left-0 right-0 md:left-auto md:right-0 md:w-[290px] bg-white border border-neutral-200 rounded-2xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
+                    className="absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-neutral-200 rounded-xl shadow-2xl z-50 animate-fadeIn text-neutral-800 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <TimePickerPopup
@@ -1148,7 +1160,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                 <label className="hidden lg:block text-[11px] font-bold text-neutral-900 mb-1.5 text-left opacity-0 pointer-events-none">.</label>
                 <button 
                   type="submit"
-                  className="w-full lg:w-auto bg-[#C5A059] hover:bg-[#B28F4B] text-white font-condensed font-black text-sm uppercase h-[48px] px-8 rounded-[12px] shadow-lg tracking-wider flex items-center justify-center hover:scale-[1.02] active:scale-95 premium-transition whitespace-nowrap"
+                  className="w-full lg:w-auto bg-[#C5A059] hover:bg-[#B28F4B] text-white font-bold text-[15px] h-[48px] px-8 rounded-lg shadow-lg tracking-wide flex items-center justify-center hover:scale-[1.02] active:scale-95 premium-transition whitespace-nowrap"
                 >
                   Show cars
                 </button>
@@ -1230,7 +1242,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                   }}
                   className="flex items-center gap-1 bg-white text-neutral-900 font-bold hover:text-black cursor-pointer select-none focus:outline-none"
                 >
-                  <User className="w-3.5 h-3.5 text-black" />
+                  <svg className="w-[15px] h-[15px] text-black fill-current" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                   <span>Driver's age {driverAge}</span>
                   <span className="text-[9px] text-neutral-500 font-black ml-0.5">▼</span>
                 </button>
@@ -1438,7 +1450,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
                   className="flex items-center gap-1.5 text-xs font-bold text-neutral-700">
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   Driver's age {driverAge} <span className="text-[10px]">▼</span>
-                </button>
+                </button>  
                 {showAgeDropdown && (
                   <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-white border border-neutral-200 rounded-xl shadow-xl w-[130px] max-h-[200px] overflow-y-auto z-10 py-1">
                     {['30+','29','28','27','26','25','24','23','22','21','20','19','18'].map(age => (
@@ -1551,24 +1563,22 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
         <div className="w-full max-w-[1100px] px-6 h-[420px] md:h-[310px] pointer-events-none" />
       )}
 
-      {/* Spacer to push the title banner down and reveal the BMW car in the background */}
-      <div className="h-[200px] md:h-[260px] lg:h-[300px]"></div>
-
-      {/* Full-width solid Orange Title Banner positioned at the bottom */}
-      <div className="w-full bg-[#C5A059] text-black text-center py-7 z-10 relative">
-        <h1 className="font-condensed font-black text-3xl md:text-5xl tracking-wide uppercase leading-none">
-          W LUXURY CAR RENTAL
-        </h1>
-        <p className="text-[11px] md:text-xs font-bold tracking-wider uppercase mt-2">
-          Choose from our range of top Luxury cars worldwide
-        </p>
-      </div>
     </section>
+
+    {/* Full-width solid Orange Title Banner positioned exactly below the Hero section */}
+    <div className="w-full bg-[#C5A059] text-black text-center py-6 md:py-8 z-10 relative">
+      <h1 className="font-condensed font-black text-5xl md:text-[80px] tracking-tight uppercase leading-none">
+        <span className="text-[#C5A059]">W</span> LUXURY CAR RENTAL
+      </h1>
+      <p className="text-[10px] md:text-[19px] font-bold mt-4 md:mt-5">
+        Choose from our range of top Luxury cars worldwide
+      </p>
+    </div>
 
     {/* Section 1: USA/Global Description Box */}
     <div className="w-full bg-[#121212] text-neutral-300 py-16 px-6 text-center flex flex-col items-center justify-center relative z-10">
       <p className="max-w-[850px] mx-auto text-sm md:text-[15px] font-medium leading-relaxed text-neutral-300">
-        Need a luxury car rental in the USA? W Luxury Car Rental offers modern, well-maintained vehicles with clear pricing and smooth booking. Whether for city trips, business, or travel around the USA, enjoy comfort, space, and reliable performance. Add add-ons like GPS, child seats, or extra drivers easily online. With numerous branches and consistent quality worldwide, pickup and return are quick and stress-free â€“ premium mobility made simple.
+        Need a luxury car rental in the USA? <span className="text-[#C5A059] font-bold">W</span> Luxury Car Rental offers modern, well-maintained vehicles with clear pricing and smooth booking. Whether for city trips, business, or travel around the USA, enjoy comfort, space, and reliable performance. Add add-ons like GPS, child seats, or extra drivers easily online. With numerous branches and consistent quality worldwide, pickup and return are quick and stress-free — premium mobility made simple.
       </p>
       <button 
         type="button"
@@ -1636,10 +1646,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
           </div>
         </div>
 
-        {/* Carousel small disclaimer print */}
-        <p className="text-[10px] text-neutral-500 mt-10 font-bold text-center leading-normal">
-          *The prices were calculated for a prepaid rental at {pickupLocation} based on the provided search parameters. Our prices are dynamic, fluctuate daily and this offer is not guaranteed.
-        </p>
+
 
       </div>
     </div>
@@ -1648,34 +1655,34 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
     <div className="w-full bg-[#070707] border-t border-neutral-900/50 py-10 px-6 relative z-10">
       <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
         {/* Global reach */}
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400">
-            <Globe className="w-4 h-4 text-neutral-400 stroke-[1.8]" />
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3 text-[18px] font-bold text-white">
+            <Globe className="w-6 h-6 text-white stroke-[2.5]" />
             <span>Global reach</span>
           </div>
-          <p className="text-sm font-bold text-white leading-normal">
-            2,000+ W stations in over 105 countries
+          <p className="text-[25px] font-bold text-white leading-[1.3] pr-4">
+            2,000+ <span className="text-[#C5A059]">W</span> Luxury stations in over 105 countries
           </p>
         </div>
 
         {/* Top fleet */}
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400">
-            <Car className="w-4 h-4 text-neutral-400 stroke-[1.8]" />
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3 text-[18px] font-bold text-white">
+            <CarFront className="w-6 h-6 text-white stroke-[2.5]" />
             <span>Top fleet</span>
           </div>
-          <p className="text-sm font-bold text-white leading-normal">
+          <p className="text-[25px] font-bold text-white leading-[1.3] pr-4">
             Choose your favorite Luxury car from our wide range
           </p>
         </div>
 
         {/* Exceptional service */}
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400">
-            <ShieldCheck className="w-4 h-4 text-neutral-400 stroke-[1.8]" />
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3 text-[18px] font-bold text-white">
+            <HandHeart className="w-6 h-6 text-white stroke-[2.5]" />
             <span>Exceptional service</span>
           </div>
-          <p className="text-sm font-bold text-white leading-normal">
+          <p className="text-[25px] font-bold text-white leading-[1.3] pr-4">
             Stress-free, trustworthy, no hidden costs
           </p>
         </div>
@@ -1685,64 +1692,64 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
     {/* Section 4: Browse Popular Types Grid */}
     <div className="w-full bg-white text-neutral-900 py-20 px-6 text-center select-none relative z-10 border-t border-neutral-100">
       <div className="max-w-[1100px] mx-auto">
-        <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none">
+        <h2 className="font-condensed font-black text-4xl md:text-6xl lg:text-[64px] text-neutral-900 tracking-wide uppercase text-center leading-none">
           BROWSE POPULAR TYPES
         </h2>
 
         {/* Top Row Grid: First 4 items */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12 text-center w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 text-center w-full">
           {popularTypesList.slice(0, 4).map((item, index) => (
             <div 
               key={`popular-${index}`}
-              className="w-full sm:w-[250px] flex flex-col items-center transition-all duration-200 mx-auto"
+              className="w-full flex flex-col items-center transition-all duration-200 mx-auto"
             >
               {/* Car Image central alignment */}
-              <div className="relative w-full h-[120px] flex items-center justify-center mb-5">
+              <div className="relative w-full h-[180px] flex items-center justify-center mb-6">
                 <img 
                   src={item.image} 
                   alt={item.title}
-                  className="max-h-[100px] object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.12)]"
+                  className="max-h-[160px] w-[105%] object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)] hover:scale-110 transition-transform duration-300"
                 />
               </div>
 
-              <div className="flex flex-col items-center w-full">
-                <h3 className="font-condensed font-black text-xl text-neutral-900 uppercase tracking-wide leading-none mb-1">
+              <div className="flex flex-col items-center w-full px-2">
+                <h3 className="font-condensed font-black text-[26px] md:text-[30px] text-[#191919] uppercase tracking-wide leading-[1.1] mb-1">
                   {item.title}
                 </h3>
-                <span className="text-[13px] font-semibold text-neutral-500 block mb-2.5">
+                <span className="text-[14px] text-[#333333] block mb-3">
                   {item.subtitle}
                 </span>
 
                 {/* Clean Specs Row */}
-                <div className="flex items-center justify-center gap-3.5 text-[11px] font-bold text-neutral-500 mb-5">
-                  <div className="flex items-center gap-1">
-                    <User className="w-3.5 h-3.5 text-neutral-800 stroke-[2.5]" />
+                <div className="flex items-center justify-center gap-3 text-[12px] font-bold text-[#191919] mb-4">
+                  <div className="flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-[#191919] stroke-[2.5]" />
                     <span>{item.seats} seaters</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Briefcase className="w-3.5 h-3.5 text-neutral-800 stroke-[2.5]" />
+                  <div className="flex items-center gap-1.5">
+                    <Briefcase className="w-3.5 h-3.5 text-[#191919] stroke-[2.5]" />
                     <span>{item.suitcases} bags</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {item.transmission.toLowerCase().includes('range') ? (
-                      <svg className="w-3.5 h-3.5 text-neutral-800 stroke-[2.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-[#191919] stroke-[2.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
                         <line x1="22" y1="11" x2="22" y2="13" />
                       </svg>
                     ) : (
-                      <span className="w-3.5 h-3.5 bg-neutral-800 text-white rounded flex items-center justify-center text-[8px] font-black leading-none">A</span>
+                      <span className="w-4 h-4 bg-[#191919] text-white rounded-[2px] flex items-center justify-center text-[10px] font-black leading-none">A</span>
                     )}
                     <span>{item.transmission}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-neutral-500 font-semibold leading-relaxed max-w-[220px] mx-auto mb-6">
+                <p className="text-[13px] text-[#333333] leading-relaxed max-w-[240px] mx-auto mb-5">
                   {item.desc}
                 </p>
                 <button
                   type="button"
                   onClick={handleScrollToListings}
-                  className="bg-neutral-900 hover:bg-[#C5A059] text-white font-bold text-xs py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
+                  className="bg-[#191919] hover:bg-black text-white font-bold text-[13px] py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
                 >
                   Check availability
                 </button>
@@ -1752,59 +1759,59 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
         </div>
 
         {/* Bottom Row Flex: Centered remaining 2 items */}
-        <div className="flex flex-col sm:flex-row justify-center gap-8 lg:gap-12 mt-12 text-center w-full">
+        <div className="flex flex-col sm:flex-row justify-center gap-6 mt-6 text-center w-full lg:max-w-[50%] mx-auto">
           {popularTypesList.slice(4, 6).map((item, index) => (
             <div 
               key={`popular-${index + 4}`}
-              className="w-full sm:w-[250px] flex flex-col items-center transition-all duration-200"
+              className="w-full flex flex-col items-center transition-all duration-200"
             >
               {/* Car Image central alignment */}
-              <div className="relative w-full h-[120px] flex items-center justify-center mb-5">
+              <div className="relative w-full h-[180px] flex items-center justify-center mb-6">
                 <img 
                   src={item.image} 
                   alt={item.title}
-                  className="max-h-[100px] object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.12)]"
+                  className="max-h-[160px] w-[105%] object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)] hover:scale-110 transition-transform duration-300"
                 />
               </div>
 
-              <div className="flex flex-col items-center w-full">
-                <h3 className="font-condensed font-black text-xl text-neutral-900 uppercase tracking-wide leading-none mb-1">
+              <div className="flex flex-col items-center w-full px-2">
+                <h3 className="font-condensed font-black text-[26px] md:text-[30px] text-[#191919] uppercase tracking-wide leading-[1.1] mb-1">
                   {item.title}
                 </h3>
-                <span className="text-[13px] font-semibold text-neutral-500 block mb-2.5">
+                <span className="text-[14px] text-[#333333] block mb-3">
                   {item.subtitle}
                 </span>
 
                 {/* Clean Specs Row */}
-                <div className="flex items-center justify-center gap-3.5 text-[11px] font-bold text-neutral-500 mb-5">
-                  <div className="flex items-center gap-1">
-                    <User className="w-3.5 h-3.5 text-neutral-800 stroke-[2.5]" />
+                <div className="flex items-center justify-center gap-3 text-[12px] font-bold text-[#191919] mb-4">
+                  <div className="flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-[#191919] stroke-[2.5]" />
                     <span>{item.seats} seaters</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Briefcase className="w-3.5 h-3.5 text-neutral-800 stroke-[2.5]" />
+                  <div className="flex items-center gap-1.5">
+                    <Briefcase className="w-3.5 h-3.5 text-[#191919] stroke-[2.5]" />
                     <span>{item.suitcases} bags</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {item.transmission.toLowerCase().includes('range') ? (
-                      <svg className="w-3.5 h-3.5 text-neutral-800 stroke-[2.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-[#191919] stroke-[2.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
                         <line x1="22" y1="11" x2="22" y2="13" />
                       </svg>
                     ) : (
-                      <span className="w-3.5 h-3.5 bg-neutral-800 text-white rounded flex items-center justify-center text-[8px] font-black leading-none">A</span>
+                      <span className="w-4 h-4 bg-[#191919] text-white rounded-[2px] flex items-center justify-center text-[10px] font-black leading-none">A</span>
                     )}
                     <span>{item.transmission}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-neutral-500 font-semibold leading-relaxed max-w-[220px] mx-auto mb-6">
+                <p className="text-[13px] text-[#333333] leading-relaxed max-w-[240px] mx-auto mb-5">
                   {item.desc}
                 </p>
                 <button
                   type="button"
                   onClick={handleScrollToListings}
-                  className="bg-neutral-900 hover:bg-[#C5A059] text-white font-bold text-xs py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
+                  className="bg-[#191919] hover:bg-black text-white font-bold text-[13px] py-2.5 px-6 rounded-full transition-all hover:scale-[1.02] active:scale-95 w-fit mx-auto shadow-md"
                 >
                   Check availability
                 </button>
@@ -1822,35 +1829,35 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
     </div>
 
     {/* Section 5: W LUXURY CAR RENTAL WORLDWIDE Description */}
-    <div className="w-full bg-white text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
+    <div className="w-full bg-white text-neutral-900 py-20 px-6 relative z-10 border-t border-neutral-100">
       <div className="max-w-[1100px] mx-auto text-center">
-        <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
-          W LUXURY CAR RENTAL WORLDWIDE
+        <h2 className="font-condensed font-black text-4xl md:text-6xl lg:text-[64px] text-[#191919] tracking-wide uppercase text-center leading-none mb-16">
+          <span className="text-[#C5A059]">W</span> LUXURY CAR RENTAL WORLDWIDE
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 text-left">
           {/* Column 1 */}
           <div>
-            <h3 className="font-condensed font-black text-lg text-neutral-900 uppercase tracking-wide mb-4">
-              W LUXURY CAR RENTAL
+            <h3 className="font-bold text-[22px] text-[#191919] mb-4">
+              <span className="text-[#C5A059]">W</span> Luxury Car Rental
             </h3>
-            <div className="text-xs text-neutral-600 font-semibold leading-relaxed space-y-4">
+            <div className="text-[15px] text-[#191919] font-normal leading-[1.6] space-y-4 pr-4">
               <p>
-                Drive your dream car in style with a luxury car rental from W Luxury Car Rental. Whether you're after the excitement of a convertible or the power of a sleek sports car, we've got the perfect ride for you.
+                Drive your dream car in style with a luxury car rental from <span className="text-[#C5A059] font-bold">W</span>. Whether you're after the excitement of a convertible or the power of a sleek sports car, we've got the perfect ride for you.
               </p>
               <p>
-                Explore our exotic car rental options and choose from top-tier brands like Mercedes-Benz and BMW. with W Luxury Car Rental, renting a luxury or exotic car is simple, affordable, and designed to turn every drive into a special experience. Wherever you're headed, let us help you travel in comfort and style.
+                Explore our exotic car rental options and choose from top-tier brands like Mercedes-Benz and BMW. With <span className="text-[#C5A059] font-bold">W</span>, renting a luxury or exotic car is simple, affordable, and designed to turn every drive into a special experience. Wherever you're headed, let us help you travel in comfort and style.
               </p>
             </div>
           </div>
 
           {/* Column 2 */}
           <div>
-            <h3 className="font-condensed font-black text-lg text-neutral-900 uppercase tracking-wide mb-4">
+            <h3 className="font-bold text-[22px] text-[#191919] mb-4">
               Experience the Joy of Driving An Exotic Car
             </h3>
-            <div className="text-xs text-neutral-600 font-semibold leading-relaxed space-y-4">
+            <div className="text-[15px] text-[#191919] font-normal leading-[1.6] space-y-4 pr-4">
               <p>
-                Make heads turn while on the road with W Luxury Car Rental's exotic fleet. Our extensive selection of vehicles in the US means there's something for everyone.
+                Make heads turn while on the road with <span className="text-[#C5A059] font-bold">W</span>'s exotic fleet. Our extensive selection of vehicles in the US means there's something for everyone.
               </p>
               <p>
                 Don't miss out when traveling with a group, with our Cadillac Escalades or Chevrolet Suburban full-size SUVs you can move around in style and comfort. For a super-charged performance, you'll need a sports car, like the Ford Mustang Shelby GT. Our fleet has the largest selection of luxury German cars, including Audi, Porsche, and Mercedes-Benz, available at all US locations. Rent a like new vehicle as ours are on average less than 3 months old.
@@ -1863,15 +1870,15 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
 
           {/* Column 3 */}
           <div>
-            <h3 className="font-condensed font-black text-lg text-neutral-900 uppercase tracking-wide mb-4">
-              How to Rent a Luxury Car with W Luxury Car Rental
+            <h3 className="font-bold text-[22px] text-[#191919] mb-4">
+              How to Rent a Luxury Car with <span className="text-[#C5A059]">W</span> Luxury Car Rental
             </h3>
-            <div className="text-xs text-neutral-600 font-semibold leading-relaxed space-y-4">
+            <div className="text-[15px] text-[#191919] font-normal leading-[1.6] space-y-4 pr-4">
               <p>
-                Booking a luxury car with W Luxury Car Rental is quick, seamless, and tailored to your travel needs. Simply choose your preferred vehicle class online or via the W app, select your pickup location and dates, and customize your rental with flexible options like <span className="text-[#C5A059] underline cursor-pointer hover:text-black">one-way car rental</span> or <span className="text-[#C5A059] underline cursor-pointer hover:text-black">long-term car rental</span>.
+                Booking a luxury car with <span className="text-[#C5A059] font-bold">W</span> is quick, seamless, and tailored to your travel needs. Simply choose your preferred vehicle class online or via the <span className="text-[#C5A059] font-bold">W</span> app, select your pickup location and dates, and customize your rental with flexible options like <span className="text-[#C5A059] underline cursor-pointer hover:text-black font-semibold">one-way car rental</span> or <span className="text-[#C5A059] underline cursor-pointer hover:text-black font-semibold">long-term car rental</span>.
               </p>
               <p>
-                Whether you're seeking a refined sedan for city driving or an exotic car rental for a weekend escape, our premium fleet is at your fingertips. For more details on what's included and driver eligibility, check out our <span className="text-[#C5A059] underline cursor-pointer hover:text-black">luxury car rental FAQ</span>.
+                Whether you're seeking a refined sedan for city driving or an exotic car rental for a weekend escape, our premium fleet is at your fingertips. For more details on what's included and driver eligibility, check out our <span className="text-[#C5A059] underline cursor-pointer hover:text-black font-semibold">luxury car rental FAQ</span>.
               </p>
             </div>
           </div>
@@ -1879,30 +1886,32 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
       </div>
     </div>
 
-    {/* Section 6: GOOD TO KNOW WHEN renting with W Luxury Car Rental Accordion */}
-    <div className="w-full bg-neutral-50 text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
-      <div className="max-w-[850px] mx-auto text-center">
-        <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
-          GOOD TO KNOW WHEN renting with W Luxury Car Rental
+    {/* Section 6: GOOD TO KNOW WHEN RENTING WITH W Accordion */}
+    <div className="w-full bg-white text-neutral-900 py-20 px-6 relative z-10 border-t border-neutral-100">
+      <div className="max-w-[1100px] mx-auto text-center">
+        <h2 className="font-condensed font-black text-4xl md:text-6xl lg:text-[64px] text-[#191919] tracking-wide uppercase text-center leading-[1.1] mb-16">
+          GOOD TO KNOW WHEN RENTING WITH <span className="text-[#C5A059]">W</span>
         </h2>
         
-        <div className="text-left">
+        <div className="text-left max-w-[900px] mx-auto">
           {/* FAQ 1 */}
           <div 
             onClick={() => setActiveFaqIndex(activeFaqIndex === 0 ? null : 0)}
-            className="border-t border-neutral-200 py-5 flex flex-col cursor-pointer transition-colors duration-200 hover:bg-neutral-100/30"
+            className="border-t border-[#e5e5e5] py-6 flex flex-col cursor-pointer transition-colors duration-200 hover:bg-neutral-50/50"
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm md:text-base text-neutral-900 select-none">
+              <span className="font-bold text-[22px] text-[#191919] select-none">
                 How old do I need to be to rent a luxury car?
               </span>
-              <span className="text-neutral-500 font-bold ml-4">
-                {activeFaqIndex === 0 ? '▲' : '▼'}
+              <span className="text-[#191919] font-bold ml-4">
+                <svg className="w-6 h-6 text-[#191919]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={activeFaqIndex === 0 ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+                </svg>
               </span>
             </div>
             {activeFaqIndex === 0 && (
-              <p className="text-xs text-neutral-600 font-semibold leading-relaxed mt-3 animate-fadeIn">
-                You need to be 25 or older to rent a luxury car with W Luxury Car Rental in the US. Other countries may have a different minimum rental age for luxury models.
+              <p className="text-[15px] text-[#191919] font-normal leading-[1.6] mt-4 animate-fadeIn">
+                You need to be 25 or older to rent a luxury car with <span className="text-[#C5A059] font-bold">W</span> in the US. Other countries may have a different minimum rental age for luxury models.
               </p>
             )}
           </div>
@@ -1910,18 +1919,20 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
           {/* FAQ 2 */}
           <div 
             onClick={() => setActiveFaqIndex(activeFaqIndex === 1 ? null : 1)}
-            className="border-t border-neutral-200 py-5 flex flex-col cursor-pointer transition-colors duration-200 hover:bg-neutral-100/30"
+            className="border-t border-[#e5e5e5] py-6 flex flex-col cursor-pointer transition-colors duration-200 hover:bg-neutral-50/50"
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm md:text-base text-neutral-900 select-none">
+              <span className="font-bold text-[22px] text-[#191919] select-none">
                 Can I choose which model I will get?
               </span>
-              <span className="text-neutral-500 font-bold ml-4">
-                {activeFaqIndex === 1 ? '▲' : '▼'}
+              <span className="text-[#191919] font-bold ml-4">
+                <svg className="w-6 h-6 text-[#191919]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={activeFaqIndex === 1 ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+                </svg>
               </span>
             </div>
             {activeFaqIndex === 1 && (
-              <p className="text-xs text-neutral-600 font-semibold leading-relaxed mt-3 animate-fadeIn">
+              <p className="text-[15px] text-[#191919] font-normal leading-[1.6] mt-4 animate-fadeIn">
                 While we cannot guarantee a specific model due to availability, you will receive a premium vehicle within your chosen category. Some models are guaranteed under special tags.
               </p>
             )}
@@ -1930,18 +1941,20 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
           {/* FAQ 3 */}
           <div 
             onClick={() => setActiveFaqIndex(activeFaqIndex === 2 ? null : 2)}
-            className="border-t border-b border-neutral-200 py-5 flex flex-col cursor-pointer transition-colors duration-200 hover:bg-neutral-100/30"
+            className="border-t border-b border-[#e5e5e5] py-6 flex flex-col cursor-pointer transition-colors duration-200 hover:bg-neutral-50/50"
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm md:text-base text-neutral-900 select-none">
+              <span className="font-bold text-[22px] text-[#191919] select-none">
                 What are the steps to rent a luxury car?
               </span>
-              <span className="text-neutral-500 font-bold ml-4">
-                {activeFaqIndex === 2 ? '▲' : '▼'}
+              <span className="text-[#191919] font-bold ml-4">
+                <svg className="w-6 h-6 text-[#191919]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={activeFaqIndex === 2 ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+                </svg>
               </span>
             </div>
             {activeFaqIndex === 2 && (
-              <p className="text-xs text-neutral-600 font-semibold leading-relaxed mt-3 animate-fadeIn">
+              <p className="text-[15px] text-[#191919] font-normal leading-[1.6] mt-4 animate-fadeIn">
                 1. Select your pickup station, dates, and times. 2. Filter or select the luxury category you want. 3. Enter your details and select protection packages. 4. Complete the booking online!
               </p>
             )}
@@ -1960,28 +1973,28 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
     </div>
 
     {/* Section 7: WHERE WOULD YOU LIKE TO START FROM? */}
-    <div className="w-full bg-white text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
-      <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full bg-[#f4f4f4] text-neutral-900 py-20 px-6 relative z-10 border-t border-neutral-200">
+      <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 text-left items-start">
         {/* Left column */}
-        <div className="lg:col-span-4 pr-4">
-          <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase leading-none">
+        <div className="lg:col-span-5 pr-4">
+          <h2 className="font-condensed font-black text-4xl md:text-[56px] lg:text-[64px] text-[#191919] uppercase leading-[0.9] tracking-tight">
             WHERE WOULD YOU LIKE TO START FROM?
           </h2>
         </div>
 
         {/* Right column */}
-        <div className="lg:col-span-8 bg-neutral-50 rounded-3xl p-6 md:p-8 border border-neutral-100">
+        <div className="lg:col-span-7 bg-white rounded-[32px] p-6 md:p-10 shadow-sm">
           {/* Tab Pills list */}
-          <div className="flex flex-wrap gap-2 pb-4 border-b border-neutral-200">
-            {['Australia', 'Europe', 'North America', 'Africa', 'Asia', 'South America'].map((tab) => (
+          <div className="flex flex-wrap gap-2 pb-6">
+            {['Europe', 'North America', 'Africa', 'Asia', 'South America', 'Australia'].map((tab) => (
               <button
                 key={tab}
                 type="button"
                 onClick={() => setActiveRegionTab(tab)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                className={`px-5 py-2.5 rounded-full text-[13px] font-bold transition-all ${
                   activeRegionTab === tab
-                    ? 'bg-black text-white'
-                    : 'bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-100'
+                    ? 'bg-[#191919] text-white'
+                    : 'bg-[#f4f4f4] text-[#191919] hover:bg-[#e5e5e5]'
                 }`}
               >
                 {tab}
@@ -1990,12 +2003,13 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
           </div>
 
           {/* Listed Countries */}
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-4 text-xs font-bold text-neutral-700">
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-4 gap-x-4 text-[13px] font-bold text-[#191919]">
             {regionCountries[activeRegionTab]?.map((country) => (
               <div 
                 key={country} 
                 onClick={() => handleDestinationClick(country)}
-                className="hover:text-[#C5A059] cursor-pointer transition-colors"
+                className="hover:text-[#C5A059] cursor-pointer transition-colors truncate pr-2"
+                title={country}
               >
                 {country}
               </div>
@@ -2006,9 +2020,12 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
     </div>
 
     {/* Section 8: PLACES TO START YOUR JOURNEY */}
-    <div className="w-full bg-neutral-50 text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
+    <div className="w-full bg-white text-neutral-900 py-20 px-6 relative z-10 border-t border-neutral-100">
       <div className="max-w-[1100px] mx-auto text-center">
-        <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
+        <h2 
+          className="font-condensed font-black text-3xl md:text-4xl lg:text-[48px] text-[#191919] tracking-wide uppercase text-center leading-[1.1] mb-16"
+          style={{ WebkitTextStroke: '1.5px #191919' }}
+        >
           PLACES TO START YOUR JOURNEY
         </h2>
 
@@ -2044,11 +2061,14 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
       </div>
     </div>
 
-    {/* Section 9: MORE SIXT */}
-    <div className="w-full bg-white text-neutral-900 py-16 px-6 relative z-10 border-t border-neutral-100">
+    {/* Section 9: MORE W */}
+    <div className="w-full bg-white text-neutral-900 py-20 px-6 relative z-10 border-t border-neutral-100">
       <div className="max-w-[1100px] mx-auto text-center">
-        <h2 className="font-condensed font-black text-3xl md:text-4xl text-neutral-900 tracking-wide uppercase text-center leading-none mb-12">
-          MORE W
+        <h2 
+          className="font-condensed font-black text-4xl md:text-5xl lg:text-[56px] text-[#191919] tracking-wide uppercase text-center leading-[1.1] mb-16"
+          style={{ WebkitTextStroke: '1.5px #191919' }}
+        >
+          MORE <span className="text-[#C5A059]" style={{ WebkitTextStroke: '0' }}>W</span>
         </h2>
 
         {/* 3 cards grid carousel */}
@@ -2141,31 +2161,40 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
         </div>
 
         {/* Footer Fleet list */}
-        <div className="border-t border-neutral-200 pt-16 grid grid-cols-1 lg:grid-cols-12 gap-8 text-left text-neutral-800">
+        <div className="border-t border-[#e5e5e5] pt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 text-left text-neutral-800">
           {/* Label side */}
-          <div className="lg:col-span-4">
-            <h3 className="font-condensed font-black text-2xl md:text-3xl text-neutral-900 uppercase tracking-wide leading-none">
-              W LUXURY'S WORLDWIDE FLEET
+          <div className="lg:col-span-5 pr-4">
+            <h3 
+              className="font-condensed font-black text-3xl md:text-4xl lg:text-[48px] text-[#191919] uppercase leading-[0.9] tracking-tight"
+            >
+              <span className="text-[#C5A059]">W</span>'S WORLDWIDE FLEET
             </h3>
-            <p className="text-xs text-neutral-400 mt-2 font-semibold leading-relaxed max-w-xs">
+            <p className="text-[15px] text-[#191919] mt-6 font-normal leading-[1.6]">
               Here you'll find all of our locations as well as the other types of cars we have in our fleet.
             </p>
           </div>
 
           {/* Links side */}
-          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-4">
-            {[
-              'Automatic car', 'Electric car', 'Station Wagon', 'Compact car',
-              'Minivan', 'SUV', 'Convertible', 'Pickup truck',
-              'Economy car', 'Sports car'
-            ].map((link) => (
-              <div 
-                key={link}
-                className="text-xs font-bold text-neutral-600 hover:text-[#C5A059] cursor-pointer transition-colors select-none"
-              >
-                {link}
-              </div>
-            ))}
+          <div className="lg:col-span-7 flex flex-col">
+            <div className="mb-8">
+              <button className="bg-[#191919] text-white text-[13px] font-bold px-5 py-2.5 rounded-full hover:bg-black transition-colors">
+                All categories
+              </button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
+              {[
+                'Automatic car', 'Electric car', 'Station Wagon', 'Compact car',
+                'Minivan', 'SUV', 'Convertible', 'Pickup truck',
+                'Economy car', 'Sports car'
+              ].map((link) => (
+                <div 
+                  key={link}
+                  className="text-[13px] font-bold text-[#191919] hover:text-[#C5A059] cursor-pointer transition-colors select-none"
+                >
+                  {link}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -2283,7 +2312,7 @@ export default function Hero({ onSearch, initialMobilePanel, onPanelClosed }) {
             ))}
           </div>
           <span className="text-neutral-600 whitespace-nowrap block lg:text-right select-none">
-            © 2026 W Luxury Car Rental
+            © 2026 <span className="text-[#C5A059]">W</span> Luxury Car Rental
           </span>
         </div>
       </div>

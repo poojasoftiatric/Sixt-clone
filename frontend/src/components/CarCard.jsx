@@ -1,7 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import { User, Briefcase, Info, Check, Tag } from 'lucide-react';
 
-export default function CarCard({ car, onClick, index = 0, viewMode = 'results' }) {
+export default function CarCard({ car, onClick, index = 0, viewMode = 'results', isSelected = false }) {
   const getCardTitle = () => {
     let cat = car.category;
     // Remove body types from the main title category text
@@ -28,13 +28,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
     return (
       <div 
         onClick={() => onClick(car)}
-        className="relative w-full h-[420px] rounded-2xl overflow-hidden p-7 cursor-pointer transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between border border-neutral-800/40 shadow-xl select-none"
-        style={{
-          backgroundImage: "url('/assets/card_bg.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+        className="relative w-full h-[400px] rounded-2xl overflow-hidden p-7 cursor-pointer transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between border border-neutral-800/60 shadow-xl select-none bg-gradient-to-br from-[#1c1c1c] to-[#0a0a0a]"
       >
         {/* Top Details */}
         <div className="z-10 relative text-left">
@@ -62,12 +56,28 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
           </div>
         </div>
 
+        {/* Studio Background Gradient matching reference image */}
+        <div 
+          className="absolute inset-0 z-0 pointer-events-none transition-transform duration-700 group-hover:scale-105"
+          style={{
+            background: 'linear-gradient(to bottom, #1b1d1f 0%, #2b2f33 35%, #464f54 55%, #8c9da3 75%, #131416 85%, #0e0e10 100%)'
+          }}
+        >
+          {/* Add a subtle radial glow in the center to make it look like a spotlight on the wall */}
+          <div 
+            className="absolute inset-0 opacity-60"
+            style={{
+              background: 'radial-gradient(120% 60% at 50% 75%, #a6b8be 0%, transparent 50%)'
+            }}
+          />
+        </div>
+
         {/* Center Car Image */}
-        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden flex flex-col items-center justify-center">
           <img 
             src={car.image} 
             alt={car.name} 
-            className="w-[85%] h-auto object-contain translate-y-12 transform group-hover:scale-[1.04] transition-all duration-500 ease-out"
+            className="relative z-10 w-[85%] h-auto object-contain translate-y-4 transform group-hover:scale-[1.04] transition-all duration-500 ease-out drop-shadow-2xl"
             style={car.image.endsWith('.webp') ? { mixBlendMode: 'multiply' } : {}}
           />
         </div>
@@ -87,13 +97,30 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
 
   // Search Results View variant (Dark bronze gradient, pricing details, mileage info, no button, watermark)
   return (
-    <div 
-      onClick={() => onClick(car)}
-      className="relative w-full h-[450px] rounded-3xl overflow-hidden p-7 cursor-pointer transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between border border-neutral-800/40 shadow-xl select-none bg-gradient-to-br from-[#352720] via-[#0F1012] to-[#0D0E10]"
-    >
-      {/* Background watermark parallelogram badge */}
+    <div className={`relative ${isSelected ? 'z-40' : 'z-10'}`}>
+      <div 
+        onClick={() => onClick(car)}
+        className={`relative w-full h-[450px] rounded-3xl overflow-hidden p-7 cursor-pointer transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between shadow-xl select-none bg-[#101010] ${isSelected ? 'border-[3px] border-[#C5A059]' : 'border border-neutral-800/40 hover:border-neutral-400 hover:ring-[5px] hover:ring-inset hover:ring-white'}`}
+      >
+        {/* Background Gradient Layers */}
+        <div className="absolute inset-0 pointer-events-none z-0 bg-[#0a0a0a]">
+          {/* Top right orange glow */}
+          <div 
+            className="absolute inset-0 opacity-80"
+            style={{ background: 'radial-gradient(circle at 100% 0%, #853d19 0%, transparent 50%)' }}
+          ></div>
+          
+          {/* Studio floor horizon line */}
+          <div 
+            className="absolute inset-0 opacity-90"
+            style={{ 
+              background: 'linear-gradient(to bottom, transparent 35%, #2a2d33 50%, #abbbd0 66%, #0a0a0a 76%, #0a0a0a 100%)' 
+            }}
+          ></div>
+        </div>
+        {/* Background watermark parallelogram badge */}
       {index === 0 && (
-        <div className="absolute right-6 top-[22%] z-0 pointer-events-none select-none transform rotate-[-8deg] opacity-75">
+        <div className="absolute right-6 top-[35%] z-0 pointer-events-none select-none transform rotate-[-8deg] opacity-75">
           <div className="border-[2px] border-white/40 bg-white/5 px-6 py-4 rounded-md skew-x-[-15deg] text-center">
             <div className="font-condensed font-black text-xl text-white tracking-widest leading-none">TOP</div>
             <div className="font-condensed font-black text-xl text-white tracking-widest leading-none mt-1">PICK</div>
@@ -101,7 +128,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
         </div>
       )}
       {index === 1 && (
-        <div className="absolute right-6 top-[22%] z-0 pointer-events-none select-none transform rotate-[-8deg] opacity-75">
+        <div className="absolute right-6 top-[35%] z-0 pointer-events-none select-none transform rotate-[-8deg] opacity-75">
           <div className="border-[2px] border-white/40 bg-white/5 px-6 py-4 rounded-md skew-x-[-15deg] text-center">
             <div className="font-condensed font-black text-xl text-white tracking-widest leading-none">HIGHLY</div>
             <div className="font-condensed font-black text-xl text-white tracking-widest leading-none mt-1">RATED</div>
@@ -162,7 +189,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
             <div className="flex items-center gap-2 mb-1.5">
               <span className="bg-[#C43F0E] text-white px-3 py-1 rounded-full flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider w-fit">
                 🔥 Hot offer
-              </span>
+              </span>  
             </div>
           )}
 
@@ -184,7 +211,7 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
           </div>
 
           {/* Bottom Promo bar */}
-          <div className="bg-[#241B15] -mx-7 -mb-7 py-3.5 flex items-center justify-center gap-2 border-t border-white/5 mt-3 select-none">
+          <div className="bg-[#381a0b] -mx-7 -mb-7 py-3.5 flex items-center justify-center gap-2 border-t border-white/5 mt-3 select-none relative z-10">
             <Tag className="w-3.5 h-3.5 text-white" />
             <span className="text-xs text-white font-bold underline hover:text-[#C5A059] transition-colors cursor-pointer tracking-wide">
               Unlock member rates: Save up to 20%
@@ -192,6 +219,12 @@ export default function CarCard({ car, onClick, index = 0, viewMode = 'results' 
           </div>
         </div>
       </div>
+      </div>
+      
+      {/* Downward pointing caret for selected state */}
+      {isSelected && (
+        <div className="absolute -bottom-[10px] left-1/2 -translate-x-1/2 w-5 h-5 bg-[#C5A059] rotate-45 z-[-1]" />
+      )}
     </div>
   );
 }

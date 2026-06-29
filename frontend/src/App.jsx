@@ -5,6 +5,7 @@ import Filters from './components/Filters.jsx';
 import CarCard from './components/CarCard.jsx';
 import BookingWizard from './components/BookingWizard.jsx';
 import CarCardDetails from './components/CarCardDetails.jsx';
+import CheckoutPage from './components/CheckoutPage.jsx';
 import { initialCars } from './data/cars.js';
 
 export default function App() {
@@ -248,55 +249,77 @@ export default function App() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCars.map((car, idx) => (
-                  <CarCard
-                    key={car._id}
-                    car={car}
-                    viewMode="results"
-                    index={idx}
-                    onClick={(selected) => {
-                      setSelectedCarId(selected._id);
-                    }}
-                  />
-                ))}
-              </div>
-            )}
+                {filteredCars.map((car, idx) => {
+                  const selectedIndex = filteredCars.findIndex(c => c._id === selectedCarId);
+                  const insertAfterIndex = Math.min(
+                    Math.floor(selectedIndex / cols) * cols + cols - 1,
+                    filteredCars.length - 1
+                  );
 
-            {/* Review Your Booking modal */}
-            {selectedCarId && !selectedCar && (
-              <CarCardDetails
-                car={filteredCars.find(c => c._id === selectedCarId)}
-                searchParams={searchParams}
-                onClose={() => setSelectedCarId(null)}
-                onBookingSuccess={() => {
-                  setSelectedCarId(null);
-                  setIsSearchResultsView(false);
-                  clearFilters();
-                }}
-                onNext={(selectedCar, opt, mil) => {
-                  setWizardBookingOption(opt);
-                  setWizardMileage(mil);
-                  setWizardStep(2);
-                  setSelectedCar(selectedCar);
-                  setSelectedCarId(null);
-                }}
-              />
+                  return (
+                    <React.Fragment key={car._id}>
+                      <div id={`car-card-container-${idx}`}>
+                        <CarCard
+                          car={car}
+                          viewMode="results"
+                          index={idx}
+                          isSelected={selectedCarId === car._id}
+                          onClick={(selected) => {
+                            if (selectedCarId === selected._id) {
+                              setSelectedCarId(null);
+                            } else {
+                              setSelectedCarId(selected._id);
+                              // Smooth scroll to options section after delay
+                              setTimeout(() => {
+                                const optionsEl = document.getElementById('car-options-section');
+                                if (optionsEl) {
+                                  // Add offset so header doesn't cover it
+                                  const y = optionsEl.getBoundingClientRect().top + window.scrollY - 80;
+                                  window.scrollTo({ top: y, behavior: 'smooth' });
+                                }
+                              }, 150);
+                            }
+                          }}
+                        />
+                      </div>
+                      {selectedCarId && idx === insertAfterIndex && !selectedCar && (
+                        <div id="car-options-section" className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-6 mb-4">
+                          <div className="w-full max-w-[1100px]">
+                            <CarCardDetails
+                              car={filteredCars.find(c => c._id === selectedCarId)}
+                              searchParams={searchParams}
+                              onClose={() => setSelectedCarId(null)}
+                              onBookingSuccess={() => {
+                                setSelectedCarId(null);
+                                setIsSearchResultsView(false);
+                                clearFilters();
+                              }}
+                              onNext={(sCar, opt, mil) => {
+                                setWizardBookingOption(opt);
+                                setWizardMileage(mil);
+                                setWizardStep(2);
+                                setSelectedCar(sCar);
+                                setSelectedCarId(null);
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </div>
             )}
           </div>
 
           {/* Booking wizard modal overlay */}
           {selectedCar && (
-            <BookingWizard
+            <CheckoutPage
               car={selectedCar}
               searchParams={searchParams}
-              initialStep={wizardStep}
-              initialBookingOption={wizardBookingOption}
-              initialMileage={wizardMileage}
+              bookingOption={wizardBookingOption}
+              mileage={wizardMileage}
               onClose={() => {
-                setSelectedCar(null);
-                setWizardStep(1);
-              }}
-              onSubmitSuccess={() => {
                 setSelectedCar(null);
                 setWizardStep(1);
               }}
@@ -317,7 +340,7 @@ export default function App() {
             </div>
 
             <p className="font-semibold text-[10px] tracking-wider uppercase text-neutral-600">
-              Â© 2026 W Luxury Car Rental. Created for paired client review. All rights reserved.
+              &copy; 2026 <span className="text-[#C5A059]">W</span> Luxury Car Rental. Created for paired client review. All rights reserved.
             </p>
           </div>
         </footer>
